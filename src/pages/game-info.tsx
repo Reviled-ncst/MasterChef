@@ -25,7 +25,7 @@ function FeatureCard({ title, description }: { title: string; description: strin
 
 export default function GameInfo() {
   return (
-    <Box py={10} px={6} minH="100vh">
+    <Box py={{ base: 6, md: 10 }} px={{ base: 4, md: 6 }} minH="100vh">
       <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
         <img src="https://res.cloudinary.com/djnzwvb2t/image/upload/v1774440372/Background_htozsp.png" alt="background" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
       </div>

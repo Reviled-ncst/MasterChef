@@ -38,7 +38,7 @@ export default function PlayerShop() {
   };
 
   return (
-    <Box py={8} px={{ base: 4, md: 8 }}>
+    <Box py={{ base: 4, md: 8 }} px={{ base: 3, md: 8 }}>
       <VStack align="stretch" gap={8}>
         {/* HEADER */}
         <Box>
@@ -46,27 +46,27 @@ export default function PlayerShop() {
             <Box fontSize="lg" color="#D9642E">
               <MdShoppingCart />
             </Box>
-            <Heading as="h1" size="2xl" color="#D9642E">
+            <Heading as="h1" size={{ base: 'lg', md: '2xl' }} color="#D9642E">
               Shop
             </Heading>
           </HStack>
-          <Text color="#D9642E" fontSize="lg">
+          <Text color="#D9642E" fontSize={{ base: 'md', md: 'lg' }}>
             Discover equipment, cosmetics, and seasonal items
           </Text>
         </Box>
 
         {/* FEATURED CAROUSEL */}
-        <Box bg="linear-gradient(135deg, rgba(217,100,46,0.2) 0%, rgba(255,184,77,0.1) 100%)" p={8} borderRadius="2xl" border="2px solid #D9642E" textAlign="center">
+        <Box bg="linear-gradient(135deg, rgba(217,100,46,0.2) 0%, rgba(255,184,77,0.1) 100%)" p={{ base: 6, md: 8 }} borderRadius="2xl" border="2px solid #D9642E" textAlign="center">
           <Badge bg="#D9642E" color="white" mb={4} fontSize="sm" px={3} py={1}>
             FEATURED THIS WEEK
           </Badge>
-          <Heading as="h2" size="2xl" color="white" mb={3}>
+          <Heading as="h2" size={{ base: 'lg', md: '2xl' }} color="white" mb={3}>
             Premium Battle Pass
           </Heading>
-          <Text color="white" fontSize="lg" mb={6} fontWeight="600">
+          <Text color="white" fontSize={{ base: 'md', md: 'lg' }} mb={6} fontWeight="600">
             Unlock exclusive rewards, cosmetics, and faster progression through 100 levels of seasonal content
           </Text>
-          <HStack justify="center" gap={4}>
+          <HStack justify="center" gap={4} flexDirection={{ base: 'column', sm: 'row' }}>
             <Text fontWeight="700" fontSize="xl" color="#FFB84D">
               1,200 coins
             </Text>

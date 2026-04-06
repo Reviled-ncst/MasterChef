@@ -20,7 +20,7 @@ export default function CurrentTournament({ tournament, onRegister }: CurrentTou
 
   return (
     <Box
-      p={8}
+      p={{ base: 4, md: 8 }}
       borderRadius="lg"
       bg="linear-gradient(135deg, rgba(217,100,46,0.15) 0%, rgba(255,184,77,0.08) 100%)"
       border="2px solid #D9642E"
@@ -50,7 +50,7 @@ export default function CurrentTournament({ tournament, onRegister }: CurrentTou
         </HStack>
 
         {/* Tournament Info Grid */}
-        <HStack gap={4} wrap="wrap">
+        <HStack gap={{ base: 2, md: 4 }} wrap="wrap" fontSize={{ base: 'sm', md: 'md' }}>
           <Box>
             <Text fontSize="xs" color="white" fontWeight="600">
               Prize Pool

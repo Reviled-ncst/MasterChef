@@ -42,7 +42,7 @@ export default function GamerDashboard() {
   const battlePass = generateBattlePass();
 
   return (
-    <Box py={8} px={{ base: 4, md: 8 }}>
+    <Box py={{ base: 4, md: 8 }} px={{ base: 3, md: 8 }}>
       <VStack align="stretch" gap={8}>
         {/* HERO BANNER */}
         <Box
@@ -64,23 +64,23 @@ export default function GamerDashboard() {
             transform: 'translate(50%, -50%)',
           }}
         >
-          <VStack align="start" gap={4} position="relative" zIndex={1}>
-            <HStack justify="space-between" width="100%">
+          <VStack align="start" gap={4} position="relative" zIndex={1} width="100%">
+            <HStack justify="space-between" width="100%" flexDirection={{ base: 'column', md: 'row' }} align={{ base: 'start', md: 'center' }} gap={4}>
               <VStack align="start" gap={2}>
-                <HStack gap={2}>
-                  <Heading as="h1" size="2xl">
+                <HStack gap={2} flexWrap="wrap">
+                  <Heading as="h1" size={{ base: 'lg', md: '2xl' }}>
                     Welcome back, {currentUser.name}!
                   </Heading>
-                  <Box fontSize="2xl" color="white" pt={2}>
+                  <Box fontSize={{ base: 'xl', md: '2xl' }} color="white" pt={2}>
                     <MdDashboard />
                   </Box>
                 </HStack>
-                <Text fontSize="lg" opacity={0.9}>
+                <Text fontSize={{ base: 'sm', md: 'lg' }} opacity={0.9}>
                   Level {playerProfile.level} • {playerProfile.totalPlaytime}
                 </Text>
               </VStack>
               <Box textAlign="right">
-                <Badge bg="rgba(255,255,255,0.3)" color="white" fontSize="sm" px={3} py={1}>
+                <Badge bg="rgba(255,255,255,0.3)" color="white" fontSize={{ base: 'xs', md: 'sm' }} px={3} py={1}>
                   <HStack gap={1}>
                     <MdStar size={14} />
                     <Text>{playerProfile.tier}</Text>
@@ -101,12 +101,12 @@ export default function GamerDashboard() {
             </Box>
 
             {/* Quick Actions */}
-            <HStack gap={3} pt={2}>
-              <Button bg="white" color="#D9642E" fontWeight="700" _hover={{ bg: 'gray.100' }} display="flex" gap="8px">
+            <HStack gap={3} pt={2} flexDirection={{ base: 'column', sm: 'row' }} width={{ base: '100%', sm: 'auto' }}>
+              <Button bg="white" color="#D9642E" fontWeight="700" _hover={{ bg: 'gray.100' }} display="flex" gap="8px" width={{ base: '100%', sm: 'auto' }}>
                 <MdPlayArrow size={18} />
                 Play Now
               </Button>
-              <Button variant="outline" borderColor="white" color="white" fontWeight="700" _hover={{ bg: 'rgba(255,255,255,0.1)' }} display="flex" gap="8px">
+              <Button variant="outline" borderColor="white" color="white" fontWeight="700" _hover={{ bg: 'rgba(255,255,255,0.1)' }} display="flex" gap="8px" width={{ base: '100%', sm: 'auto' }}>
                 <MdSettings size={18} />
                 Settings
               </Button>
@@ -128,7 +128,7 @@ export default function GamerDashboard() {
         </Box>
 
         {/* NOTIFICATIONS & MAIN CONTENT */}
-        <Grid templateColumns={{ base: '1fr', lg: '1fr 350px' }} gap={6}>
+        <Grid templateColumns={{ base: '1fr', md: '1fr', lg: '1fr 350px' }} gap={6}>
           {/* TABS SECTION */}
           <VStack align="stretch" gap={0}>
             {/* Tab Navigation */}

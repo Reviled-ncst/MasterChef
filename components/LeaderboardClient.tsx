@@ -75,27 +75,27 @@ export default function LeaderboardClient({ initialData }: { initialData?: any }
       </div>
       <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.35)', zIndex: 1 }} />
 
-      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '2rem', position: 'relative', zIndex: 2 }}>
-        <h1 style={{ marginBottom: 16, color: '#FFFFFF !important', fontSize: '32px', fontWeight: 'bold' }}>Leaderboards</h1>
+      <div style={{ maxWidth: 1100, margin: '0 auto', padding: 'clamp(1rem, 5vw, 2rem)', position: 'relative', zIndex: 2 }}>
+        <h1 style={{ marginBottom: 16, color: '#FFFFFF !important', fontSize: 'clamp(24px, 8vw, 32px)', fontWeight: 'bold' }}>Leaderboards</h1>
 
-        <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginBottom: 16, flexWrap: 'wrap' }}>
-          <input placeholder="Search by name or country" value={query} onChange={(e) => setQuery(e.target.value)} style={{ flex: 1, minWidth: 200, padding: '10px 12px', borderRadius: 6, border: '1px solid rgba(255,255,255,0.2)', fontSize: 14, background: 'rgba(255,255,255,0.95)', color: '#4a2f1a' }} />
+        <div style={{ display: 'flex', gap: 'clamp(8px, 2vw, 12px)', alignItems: 'center', marginBottom: 16, flexWrap: 'wrap', width: '100%' }}>
+          <input placeholder="Search by name or country" value={query} onChange={(e) => setQuery(e.target.value)} style={{ flex: 1, minWidth: 'clamp(160px, 100%, 300px)', padding: '10px 12px', borderRadius: 6, border: '1px solid rgba(255,255,255,0.2)', fontSize: 'clamp(12px, 2vw, 14px)', background: 'rgba(255,255,255,0.95)', color: '#4a2f1a' }} />
 
-          <select value={sortBy} onChange={(e) => setSortBy(e.target.value as any)} style={{ padding: '10px', borderRadius: 6, border: '1px solid rgba(255,255,255,0.2)', fontSize: 14, fontWeight: '600', color: '#4a2f1a', background: 'rgba(255,255,255,0.95)' }}>
-            <option value="rank">Sort: Rank</option>
-            <option value="points">Sort: Points</option>
-            <option value="achievements">Sort: Achievements</option>
+          <select value={sortBy} onChange={(e) => setSortBy(e.target.value as any)} style={{ padding: '10px 8px', borderRadius: 6, border: '1px solid rgba(255,255,255,0.2)', fontSize: 'clamp(12px, 2vw, 14px)', fontWeight: '600', color: '#4a2f1a', background: 'rgba(255,255,255,0.95)', minWidth: 'auto', flex: '1 0 clamp(120px, 25%, 150px)' }}>
+            <option value="rank">Rank</option>
+            <option value="points">Points</option>
+            <option value="achievements">Achv</option>
           </select>
-          <select value={sortDir} onChange={(e) => setSortDir(e.target.value as any)} style={{ padding: '10px', borderRadius: 6, border: '1px solid rgba(255,255,255,0.2)', fontSize: 14, fontWeight: '600', color: '#4a2f1a', background: 'rgba(255,255,255,0.95)' }}>
+          <select value={sortDir} onChange={(e) => setSortDir(e.target.value as any)} style={{ padding: '10px 8px', borderRadius: 6, border: '1px solid rgba(255,255,255,0.2)', fontSize: 'clamp(12px, 2vw, 14px)', fontWeight: '600', color: '#4a2f1a', background: 'rgba(255,255,255,0.95)', minWidth: 'auto', flex: '1 0 clamp(80px, 20%, 100px)' }}>
             <option value="desc">Desc</option>
             <option value="asc">Asc</option>
           </select>
 
-          <input type="number" placeholder="Min points" value={minPoints ?? ''} onChange={(e) => setMinPoints(e.target.value === '' ? undefined : Number(e.target.value))} style={{ width: 120, padding: '10px', borderRadius: 6, border: '1px solid rgba(255,255,255,0.2)', fontSize: 14, background: 'rgba(255,255,255,0.95)', color: '#4a2f1a' }} />
-          <input type="number" placeholder="Min achv" value={minAchievements ?? ''} onChange={(e) => setMinAchievements(e.target.value === '' ? undefined : Number(e.target.value))} style={{ width: 120, padding: '10px', borderRadius: 6, border: '1px solid rgba(255,255,255,0.2)', fontSize: 14, background: 'rgba(255,255,255,0.95)', color: '#4a2f1a' }} />
+          <input type="number" placeholder="Min pts" value={minPoints ?? ''} onChange={(e) => setMinPoints(e.target.value === '' ? undefined : Number(e.target.value))} style={{ minWidth: 'clamp(100px, 18%, 140px)', padding: '10px', borderRadius: 6, border: '1px solid rgba(255,255,255,0.2)', fontSize: 'clamp(12px, 2vw, 14px)', background: 'rgba(255,255,255,0.95)', color: '#4a2f1a' }} />
+          <input type="number" placeholder="Min achv" value={minAchievements ?? ''} onChange={(e) => setMinAchievements(e.target.value === '' ? undefined : Number(e.target.value))} style={{ minWidth: 'clamp(100px, 18%, 140px)', padding: '10px', borderRadius: 6, border: '1px solid rgba(255,255,255,0.2)', fontSize: 'clamp(12px, 2vw, 14px)', background: 'rgba(255,255,255,0.95)', color: '#4a2f1a' }} />
 
-          <button onClick={() => setViewMode(viewMode === 'cards' ? 'table' : 'cards')} style={{ padding: '10px 16px', borderRadius: 6, border: `1px solid #FFFFFF`, background: 'transparent', color: '#FFFFFF !important', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s' }}>{viewMode === 'cards' ? 'Table View' : 'Card View'}</button>
-          <button onClick={() => { setQuery(''); setMinPoints(undefined); setMinAchievements(undefined); setSortBy('rank'); setSortDir('desc'); }} style={{ padding: '10px 16px', borderRadius: 6, background: PRIMARY, color: 'white', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s', border: 'none' }}>Reset</button>
+          <button onClick={() => setViewMode(viewMode === 'cards' ? 'table' : 'cards')} style={{ padding: '10px clamp(8px, 2vw, 16px)', borderRadius: 6, border: `1px solid #FFFFFF`, background: 'transparent', color: '#FFFFFF !important', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s', fontSize: 'clamp(11px, 2vw, 14px)', whiteSpace: 'nowrap' }}>{viewMode === 'cards' ? 'Table' : 'Cards'}</button>
+          <button onClick={() => { setQuery(''); setMinPoints(undefined); setMinAchievements(undefined); setSortBy('rank'); setSortDir('desc'); }} style={{ padding: '10px clamp(8px, 2vw, 16px)', borderRadius: 6, background: PRIMARY, color: 'white', fontWeight: '600', cursor: 'pointer', transition: 'all 0.2s', border: 'none', fontSize: 'clamp(11px, 2vw, 14px)', whiteSpace: 'nowrap' }}>Reset</button>
         </div>
 
         {loading ? (

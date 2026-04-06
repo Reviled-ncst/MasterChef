@@ -30,21 +30,21 @@ export default function PlayerTournaments() {
   const myTournaments = tournaments.slice(0, 2);
 
   return (
-    <Box py={8} px={{ base: 4, md: 8 }}>
+    <Box py={{ base: 4, md: 8 }} px={{ base: 3, md: 8 }}>
       <VStack align="stretch" gap={8}>
         {/* HEADER */}
         <Box>
-          <Heading as="h1" size="2xl" color="#D9642E" mb={2}>
+          <Heading as="h1" size={{ base: 'lg', md: '2xl' }} color="#D9642E" mb={2}>
             🏆 Tournaments
           </Heading>
-          <Text color="#D9642E" fontSize="lg">
+          <Text color="#D9642E" fontSize={{ base: 'md', md: 'lg' }}>
             Join tournaments, compete with players, and win prizes
           </Text>
         </Box>
 
         {/* FEATURED TOURNAMENT */}
         <Box>
-          <Heading as="h2" size="lg" color="#D9642E" mb={4}>
+          <Heading as="h2" size={{ base: 'md', md: 'lg' }} color="#D9642E" mb={4}>
             Featured Tournament
           </Heading>
           <CurrentTournament tournament={tournaments[0]} />
@@ -52,7 +52,7 @@ export default function PlayerTournaments() {
 
         {/* FILTERS */}
         <Box bg="white" p={4} borderRadius="lg" border="1px solid rgba(217,108,47,0.1)">
-          <Grid templateColumns={{ base: '1fr', md: '1fr 1fr 1fr 1fr' }} gap={4}>
+          <Grid templateColumns={{ base: '1fr', md: '1fr 1fr', lg: 'repeat(4, 1fr)' }} gap={4}>
             <Box>
               <Text fontSize="sm" fontWeight="600" mb={2} color="#D9642E">
                 Filter
@@ -99,7 +99,7 @@ export default function PlayerTournaments() {
 
         {/* ACTIVE TOURNAMENTS */}
         <Box>
-          <Heading as="h2" size="lg" color="#D9642E" mb={4}>
+          <Heading as="h2" size={{ base: 'md', md: 'lg' }} color="#D9642E" mb={4}>
             Active Tournaments
           </Heading>
           <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={4}>
@@ -145,7 +145,7 @@ export default function PlayerTournaments() {
 
         {/* MY REGISTRATIONS */}
         <Box>
-          <Heading as="h2" size="lg" color="#D9642E" mb={4}>
+          <Heading as="h2" size={{ base: 'md', md: 'lg' }} color="#D9642E" mb={4}>
             My Registrations
           </Heading>
           <Box overflowX="auto" bg="white" borderRadius="lg" border="1px solid rgba(217,108,47,0.1)">
@@ -196,7 +196,7 @@ export default function PlayerTournaments() {
 
         {/* TOURNAMENT HISTORY */}
         <Box>
-          <Heading as="h2" size="lg" color="#D9642E" mb={4}>
+          <Heading as="h2" size={{ base: 'md', md: 'lg' }} color="#D9642E" mb={4}>
             Past Results
           </Heading>
           <Box overflowX="auto" bg="white" borderRadius="lg" border="1px solid rgba(217,108,47,0.1)">

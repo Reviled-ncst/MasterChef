@@ -30,7 +30,7 @@ export default function PlayerInventory() {
   const inventory = generatePlayerInventory();
 
   return (
-    <Box py={8} px={{ base: 4, md: 8 }}>
+    <Box py={{ base: 4, md: 8 }} px={{ base: 3, md: 8 }}>
       <VStack align="stretch" gap={8}>
         {/* HEADER */}
         <Box>
@@ -38,17 +38,17 @@ export default function PlayerInventory() {
             <Box fontSize="lg" color="#D9642E">
               <MdBackpack />
             </Box>
-            <Heading as="h1" size="2xl" color="#D9642E">
+            <Heading as="h1" size={{ base: 'lg', md: '2xl' }} color="#D9642E">
               Inventory
             </Heading>
           </HStack>
-          <Text color="gray.600" fontSize="lg">
+          <Text color="gray.600" fontSize={{ base: 'md', md: 'lg' }}>
             Manage your equipment, ingredients, and cosmetics
           </Text>
         </Box>
 
         {/* STATS */}
-        <Grid templateColumns={{ base: '1fr', md: '1fr 1fr 1fr 1fr' }} gap={4}>
+        <Grid templateColumns={{ base: '1fr', md: '1fr 1fr', lg: 'repeat(4, 1fr)' }} gap={4}>
           <Box bg="white" p={4} borderRadius="lg" border="1px solid rgba(217,108,47,0.1)" textAlign="center">
             <Text color="gray.600" fontSize="sm" fontWeight="600" mb={1}>
               Total Items
