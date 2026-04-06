@@ -1,6 +1,7 @@
 .drawerOverlay {
   position: fixed;
   inset: 0;
+  top: 73px;
   z-index: 50;
   background: rgba(0,0,0,0.55);
   animation: overlayFade 220ms ease forwards;
@@ -8,15 +9,15 @@
 
 .drawer {
   position: fixed;
-  top: 0;
+  top: 73px;
   right: 0;
-  height: 100%;
+  bottom: 0;
   width: 85%;
   max-width: 360px;
   z-index: 60;
   background: #fff;
-  padding: 16px;
-  box-shadow: 0 12px 42px rgba(0,0,0,0.12);
+  overflow-y: auto;
+  box-shadow: -2px 0 12px rgba(0,0,0,0.15);
   transform: translateX(100%);
   animation: drawerIn 260ms cubic-bezier(.2,.9,.3,1) forwards;
 }
