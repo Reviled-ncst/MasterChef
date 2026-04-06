@@ -13,17 +13,17 @@
 .drawer {
   position: fixed;
   top: 73px;
-  right: 0;
+  left: 0;
   bottom: 0;
-  left: auto;
+  right: auto;
   width: 85%;
   max-width: 360px;
   z-index: 9999;
   background: #fff;
   overflow-y: auto;
   overflow-x: hidden;
-  box-shadow: -2px 0 12px rgba(0,0,0,0.15);
-  transform: translateX(100%);
+  box-shadow: 2px 0 12px rgba(0,0,0,0.15);
+  transform: translateX(-100%);
   animation: drawerIn 260ms cubic-bezier(.2,.9,.3,1) forwards;
   will-change: transform;
 }
