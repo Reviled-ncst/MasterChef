@@ -12,7 +12,7 @@ const animationStyles = `
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(40px);
     }
     to {
       opacity: 1;
@@ -23,7 +23,7 @@ const animationStyles = `
   @keyframes scaleIn {
     from {
       opacity: 0;
-      transform: scale(0.95);
+      transform: scale(0.88);
     }
     to {
       opacity: 1;
@@ -34,7 +34,7 @@ const animationStyles = `
   @keyframes slideInLeft {
     from {
       opacity: 0;
-      transform: translateX(-20px);
+      transform: translateX(-40px);
     }
     to {
       opacity: 1;
@@ -70,53 +70,53 @@ const animationStyles = `
       transform: translateY(0px);
     }
     50% {
-      transform: translateY(-6px);
+      transform: translateY(-8px);
     }
   }
 
   .shop-header {
-    animation: fadeInUp 0.6s ease-out;
+    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .featured-banner {
-    animation: scaleIn 0.6s ease-out 0.2s backwards;
+    animation: scaleIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s backwards;
   }
 
   .filter-section {
-    animation: slideInLeft 0.5s ease-out 0.3s backwards;
+    animation: slideInLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s backwards;
   }
 
   .rarity-filter {
-    animation: slideInLeft 0.5s ease-out 0.4s backwards;
+    animation: slideInLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s backwards;
   }
 
   .shop-item {
-    animation: scaleIn 0.5s ease-out backwards;
+    animation: scaleIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
     transition: all 0.3s ease;
   }
 
   .shop-item:nth-child(1) {
-    animation-delay: 0.5s;
-  }
-
-  .shop-item:nth-child(2) {
-    animation-delay: 0.55s;
-  }
-
-  .shop-item:nth-child(3) {
     animation-delay: 0.6s;
   }
 
-  .shop-item:nth-child(4) {
-    animation-delay: 0.65s;
-  }
-
-  .shop-item:nth-child(5) {
+  .shop-item:nth-child(2) {
     animation-delay: 0.7s;
   }
 
+  .shop-item:nth-child(3) {
+    animation-delay: 0.8s;
+  }
+
+  .shop-item:nth-child(4) {
+    animation-delay: 0.9s;
+  }
+
+  .shop-item:nth-child(5) {
+    animation-delay: 1s;
+  }
+
   .shop-item:nth-child(6) {
-    animation-delay: 0.75s;
+    animation-delay: 1.1s;
   }
 
   .shop-item:hover {
@@ -124,23 +124,23 @@ const animationStyles = `
   }
 
   .bestseller-item {
-    animation: fadeInUp 0.6s ease-out backwards;
+    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
   }
 
   .bestseller-item:nth-child(1) {
-    animation-delay: 1.2s;
-  }
-
-  .bestseller-item:nth-child(2) {
-    animation-delay: 1.3s;
-  }
-
-  .bestseller-item:nth-child(3) {
     animation-delay: 1.4s;
   }
 
+  .bestseller-item:nth-child(2) {
+    animation-delay: 1.55s;
+  }
+
+  .bestseller-item:nth-child(3) {
+    animation-delay: 1.7s;
+  }
+
   .featured-badge {
-    animation: shimmer 2s ease-in-out infinite;
+    animation: shimmer 2.5s ease-in-out infinite;
   }
 `;
 

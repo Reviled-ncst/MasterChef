@@ -12,7 +12,7 @@ const animationStyles = `
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(40px);
     }
     to {
       opacity: 1;
@@ -23,7 +23,7 @@ const animationStyles = `
   @keyframes scaleIn {
     from {
       opacity: 0;
-      transform: scale(0.95);
+      transform: scale(0.88);
     }
     to {
       opacity: 1;
@@ -34,7 +34,7 @@ const animationStyles = `
   @keyframes slideInLeft {
     from {
       opacity: 0;
-      transform: translateX(-20px);
+      transform: translateX(-40px);
     }
     to {
       opacity: 1;
@@ -47,7 +47,7 @@ const animationStyles = `
       transform: translateY(0px);
     }
     50% {
-      transform: translateY(-10px);
+      transform: translateY(-15px);
     }
   }
 
@@ -70,59 +70,59 @@ const animationStyles = `
   }
 
   .inventory-header {
-    animation: fadeInUp 0.6s ease-out;
+    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .stat-card {
-    animation: scaleIn 0.5s ease-out backwards;
+    animation: scaleIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
   }
 
   .stat-card:nth-child(1) {
-    animation-delay: 0.1s;
-  }
-
-  .stat-card:nth-child(2) {
     animation-delay: 0.2s;
   }
 
+  .stat-card:nth-child(2) {
+    animation-delay: 0.35s;
+  }
+
   .stat-card:nth-child(3) {
-    animation-delay: 0.3s;
+    animation-delay: 0.5s;
   }
 
   .stat-card:nth-child(4) {
-    animation-delay: 0.4s;
+    animation-delay: 0.65s;
   }
 
   .stat-icon {
-    animation: float 3s ease-in-out infinite;
+    animation: float 3.5s ease-in-out infinite;
   }
 
   .stat-card:nth-child(1) .stat-icon {
-    animation-delay: 0s;
+    animation-delay: 0.2s;
   }
 
   .stat-card:nth-child(2) .stat-icon {
-    animation-delay: 0.3s;
+    animation-delay: 0.55s;
   }
 
   .stat-card:nth-child(3) .stat-icon {
-    animation-delay: 0.6s;
-  }
-
-  .stat-card:nth-child(4) .stat-icon {
     animation-delay: 0.9s;
   }
 
+  .stat-card:nth-child(4) .stat-icon {
+    animation-delay: 1.25s;
+  }
+
   .filter-section {
-    animation: fadeInUp 0.6s ease-out 0.5s backwards;
+    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.8s backwards;
   }
 
   .inventory-section {
-    animation: slideInLeft 0.7s ease-out 0.7s backwards;
+    animation: slideInLeft 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 1.1s backwards;
   }
 
   .storage-info {
-    animation: fadeInUp 0.6s ease-out 0.9s backwards;
+    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 1.5s backwards;
   }
 `;
 

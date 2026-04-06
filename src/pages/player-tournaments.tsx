@@ -12,7 +12,7 @@ const animationStyles = `
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(40px);
     }
     to {
       opacity: 1;
@@ -23,7 +23,7 @@ const animationStyles = `
   @keyframes scaleIn {
     from {
       opacity: 0;
-      transform: scale(0.95);
+      transform: scale(0.88);
     }
     to {
       opacity: 1;
@@ -34,7 +34,7 @@ const animationStyles = `
   @keyframes slideInLeft {
     from {
       opacity: 0;
-      transform: translateX(-20px);
+      transform: translateX(-40px);
     }
     to {
       opacity: 1;
@@ -47,7 +47,7 @@ const animationStyles = `
       transform: translateY(0px);
     }
     50% {
-      transform: translateY(-8px);
+      transform: translateY(-12px);
     }
   }
 
@@ -61,36 +61,36 @@ const animationStyles = `
   }
 
   .tournament-header {
-    animation: fadeInUp 0.6s ease-out;
+    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .featured-tournament {
-    animation: scaleIn 0.6s ease-out 0.2s backwards;
+    animation: scaleIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s backwards;
   }
 
   .filter-section {
-    animation: slideInLeft 0.5s ease-out 0.3s backwards;
+    animation: slideInLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s backwards;
   }
 
   .tournament-card {
-    animation: scaleIn 0.5s ease-out backwards;
+    animation: scaleIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
     transition: all 0.3s ease;
   }
 
   .tournament-card:nth-child(1) {
-    animation-delay: 0.4s;
-  }
-
-  .tournament-card:nth-child(2) {
     animation-delay: 0.5s;
   }
 
+  .tournament-card:nth-child(2) {
+    animation-delay: 0.65s;
+  }
+
   .tournament-card:nth-child(3) {
-    animation-delay: 0.6s;
+    animation-delay: 0.8s;
   }
 
   .tournament-card:nth-child(4) {
-    animation-delay: 0.7s;
+    animation-delay: 0.95s;
   }
 
   .tournament-card:hover {
@@ -98,15 +98,15 @@ const animationStyles = `
   }
 
   .trophy-icon {
-    animation: glow 2s ease-in-out infinite;
+    animation: glow 2.5s ease-in-out infinite;
   }
 
   .registration-table {
-    animation: fadeInUp 0.6s ease-out 0.8s backwards;
+    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 1.1s backwards;
   }
 
   .history-table {
-    animation: fadeInUp 0.6s ease-out 1s backwards;
+    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 1.4s backwards;
   }
 `;
 

@@ -18,7 +18,7 @@ const animationStyles = `
   @keyframes fadeInUp {
     from {
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(40px);
     }
     to {
       opacity: 1;
@@ -38,7 +38,7 @@ const animationStyles = `
   @keyframes slideInDown {
     from {
       opacity: 0;
-      transform: translateY(-20px);
+      transform: translateY(-40px);
     }
     to {
       opacity: 1;
@@ -49,7 +49,7 @@ const animationStyles = `
   @keyframes scaleIn {
     from {
       opacity: 0;
-      transform: scale(0.95);
+      transform: scale(0.88);
     }
     to {
       opacity: 1;
@@ -62,7 +62,7 @@ const animationStyles = `
       transform: translateY(0px);
     }
     50% {
-      transform: translateY(-10px);
+      transform: translateY(-15px);
     }
   }
 
@@ -85,37 +85,37 @@ const animationStyles = `
   }
 
   .fade-in-up {
-    animation: fadeInUp 0.6s ease-out;
+    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .fade-in {
-    animation: fadeIn 0.5s ease-out;
+    animation: fadeIn 0.7s ease-out;
   }
 
   .slide-in-down {
-    animation: slideInDown 0.5s ease-out;
+    animation: slideInDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .scale-in {
-    animation: scaleIn 0.4s ease-out;
+    animation: scaleIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .float {
-    animation: float 3s ease-in-out infinite;
+    animation: float 3.5s ease-in-out infinite;
   }
 
   .pulse-animation {
-    animation: pulse 2s ease-in-out infinite;
+    animation: pulse 2.5s ease-in-out infinite;
   }
 
   .stat-card {
-    animation: scaleIn 0.5s ease-out backwards;
+    animation: scaleIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
   }
 
-  .stat-card:nth-child(1) { animation-delay: 0.1s; }
-  .stat-card:nth-child(2) { animation-delay: 0.2s; }
-  .stat-card:nth-child(3) { animation-delay: 0.3s; }
-  .stat-card:nth-child(4) { animation-delay: 0.4s; }
+  .stat-card:nth-child(1) { animation-delay: 0.15s; }
+  .stat-card:nth-child(2) { animation-delay: 0.3s; }
+  .stat-card:nth-child(3) { animation-delay: 0.45s; }
+  .stat-card:nth-child(4) { animation-delay: 0.6s; }
 
   .tab-button {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -126,7 +126,7 @@ const animationStyles = `
   }
 
   .tab-content {
-    animation: fadeInUp 0.4s ease-out;
+    animation: fadeInUp 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 `;
 
