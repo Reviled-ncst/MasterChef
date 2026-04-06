@@ -1,4 +1,5 @@
 import { Box, Heading, Text, Button, Container, VStack, HStack } from '@chakra-ui/react';
+import NextLink from 'next/link';
 import { MdAndroid, MdVerified } from 'react-icons/md';
 
 export default function Download() {
@@ -45,31 +46,43 @@ export default function Download() {
               </HStack>
 
               <Text fontSize="md" color="gray.200" lineHeight="tall">
-                Download Master Chef on your Android device and enjoy the full cooking experience. Available on the Google Play Store with regular updates and new content.
+                Download Master Chef on your Android device and enjoy the full cooking experience. High-quality graphics, smooth gameplay, and regular updates with new content.
               </Text>
 
               <HStack style={{ gap: '16px' }} flexWrap="wrap">
-                <Button
-                  size="lg"
-                  bg="#D9642E"
-                  color="white"
-                  _hover={{ bg: '#C65525', transform: 'translateY(-2px)', boxShadow: '0 8px 20px rgba(217, 100, 46, 0.3)' }}
-                  transition="all 0.2s"
-                  px={8}
-                  fontWeight="700"
+                <a
+                  href="https://drive.google.com/uc?export=download&id=1c-xytB42W8725qrS-o8pGUQ58Pdi30M6"
+                  download
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '12px 32px',
+                    fontSize: '16px',
+                    fontWeight: '700',
+                    backgroundColor: '#D9642E',
+                    color: 'white',
+                    borderRadius: '6px',
+                    border: 'none',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    textDecoration: 'none',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = '#C65525';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                    e.currentTarget.style.boxShadow = '0 8px 20px rgba(217, 100, 46, 0.3)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = '#D9642E';
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
                 >
                   Download Now
-                </Button>
-                <Button
-                  size="lg"
-                  variant="outline"
-                  borderColor="orange.300"
-                  color="orange.300"
-                  _hover={{ bg: 'rgba(217,100,46,0.1)' }}
-                  px={8}
-                >
-                  View on Play Store
-                </Button>
+                </a>
               </HStack>
             </VStack>
           </Box>
