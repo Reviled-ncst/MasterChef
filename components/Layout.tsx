@@ -163,9 +163,7 @@ export default function Layout({ children, title = 'Master Chef', fullWidth = fa
                 {!currentUser && (
                   <>
                     <NavLink href="/game-info">Game Info</NavLink>
-                    <NavLink href="/leaderboards">Leaderboards</NavLink>
                     <NavLink href="/news">News</NavLink>
-                    <NavLink href="/community">Community</NavLink>
                     <NavLink href="/download">Download</NavLink>
                   </>
                 )}
@@ -175,7 +173,6 @@ export default function Layout({ children, title = 'Master Chef', fullWidth = fa
                       <MdShield size={18} />
                       <Text>Admin Panel</Text>
                     </ChakraLink>
-                    <NavLink href="/community">Community</NavLink>
                   </>
                 )}
                 {currentUser && !isAdmin && (
@@ -196,8 +193,6 @@ export default function Layout({ children, title = 'Master Chef', fullWidth = fa
                       <MdShoppingCart size={18} />
                       <Text>Shop</Text>
                     </ChakraLink>
-                    <NavLink href="/leaderboards">Leaderboards</NavLink>
-                    <NavLink href="/community">Community</NavLink>
                   </>
                 )}
               </HStack>
@@ -239,9 +234,7 @@ export default function Layout({ children, title = 'Master Chef', fullWidth = fa
                 {!currentUser && (
                   <>
                     <NavLink href="/game-info" onClick={closeDrawer}>Game Info</NavLink>
-                    <NavLink href="/leaderboards" onClick={closeDrawer}>Leaderboards</NavLink>
                     <NavLink href="/news" onClick={closeDrawer}>News</NavLink>
-                    <NavLink href="/community" onClick={closeDrawer}>Community</NavLink>
                     <NavLink href="/download" onClick={closeDrawer}>Download</NavLink>
                   </>
                 )}
@@ -251,7 +244,6 @@ export default function Layout({ children, title = 'Master Chef', fullWidth = fa
                       <MdShield size={18} />
                       <Text>Admin Panel</Text>
                     </ChakraLink>
-                    <NavLink href="/community" onClick={closeDrawer}>Community</NavLink>
                   </>
                 )}
                 {currentUser && !isAdmin && (
@@ -272,8 +264,6 @@ export default function Layout({ children, title = 'Master Chef', fullWidth = fa
                       <MdShoppingCart size={18} />
                       <Text>Shop</Text>
                     </ChakraLink>
-                    <NavLink href="/leaderboards" onClick={closeDrawer}>Leaderboards</NavLink>
-                    <NavLink href="/community" onClick={closeDrawer}>Community</NavLink>
                   </>
                 )}
                 <Separator />
@@ -340,7 +330,6 @@ export default function Layout({ children, title = 'Master Chef', fullWidth = fa
                 <HStack display={{ base: 'none', md: 'flex' }} style={{ gap: '16px' }}>
                   <ChakraLink as={NextLink} href="/" color="gray.200" fontSize={{ base: 'sm', md: 'md' }}>Home</ChakraLink>
                   <ChakraLink as={NextLink} href="/download" color="gray.200" fontSize={{ base: 'sm', md: 'md' }}>Download</ChakraLink>
-                  <ChakraLink as={NextLink} href="/community" color="gray.200" fontSize={{ base: 'sm', md: 'md' }}>Community</ChakraLink>
                   <ChakraLink as={NextLink} href="/legal" color="gray.200" fontSize={{ base: 'sm', md: 'md' }}>Legal</ChakraLink>
                 </HStack>
               </Flex>
