@@ -27,7 +27,7 @@ export default function LeaderboardClient({ initialData }: { initialData?: any }
   const [players, setPlayers] = useState(initialData || []);
   const [loading, setLoading] = useState(false);
   const [query, setQuery] = useState('');
-  const [viewMode, setViewMode] = useState('table');
+  const [viewMode, setViewMode] = useState(typeof window !== 'undefined' && window.innerWidth < 768 ? 'cards' : 'table');
   const [sortBy, setSortBy] = useState('rank');
   const [sortDir, setSortDir] = useState('desc');
   const [minPoints, setMinPoints] = useState(undefined);
@@ -70,6 +70,15 @@ export default function LeaderboardClient({ initialData }: { initialData?: any }
 
   return (
     <div style={{ minHeight: '100vh', position: 'relative' }}>
+      <style>{`
+        @media (max-width: 768px) {
+          .achievements-col { display: none !important; }
+          .country-col { display: none !important; }
+        }
+        @media (max-width: 1024px) {
+          .country-col { display: none !important; }
+        }
+      `}</style>
       <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
         <img src={BACKGROUND} alt="background" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
       </div>
@@ -102,49 +111,49 @@ export default function LeaderboardClient({ initialData }: { initialData?: any }
           <div style={{ textAlign: 'center', padding: 32 }}>Loading...</div>
         ) : (
           viewMode === 'cards' ? (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 16 }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(clamp(200px, 85vw, 280px), 1fr))', gap: 'clamp(12px, 3vw, 16px)' }}>
               {items.map((p) => (
-                <div key={p.id} style={{ borderRadius: 8, padding: 16, background: '#fff', border: `1px solid ${CARD_BORDER}`, boxShadow: '0 8px 30px rgba(0,0,0,0.04)' }}>
-                  <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-                    <img src={p.avatar || FALLBACK_AVATAR} alt={p.name} style={{ width: 64, height: 64, borderRadius: '50%', objectFit: 'cover' }} />
-                    <div style={{ display: 'flex', flexDirection: 'column' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                        <strong style={{ color: MUTED_TEXT }}>{p.name}</strong>
-                        <span style={{ background: 'rgba(217,108,47,0.08)', color: PRIMARY, padding: '2px 8px', borderRadius: 6 }}>#{p.rank}</span>
+                <div key={p.id} style={{ borderRadius: 8, padding: 'clamp(12px, 3vw, 16px)', background: '#fff', border: `1px solid ${CARD_BORDER}`, boxShadow: '0 8px 30px rgba(0,0,0,0.04)' }}>
+                  <div style={{ display: 'flex', gap: 'clamp(8px, 2vw, 12px)', alignItems: 'center' }}>
+                    <img src={p.avatar || FALLBACK_AVATAR} alt={p.name} style={{ width: 'clamp(48px, 12vw, 64px)', height: 'clamp(48px, 12vw, 64px)', borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
+                    <div style={{ display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                        <strong style={{ color: MUTED_TEXT, fontSize: 'clamp(11px, 2.5vw, 13px)' }}>{p.name}</strong>
+                        <span style={{ background: 'rgba(217,108,47,0.08)', color: PRIMARY, padding: '2px 8px', borderRadius: 6, fontSize: 'clamp(10px, 2vw, 12px)' }}>#{p.rank}</span>
                       </div>
-                      <div style={{ fontSize: 13, color: MUTED_TEXT }}>Points: {p.points?.toLocaleString()}</div>
-                      <div style={{ fontSize: 13, color: MUTED_TEXT }}>Achievements: {p.achievements}</div>
-                      <div style={{ fontSize: 12, color: ACCENT }}>{p.country}</div>
+                      <div style={{ fontSize: 'clamp(11px, 2.2vw, 13px)', color: MUTED_TEXT }}>Points: {p.points?.toLocaleString()}</div>
+                      <div style={{ fontSize: 'clamp(11px, 2.2vw, 13px)', color: MUTED_TEXT }}>Achievements: {p.achievements}</div>
+                      <div style={{ fontSize: 'clamp(10px, 2vw, 12px)', color: ACCENT }}>{p.country}</div>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
           ) : (
-            <div style={{ background: '#fff', borderRadius: 8, padding: 12, border: `1px solid ${CARD_BORDER}`, overflowX: 'auto' }}>
-              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+            <div style={{ background: '#fff', borderRadius: 8, padding: 'clamp(8px, 3vw, 12px)', border: `1px solid ${CARD_BORDER}`, overflowX: 'auto' }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 'clamp(12px, 2.5vw, 14px)' }}>
                 <thead>
                   <tr style={{ background: 'rgba(217,100,46,0.05)', borderBottom: `2px solid ${PRIMARY}` }}>
-                    <th style={{ textAlign: 'left', padding: 12, fontWeight: '700', color: PRIMARY }}>Rank</th>
-                    <th style={{ textAlign: 'left', padding: 12, fontWeight: '700', color: PRIMARY }}>Player</th>
-                    <th style={{ textAlign: 'right', padding: 12, fontWeight: '700', color: PRIMARY }}>Points</th>
-                    <th style={{ textAlign: 'right', padding: 12, fontWeight: '700', color: PRIMARY }}>Achievements</th>
-                    <th style={{ textAlign: 'left', padding: 12, fontWeight: '700', color: PRIMARY }}>Country</th>
+                    <th style={{ textAlign: 'left', padding: 'clamp(8px, 2vw, 12px)', fontWeight: '700', color: PRIMARY, fontSize: 'clamp(11px, 2.2vw, 13px)' }}>Rank</th>
+                    <th style={{ textAlign: 'left', padding: 'clamp(8px, 2vw, 12px)', fontWeight: '700', color: PRIMARY, fontSize: 'clamp(11px, 2.2vw, 13px)' }}>Player</th>
+                    <th style={{ textAlign: 'right', padding: 'clamp(8px, 2vw, 12px)', fontWeight: '700', color: PRIMARY, fontSize: 'clamp(11px, 2.2vw, 13px)' }}>Points</th>
+                    <th style={{ textAlign: 'right', padding: 'clamp(8px, 2vw, 12px)', fontWeight: '700', color: PRIMARY, fontSize: 'clamp(11px, 2.2vw, 13px)', display: 'none' }} className="achievements-col">Achievements</th>
+                    <th style={{ textAlign: 'left', padding: 'clamp(8px, 2vw, 12px)', fontWeight: '700', color: PRIMARY, fontSize: 'clamp(11px, 2.2vw, 13px)', display: 'none' }} className="country-col">Country</th>
                   </tr>
                 </thead>
                 <tbody>
                   {items.map((p, idx) => (
                     <tr key={p.id} style={{ borderBottom: `1px solid rgba(217,108,47,0.1)`, transition: 'background 0.2s', background: idx % 2 === 0 ? 'transparent' : 'rgba(217,100,46,0.02)' }}>
-                      <td style={{ padding: 12, fontWeight: '700', color: PRIMARY }}>{p.rank}</td>
-                      <td style={{ padding: 12 }}>
-                        <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-                          <img src={p.avatar || FALLBACK_AVATAR} alt={p.name} style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover' }} />
-                          <span style={{ fontWeight: '600', color: MUTED_TEXT }}>{p.name}</span>
+                      <td style={{ padding: 'clamp(8px, 2vw, 12px)', fontWeight: '700', color: PRIMARY, fontSize: 'clamp(11px, 2.2vw, 13px)' }}>{p.rank}</td>
+                      <td style={{ padding: 'clamp(8px, 2vw, 12px)' }}>
+                        <div style={{ display: 'flex', gap: 'clamp(6px, 2vw, 10px)', alignItems: 'center', minWidth: 0 }}>
+                          <img src={p.avatar || FALLBACK_AVATAR} alt={p.name} style={{ width: 'clamp(32px, 8vw, 40px)', height: 'clamp(32px, 8vw, 40px)', borderRadius: '50%', objectFit: 'cover', flexShrink: 0 }} />
+                          <span style={{ fontWeight: '600', color: MUTED_TEXT, fontSize: 'clamp(11px, 2.2vw, 13px)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{p.name}</span>
                         </div>
                       </td>
-                      <td style={{ padding: 12, textAlign: 'right', fontWeight: '600', color: MUTED_TEXT }}>{p.points?.toLocaleString()}</td>
-                      <td style={{ padding: 12, textAlign: 'right', fontWeight: '600', color: MUTED_TEXT }}>{p.achievements}</td>
-                      <td style={{ padding: 12, fontWeight: '600', color: ACCENT }}>{p.country}</td>
+                      <td style={{ padding: 'clamp(8px, 2vw, 12px)', textAlign: 'right', fontWeight: '600', color: MUTED_TEXT, fontSize: 'clamp(11px, 2.2vw, 13px)' }}>{p.points?.toLocaleString()}</td>
+                      <td style={{ padding: 'clamp(8px, 2vw, 12px)', textAlign: 'right', fontWeight: '600', color: MUTED_TEXT, fontSize: 'clamp(11px, 2.2vw, 13px)', display: 'none' }} className="achievements-col">{p.achievements}</td>
+                      <td style={{ padding: 'clamp(8px, 2vw, 12px)', fontWeight: '600', color: ACCENT, fontSize: 'clamp(11px, 2.2vw, 13px)', display: 'none' }} className="country-col">{p.country}</td>
                     </tr>
                   ))}
                 </tbody>
