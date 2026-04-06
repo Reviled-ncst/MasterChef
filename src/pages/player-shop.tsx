@@ -41,39 +41,46 @@ export default function PlayerShop() {
     <Box py={{ base: 4, md: 8 }} px={{ base: 3, md: 8 }}>
       <VStack align="stretch" gap={8}>
         {/* HEADER */}
-        <Box>
-          <HStack gap={2} mb={4}>
-            <Box fontSize="lg" color="#D9642E">
+        <Box bg="linear-gradient(135deg, rgba(217,100,46,0.15) 0%, rgba(168,85,247,0.1) 100%)" borderRadius="3xl" p={{ base: 6, md: 8 }} border="2px solid rgba(217,100,46,0.3)">
+          <HStack gap={3}>
+            <Box fontSize="40px" color="#D9642E">
               <MdShoppingCart />
             </Box>
-            <Heading as="h1" size={{ base: 'lg', md: '2xl' }} color="#D9642E">
-              Shop
-            </Heading>
+            <VStack align="start" gap={0}>
+              <Heading as="h1" size={{ base: 'lg', md: '2xl' }} color="#1a1a1a">
+                Master Chef Shop
+              </Heading>
+              <Text color="gray.600" fontSize={{ base: 'sm', md: 'md' }}>
+                Discover equipment, cosmetics, and seasonal items
+              </Text>
+            </VStack>
           </HStack>
-          <Text color="#D9642E" fontSize={{ base: 'md', md: 'lg' }}>
-            Discover equipment, cosmetics, and seasonal items
-          </Text>
         </Box>
 
         {/* FEATURED CAROUSEL */}
-        <Box bg="linear-gradient(135deg, rgba(217,100,46,0.2) 0%, rgba(255,184,77,0.1) 100%)" p={{ base: 6, md: 8 }} borderRadius="2xl" border="2px solid #D9642E" textAlign="center">
-          <Badge bg="#D9642E" color="white" mb={4} fontSize="sm" px={3} py={1}>
-            FEATURED THIS WEEK
-          </Badge>
-          <Heading as="h2" size={{ base: 'lg', md: '2xl' }} color="white" mb={3}>
-            Premium Battle Pass
-          </Heading>
-          <Text color="white" fontSize={{ base: 'md', md: 'lg' }} mb={6} fontWeight="600">
-            Unlock exclusive rewards, cosmetics, and faster progression through 100 levels of seasonal content
-          </Text>
-          <HStack justify="center" gap={4} flexDirection={{ base: 'column', sm: 'row' }}>
-            <Text fontWeight="700" fontSize="xl" color="#FFB84D">
-              1,200 coins
+        <Box bg="linear-gradient(135deg, #D9642E 0%, #FF8A3D 50%, #FFB84D 100%)" p={{ base: 6, md: 10 }} borderRadius="3xl" border="2px solid rgba(255,255,255,0.3)" textAlign="center" position="relative" overflow="hidden" boxShadow="0 12px 40px rgba(217, 100, 46, 0.3)">
+          <Box position="absolute" top={-40} right={-40} fontSize="200px" opacity={0.1}>
+            <MdStar />
+          </Box>
+          <VStack gap={4} position="relative" zIndex={2}>
+            <Badge bg="rgba(255,255,255,0.3)" color="white" mb={2} fontSize="sm" px={4} py={2} fontWeight="700">
+              ✨ FEATURED THIS WEEK
+            </Badge>
+            <Heading as="h2" size={{ base: 'xl', md: '3xl' }} color="white" mb={2}>
+              Premium Battle Pass
+            </Heading>
+            <Text color="white" fontSize={{ base: 'md', md: 'lg' }} mb={6} maxW="600px" lineHeight="tall">
+              Unlock exclusive rewards, cosmetics, and faster progression through 100 levels of seasonal content. Limited time offer!
             </Text>
-            <Button bg="#D9642E" color="white" fontWeight="700" size="lg">
-              Buy Now
-            </Button>
-          </HStack>
+            <HStack justify="center" gap={4} flexDirection={{ base: 'column', sm: 'row' }}>
+              <Box bg="white" color="#D9642E" fontWeight="700" fontSize="2xl" px={6} py={3} borderRadius="xl">
+                1,200 coins
+              </Box>
+              <Button bg="white" color="#D9642E" fontWeight="700" size="lg" borderRadius="xl" _hover={{ transform: 'scale(1.05)', boxShadow: '0 8px 24px rgba(0,0,0,0.2)' }} transition="all 0.2s">
+                Buy Now
+              </Button>
+            </HStack>
+          </VStack>
         </Box>
 
         {/* FILTERS & SORT */}

@@ -46,22 +46,33 @@ export default function GamerDashboard() {
       <VStack align="stretch" gap={8}>
         {/* HERO BANNER */}
         <Box
-          bgGradient="linear(to-r, #D9642E 0%, #FF8A3D 100%)"
-          borderRadius="2xl"
-          p={{ base: 6, md: 8 }}
+          bgGradient="linear(to-r, #D9642E 0%, #FF8A3D 50%, #FFB84D 100%)"
+          borderRadius="3xl"
+          p={{ base: 6, md: 10 }}
           color="white"
           position="relative"
           overflow="hidden"
+          boxShadow="0 8px 32px rgba(217, 100, 46, 0.3)"
           _before={{
             content: '""',
             position: 'absolute',
-            top: 0,
-            right: 0,
-            width: '300px',
-            height: '300px',
+            top: -50,
+            right: -50,
+            width: '400px',
+            height: '400px',
             bg: 'rgba(255,255,255,0.1)',
             borderRadius: 'full',
             transform: 'translate(50%, -50%)',
+          }}
+          _after={{
+            content: '""',
+            position: 'absolute',
+            bottom: -80,
+            left: -80,
+            width: '300px',
+            height: '300px',
+            bg: 'rgba(255,255,255,0.05)',
+            borderRadius: 'full',
           }}
         >
           <VStack align="start" gap={4} position="relative" zIndex={1} width="100%">
@@ -214,48 +225,71 @@ export default function GamerDashboard() {
                       Your Stats
                     </Heading>
                     <Grid templateColumns={{ base: '1fr', md: '1fr 1fr', lg: '1fr 1fr 1fr 1fr' }} gap={4}>
-                      <Box bg="white" p={6} borderRadius="lg" boxShadow="0 2px 8px rgba(0,0,0,0.06)" border="1px solid rgba(217,108,47,0.1)">
-                        <Text color="gray.600" fontSize="sm" fontWeight="600" mb={2}>
-                          Current Level
-                        </Text>
-                        <Text color="#D9642E" fontSize="3xl" fontWeight="700">
+                      <Box bg="white" p={6} borderRadius="2xl" boxShadow="0 4px 12px rgba(0,0,0,0.08)" border="1px solid rgba(217,108,47,0.15)" transition="all 0.3s" _hover={{ transform: 'translateY(-4px)', boxShadow: '0 12px 24px rgba(217,100,46,0.2)' }}>
+                        <HStack justify="space-between" mb={3}>
+                          <Text color="gray.600" fontSize="sm" fontWeight="700" textTransform="uppercase">
+                            Current Level
+                          </Text>
+                          <Box fontSize="24px" color="#D9642E" bg="rgba(217,100,46,0.1)" p={2} borderRadius="lg">
+                            <MdDashboard />
+                          </Box>
+                        </HStack>
+                        <Text color="#D9642E" fontSize="4xl" fontWeight="800" mb={2}>
                           {playerProfile.level}
                         </Text>
                         <CustomProgress value={(playerProfile.exp / playerProfile.nextLevelExp) * 100} colorScheme="orange" height="6px" />
+                        <Text fontSize="xs" color="gray.500" mt={2}>
+                          {playerProfile.exp} / {playerProfile.nextLevelExp} EXP
+                        </Text>
                       </Box>
 
-                      <Box bg="white" p={6} borderRadius="lg" boxShadow="0 2px 8px rgba(0,0,0,0.06)" border="1px solid rgba(217,108,47,0.1)">
-                        <Text color="gray.600" fontSize="sm" fontWeight="600" mb={2}>
-                          Cooking Skill
-                        </Text>
-                        <Text color="#D9642E" fontSize="3xl" fontWeight="700">
+                      <Box bg="linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(16,185,129,0.05) 100%)" p={6} borderRadius="2xl" border="1px solid rgba(16,185,129,0.3)" transition="all 0.3s" _hover={{ transform: 'translateY(-4px)', boxShadow: '0 12px 24px rgba(16,185,129,0.15)' }}>
+                        <HStack justify="space-between" mb={3}>
+                          <Text color="gray.600" fontSize="sm" fontWeight="700" textTransform="uppercase">
+                            Cooking Skill
+                          </Text>
+                          <Box fontSize="24px" color="#10b981" bg="rgba(16,185,129,0.1)" p={2} borderRadius="lg">
+                            <MdAnalytics />
+                          </Box>
+                        </HStack>
+                        <Text color="#10b981" fontSize="4xl" fontWeight="800" mb={2}>
                           78%
                         </Text>
-                        <Text color="gray.500" fontSize="xs" mt={1}>
+                        <Text color="gray.600" fontSize="xs">
                           Expert level
                         </Text>
                       </Box>
 
-                      <Box bg="white" p={6} borderRadius="lg" boxShadow="0 2px 8px rgba(0,0,0,0.06)" border="1px solid rgba(217,108,47,0.1)">
-                        <Text color="gray.600" fontSize="sm" fontWeight="600" mb={2}>
-                          Recipes
-                        </Text>
-                        <Text color="#D9642E" fontSize="3xl" fontWeight="700">
+                      <Box bg="linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(59,130,246,0.05) 100%)" p={6} borderRadius="2xl" border="1px solid rgba(59,130,246,0.3)" transition="all 0.3s" _hover={{ transform: 'translateY(-4px)', boxShadow: '0 12px 24px rgba(59,130,246,0.15)' }}>
+                        <HStack justify="space-between" mb={3}>
+                          <Text color="gray.600" fontSize="sm" fontWeight="700" textTransform="uppercase">
+                            Recipes
+                          </Text>
+                          <Box fontSize="24px" color="#3b82f6" bg="rgba(59,130,246,0.1)" p={2} borderRadius="lg">
+                            <MdBackpack />
+                          </Box>
+                        </HStack>
+                        <Text color="#3b82f6" fontSize="4xl" fontWeight="800" mb={2}>
                           47
                         </Text>
-                        <Text color="gray.500" fontSize="xs" mt={1}>
+                        <Text color="gray.600" fontSize="xs">
                           / 120 total
                         </Text>
                       </Box>
 
-                      <Box bg="white" p={6} borderRadius="lg" boxShadow="0 2px 8px rgba(0,0,0,0.06)" border="1px solid rgba(217,108,47,0.1)">
-                        <Text color="gray.600" fontSize="sm" fontWeight="600" mb={2}>
-                          Achievements
-                        </Text>
-                        <Text color="#D9642E" fontSize="3xl" fontWeight="700">
+                      <Box bg="linear-gradient(135deg, rgba(168,85,247,0.1) 0%, rgba(168,85,247,0.05) 100%)" p={6} borderRadius="2xl" border="1px solid rgba(168,85,247,0.3)" transition="all 0.3s" _hover={{ transform: 'translateY(-4px)', boxShadow: '0 12px 24px rgba(168,85,247,0.15)' }}>
+                        <HStack justify="space-between" mb={3}>
+                          <Text color="gray.600" fontSize="sm" fontWeight="700" textTransform="uppercase">
+                            Achievements
+                          </Text>
+                          <Box fontSize="24px" color="#a855f7" bg="rgba(168,85,247,0.1)" p={2} borderRadius="lg">
+                            <MdStar />
+                          </Box>
+                        </HStack>
+                        <Text color="#a855f7" fontSize="4xl" fontWeight="800" mb={2}>
                           14
                         </Text>
-                        <Text color="gray.500" fontSize="xs" mt={1}>
+                        <Text color="gray.600" fontSize="xs">
                           Badges unlocked
                         </Text>
                       </Box>

@@ -1,7 +1,7 @@
 'use client';
 
 import { Box, Heading, Text, VStack, HStack, Button, Input, Grid } from '@chakra-ui/react';
-import { MdBackpack } from 'react-icons/md';
+import { MdBackpack, MdTrendingUp, MdShield, MdStorage } from 'react-icons/md';
 import { useCurrentUser } from '../../lib/authHooks';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -33,56 +33,82 @@ export default function PlayerInventory() {
     <Box py={{ base: 4, md: 8 }} px={{ base: 3, md: 8 }}>
       <VStack align="stretch" gap={8}>
         {/* HEADER */}
-        <Box>
-          <HStack gap={2} mb={4}>
-            <Box fontSize="lg" color="#D9642E">
+        <Box bg="linear-gradient(135deg, rgba(217,100,46,0.15) 0%, rgba(59,130,246,0.1) 100%)" borderRadius="3xl" p={{ base: 6, md: 8 }} border="2px solid rgba(217,100,46,0.3)">
+          <HStack gap={3} mb={2}>
+            <Box fontSize="40px" color="#D9642E">
               <MdBackpack />
             </Box>
-            <Heading as="h1" size={{ base: 'lg', md: '2xl' }} color="#D9642E">
-              Inventory
-            </Heading>
+            <VStack align="start" gap={0}>
+              <Heading as="h1" size={{ base: 'lg', md: '2xl' }} color="#1a1a1a">
+                Your Inventory
+              </Heading>
+              <Text color="gray.600" fontSize={{ base: 'sm', md: 'md' }}>
+                Manage your equipment, ingredients, and cosmetics
+              </Text>
+            </VStack>
           </HStack>
-          <Text color="gray.600" fontSize={{ base: 'md', md: 'lg' }}>
-            Manage your equipment, ingredients, and cosmetics
-          </Text>
         </Box>
 
         {/* STATS */}
         <Grid templateColumns={{ base: '1fr', md: '1fr 1fr', lg: 'repeat(4, 1fr)' }} gap={4}>
-          <Box bg="white" p={4} borderRadius="lg" border="1px solid rgba(217,108,47,0.1)" textAlign="center">
-            <Text color="gray.600" fontSize="sm" fontWeight="600" mb={1}>
-              Total Items
-            </Text>
-            <Text color="#D9642E" fontSize="2xl" fontWeight="700">
+          <Box bg="white" p={5} borderRadius="2xl" border="1px solid rgba(217,108,47,0.1)" boxShadow="0 4px 12px rgba(0,0,0,0.05)" transition="all 0.3s" _hover={{ transform: 'translateY(-4px)', boxShadow: '0 12px 24px rgba(217,100,46,0.15)' }}>
+            <HStack justify="space-between" mb={2}>
+              <Text color="gray.600" fontSize="xs" fontWeight="700" textTransform="uppercase">
+                Total Items
+              </Text>
+              <Box fontSize="20px" color="#D9642E" bg="rgba(217,100,46,0.1)" p={2} borderRadius="lg">
+                <MdBackpack />
+              </Box>
+            </HStack>
+            <Text color="#D9642E" fontSize="3xl" fontWeight="800">
               {inventory.length}
             </Text>
+            <Text fontSize="xs" color="gray.500" mt={1}>Items collected</Text>
           </Box>
 
-          <Box bg="white" p={4} borderRadius="lg" border="1px solid rgba(217,108,47,0.1)" textAlign="center">
-            <Text color="gray.600" fontSize="sm" fontWeight="600" mb={1}>
-              Equipped
-            </Text>
-            <Text color="#D9642E" fontSize="2xl" fontWeight="700">
+          <Box bg="linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(16,185,129,0.05) 100%)" p={5} borderRadius="2xl" border="1px solid rgba(16,185,129,0.3)" transition="all 0.3s" _hover={{ transform: 'translateY(-4px)', boxShadow: '0 12px 24px rgba(16,185,129,0.15)' }}>
+            <HStack justify="space-between" mb={2}>
+              <Text color="gray.600" fontSize="xs" fontWeight="700" textTransform="uppercase">
+                Equipped
+              </Text>
+              <Box fontSize="20px" color="#10b981" bg="rgba(16,185,129,0.1)" p={2} borderRadius="lg">
+                <MdShield />
+              </Box>
+            </HStack>
+            <Text color="#10b981" fontSize="3xl" fontWeight="800">
               {inventory.filter(i => i.equipped).length}
             </Text>
+            <Text fontSize="xs" color="gray.500" mt={1}>Now in use</Text>
           </Box>
 
-          <Box bg="white" p={4} borderRadius="lg" border="1px solid rgba(217,108,47,0.1)" textAlign="center">
-            <Text color="gray.600" fontSize="sm" fontWeight="600" mb={1}>
-              Legendary
-            </Text>
-            <Text color="#D9642E" fontSize="2xl" fontWeight="700">
+          <Box bg="linear-gradient(135deg, rgba(251,146,60,0.1) 0%, rgba(251,146,60,0.05) 100%)" p={5} borderRadius="2xl" border="1px solid rgba(251,146,60,0.3)" transition="all 0.3s" _hover={{ transform: 'translateY(-4px)', boxShadow: '0 12px 24px rgba(251,146,60,0.15)' }}>
+            <HStack justify="space-between" mb={2}>
+              <Text color="gray.600" fontSize="xs" fontWeight="700" textTransform="uppercase">
+                Legendary
+              </Text>
+              <Box fontSize="20px" color="#fb923c" bg="rgba(251,146,60,0.1)" p={2} borderRadius="lg">
+                <MdTrendingUp />
+              </Box>
+            </HStack>
+            <Text color="#fb923c" fontSize="3xl" fontWeight="800">
               {inventory.filter(i => i.rarity === 'legendary').length}
             </Text>
+            <Text fontSize="xs" color="gray.500" mt={1}>Rare items</Text>
           </Box>
 
-          <Box bg="white" p={4} borderRadius="lg" border="1px solid rgba(217,108,47,0.1)" textAlign="center">
-            <Text color="gray.600" fontSize="sm" fontWeight="600" mb={1}>
-              Storage Used
+          <Box bg="linear-gradient(135deg, rgba(168,85,247,0.1) 0%, rgba(168,85,247,0.05) 100%)" p={5} borderRadius="2xl" border="1px solid rgba(168,85,247,0.3)" transition="all 0.3s" _hover={{ transform: 'translateY(-4px)', boxShadow: '0 12px 24px rgba(168,85,247,0.15)' }}>
+            <HStack justify="space-between" mb={2}>
+              <Text color="gray.600" fontSize="xs" fontWeight="700" textTransform="uppercase">
+                Storage
+              </Text>
+              <Box fontSize="20px" color="#a855f7" bg="rgba(168,85,247,0.1)" p={2} borderRadius="lg">
+                <MdStorage />
+              </Box>
+            </HStack>
+            <Text color="#a855f7" fontSize="3xl" fontWeight="800">
+              {Math.round((inventory.length / 200) * 100)}%
             </Text>
-            <Text color="#D9642E" fontSize="2xl" fontWeight="700">
-              {inventory.length}/200
-            </Text>
+            <Text fontSize="xs" color="gray.500" mt={1}>{inventory.length}/200 slots</Text>
           </Box>
         </Grid>
 

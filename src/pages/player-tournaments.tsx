@@ -33,13 +33,20 @@ export default function PlayerTournaments() {
     <Box py={{ base: 4, md: 8 }} px={{ base: 3, md: 8 }}>
       <VStack align="stretch" gap={8}>
         {/* HEADER */}
-        <Box>
-          <Heading as="h1" size={{ base: 'lg', md: '2xl' }} color="#D9642E" mb={2}>
-            🏆 Tournaments
-          </Heading>
-          <Text color="#D9642E" fontSize={{ base: 'md', md: 'lg' }}>
-            Join tournaments, compete with players, and win prizes
-          </Text>
+        <Box bg="linear-gradient(135deg, rgba(217,100,46,0.15) 0%, rgba(251,146,60,0.1) 100%)" borderRadius="3xl" p={{ base: 6, md: 8 }} border="2px solid rgba(217,100,46,0.3)">
+          <HStack gap={3}>
+            <Box fontSize="40px" color="#D9642E">
+              <MdEmojiEvents />
+            </Box>
+            <VStack align="start" gap={0}>
+              <Heading as="h1" size={{ base: 'lg', md: '2xl' }} color="#1a1a1a">
+                Tournaments
+              </Heading>
+              <Text color="gray.600" fontSize={{ base: 'sm', md: 'md' }}>
+                Join tournaments, compete with players, and win prizes
+              </Text>
+            </VStack>
+          </HStack>
         </Box>
 
         {/* FEATURED TOURNAMENT */}
@@ -99,43 +106,56 @@ export default function PlayerTournaments() {
 
         {/* ACTIVE TOURNAMENTS */}
         <Box>
-          <Heading as="h2" size={{ base: 'md', md: 'lg' }} color="#D9642E" mb={4}>
+          <Heading as="h2" size={{ base: 'md', md: 'lg' }} color="#1a1a1a" mb={4} display="flex" alignItems="center" gap={2}>
+            <Box fontSize="24px" color="#D9642E">⚡</Box>
             Active Tournaments
           </Heading>
           <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={4}>
             {tournaments.slice(1, 5).map((tournament) => (
-              <Box key={tournament.id} bg="white" p={6} borderRadius="lg" border="1px solid rgba(217,108,47,0.1)" _hover={{ boxShadow: '0 8px 24px rgba(217,100,46,0.15)', transform: 'translateY(-4px)' }} transition="all 0.2s">
-                <HStack justify="space-between" mb={3}>
-                  <Heading as="h3" size="md" color="#D9642E">
+              <Box key={tournament.id} bg="white" p={6} borderRadius="2xl" border="2px solid rgba(217,108,47,0.15)" boxShadow="0 4px 12px rgba(0,0,0,0.08)" transition="all 0.3s ease" _hover={{ borderColor: '#D9642E', boxShadow: '0 12px 32px rgba(217,100,46,0.25)', transform: 'translateY(-6px)' }}>
+                <HStack justify="space-between" mb={4}>
+                  <Heading as="h3" size="md" color="#1a1a1a" maxW="70%">
                     {tournament.name}
                   </Heading>
-                  <Badge bg="orange.100" color="#D9642E" fontWeight="700">
-                    Active
+                  <Badge bg="orange.100" color="#D9642E" fontWeight="700" fontSize="xs" px={2} py={1}>
+                    🔴 Active
                   </Badge>
                 </HStack>
 
-                <VStack align="start" gap={3} mb={4}>
-                  <HStack justify="space-between" width="100%" fontSize="sm">
-                    <Text color="#D9642E" fontWeight="600">Entry Fee:</Text>
-                    <Text fontWeight="700">{tournament.entryFee} coins</Text>
+                <VStack align="start" gap={3} mb={5}>
+                  <HStack justify="space-between" width="100%" fontSize="sm" pb={3} borderBottom="1px solid rgba(217,108,47,0.1)">
+                    <HStack gap={2}>
+                      <Box color="#FFB84D" fontSize="16px">💰</Box>
+                      <Text color="gray.600" fontWeight="600">Entry Fee:</Text>
+                    </HStack>
+                    <Text fontWeight="700" color="#D9642E">{tournament.entryFee} coins</Text>
                   </HStack>
 
-                  <HStack justify="space-between" width="100%" fontSize="sm">
-                    <Text color="#D9642E" fontWeight="600">Participants:</Text>
-                    <Text fontWeight="700">{tournament.currentPlayers}/{tournament.maxPlayers}</Text>
+                  <HStack justify="space-between" width="100%" fontSize="sm" pb={3} borderBottom="1px solid rgba(217,108,47,0.1)">
+                    <HStack gap={2}>
+                      <Box color="#D9642E" fontSize="16px">👥</Box>
+                      <Text color="gray.600" fontWeight="600">Players:</Text>
+                    </HStack>
+                    <HStack gap={1}>
+                      <Box width="120px" height="6px" bg="rgba(217,108,47,0.1)" borderRadius="full" overflow="hidden">
+                        <Box width={`${(tournament.currentPlayers / tournament.maxPlayers) * 100}%`} height="100%" bg="linear-gradient(90deg, #D9642E 0%, #FF8A3D 100%)" />
+                      </Box>
+                      <Text fontWeight="700">{tournament.currentPlayers}/{tournament.maxPlayers}</Text>
+                    </HStack>
                   </HStack>
 
-                  <Box width="100%">
-                    <Text fontSize="xs" color="#D9642E" mb={1} fontWeight="600">
-                      Prize Pool
-                    </Text>
+                  <HStack justify="space-between" width="100%" fontSize="sm" pt={3}>
+                    <HStack gap={2}>
+                      <Box color="#FFB84D" fontSize="16px">🏆</Box>
+                      <Text color="gray.600" fontWeight="600">Prize Pool</Text>
+                    </HStack>
                     <Text fontWeight="700" color="#D9642E">
                       {tournament.prizes.reduce((sum, p) => sum + p.amount, 0).toLocaleString()} coins
                     </Text>
-                  </Box>
+                  </HStack>
                 </VStack>
 
-                <Button width="100%" bg="#D9642E" color="white" fontWeight="700" _hover={{ bg: '#C55527' }}>
+                <Button width="100%" bg="linear-gradient(90deg, #D9642E 0%, #FF8A3D 100%)" color="white" fontWeight="700" borderRadius="xl" _hover={{ transform: 'scale(1.02)', boxShadow: '0 8px 16px rgba(217,100,46,0.3)' }} transition="all 0.2s">
                   Register Now
                 </Button>
               </Box>
