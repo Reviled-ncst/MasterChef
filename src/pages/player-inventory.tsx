@@ -8,6 +8,124 @@ import { useEffect, useState } from 'react';
 import InventorySection from '../../components/InventorySection';
 import { generatePlayerInventory } from '../../lib/mockData';
 
+const animationStyles = `
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  .inventory-header {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .stat-card {
+    animation: scaleIn 0.5s ease-out backwards;
+  }
+
+  .stat-card:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+
+  .stat-card:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .stat-card:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  .stat-card:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+
+  .stat-icon {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .stat-card:nth-child(1) .stat-icon {
+    animation-delay: 0s;
+  }
+
+  .stat-card:nth-child(2) .stat-icon {
+    animation-delay: 0.3s;
+  }
+
+  .stat-card:nth-child(3) .stat-icon {
+    animation-delay: 0.6s;
+  }
+
+  .stat-card:nth-child(4) .stat-icon {
+    animation-delay: 0.9s;
+  }
+
+  .filter-section {
+    animation: fadeInUp 0.6s ease-out 0.5s backwards;
+  }
+
+  .inventory-section {
+    animation: slideInLeft 0.7s ease-out 0.7s backwards;
+  }
+
+  .storage-info {
+    animation: fadeInUp 0.6s ease-out 0.9s backwards;
+  }
+`;
+
 export default function PlayerInventory() {
   const currentUser = useCurrentUser();
   const router = useRouter();
@@ -30,10 +148,12 @@ export default function PlayerInventory() {
   const inventory = generatePlayerInventory();
 
   return (
-    <Box py={{ base: 4, md: 8 }} px={{ base: 3, md: 8 }}>
-      <VStack align="stretch" gap={8}>
-        {/* HEADER */}
-        <Box bg="linear-gradient(135deg, rgba(217,100,46,0.15) 0%, rgba(59,130,246,0.1) 100%)" borderRadius="3xl" p={{ base: 6, md: 8 }} border="2px solid rgba(217,100,46,0.3)">
+    <>
+      <style>{animationStyles}</style>
+      <Box py={{ base: 4, md: 8 }} px={{ base: 3, md: 8 }}>
+        <VStack align="stretch" gap={8}>
+          {/* HEADER */}
+          <Box className="inventory-header" bg="linear-gradient(135deg, rgba(217,100,46,0.15) 0%, rgba(59,130,246,0.1) 100%)" borderRadius="3xl" p={{ base: 6, md: 8 }} border="2px solid rgba(217,100,46,0.3)">
           <HStack gap={3} mb={2}>
             <Box fontSize="40px" color="#D9642E">
               <MdBackpack />
@@ -51,12 +171,12 @@ export default function PlayerInventory() {
 
         {/* STATS */}
         <Grid templateColumns={{ base: '1fr', md: '1fr 1fr', lg: 'repeat(4, 1fr)' }} gap={4}>
-          <Box bg="white" p={5} borderRadius="2xl" border="1px solid rgba(217,108,47,0.1)" boxShadow="0 4px 12px rgba(0,0,0,0.05)" transition="all 0.3s" _hover={{ transform: 'translateY(-4px)', boxShadow: '0 12px 24px rgba(217,100,46,0.15)' }}>
+          <Box className="stat-card" bg="white" p={5} borderRadius="2xl" border="1px solid rgba(217,108,47,0.1)" boxShadow="0 4px 12px rgba(0,0,0,0.05)" transition="all 0.3s" _hover={{ transform: 'translateY(-8px)', boxShadow: '0 12px 24px rgba(217,100,46,0.2)' }}>
             <HStack justify="space-between" mb={2}>
               <Text color="gray.600" fontSize="xs" fontWeight="700" textTransform="uppercase">
                 Total Items
               </Text>
-              <Box fontSize="20px" color="#D9642E" bg="rgba(217,100,46,0.1)" p={2} borderRadius="lg">
+              <Box className="stat-icon" fontSize="20px" color="#D9642E" bg="rgba(217,100,46,0.1)" p={2} borderRadius="lg">
                 <MdBackpack />
               </Box>
             </HStack>
@@ -66,12 +186,12 @@ export default function PlayerInventory() {
             <Text fontSize="xs" color="gray.500" mt={1}>Items collected</Text>
           </Box>
 
-          <Box bg="linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(16,185,129,0.05) 100%)" p={5} borderRadius="2xl" border="1px solid rgba(16,185,129,0.3)" transition="all 0.3s" _hover={{ transform: 'translateY(-4px)', boxShadow: '0 12px 24px rgba(16,185,129,0.15)' }}>
+          <Box className="stat-card" bg="linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(16,185,129,0.05) 100%)" p={5} borderRadius="2xl" border="1px solid rgba(16,185,129,0.3)" transition="all 0.3s" _hover={{ transform: 'translateY(-8px)', boxShadow: '0 12px 24px rgba(16,185,129,0.2)' }}>
             <HStack justify="space-between" mb={2}>
               <Text color="gray.600" fontSize="xs" fontWeight="700" textTransform="uppercase">
                 Equipped
               </Text>
-              <Box fontSize="20px" color="#10b981" bg="rgba(16,185,129,0.1)" p={2} borderRadius="lg">
+              <Box className="stat-icon" fontSize="20px" color="#10b981" bg="rgba(16,185,129,0.1)" p={2} borderRadius="lg">
                 <MdShield />
               </Box>
             </HStack>
@@ -81,12 +201,12 @@ export default function PlayerInventory() {
             <Text fontSize="xs" color="gray.500" mt={1}>Now in use</Text>
           </Box>
 
-          <Box bg="linear-gradient(135deg, rgba(251,146,60,0.1) 0%, rgba(251,146,60,0.05) 100%)" p={5} borderRadius="2xl" border="1px solid rgba(251,146,60,0.3)" transition="all 0.3s" _hover={{ transform: 'translateY(-4px)', boxShadow: '0 12px 24px rgba(251,146,60,0.15)' }}>
+          <Box className="stat-card" bg="linear-gradient(135deg, rgba(251,146,60,0.1) 0%, rgba(251,146,60,0.05) 100%)" p={5} borderRadius="2xl" border="1px solid rgba(251,146,60,0.3)" transition="all 0.3s" _hover={{ transform: 'translateY(-8px)', boxShadow: '0 12px 24px rgba(251,146,60,0.2)' }}>
             <HStack justify="space-between" mb={2}>
               <Text color="gray.600" fontSize="xs" fontWeight="700" textTransform="uppercase">
                 Legendary
               </Text>
-              <Box fontSize="20px" color="#fb923c" bg="rgba(251,146,60,0.1)" p={2} borderRadius="lg">
+              <Box className="stat-icon" fontSize="20px" color="#fb923c" bg="rgba(251,146,60,0.1)" p={2} borderRadius="lg">
                 <MdTrendingUp />
               </Box>
             </HStack>
@@ -96,12 +216,12 @@ export default function PlayerInventory() {
             <Text fontSize="xs" color="gray.500" mt={1}>Rare items</Text>
           </Box>
 
-          <Box bg="linear-gradient(135deg, rgba(168,85,247,0.1) 0%, rgba(168,85,247,0.05) 100%)" p={5} borderRadius="2xl" border="1px solid rgba(168,85,247,0.3)" transition="all 0.3s" _hover={{ transform: 'translateY(-4px)', boxShadow: '0 12px 24px rgba(168,85,247,0.15)' }}>
+          <Box className="stat-card" bg="linear-gradient(135deg, rgba(168,85,247,0.1) 0%, rgba(168,85,247,0.05) 100%)" p={5} borderRadius="2xl" border="1px solid rgba(168,85,247,0.3)" transition="all 0.3s" _hover={{ transform: 'translateY(-8px)', boxShadow: '0 12px 24px rgba(168,85,247,0.2)' }}>
             <HStack justify="space-between" mb={2}>
               <Text color="gray.600" fontSize="xs" fontWeight="700" textTransform="uppercase">
                 Storage
               </Text>
-              <Box fontSize="20px" color="#a855f7" bg="rgba(168,85,247,0.1)" p={2} borderRadius="lg">
+              <Box className="stat-icon" fontSize="20px" color="#a855f7" bg="rgba(168,85,247,0.1)" p={2} borderRadius="lg">
                 <MdStorage />
               </Box>
             </HStack>
@@ -113,7 +233,7 @@ export default function PlayerInventory() {
         </Grid>
 
         {/* FILTERS */}
-        <Box bg="white" p={4} borderRadius="lg" border="1px solid rgba(217,108,47,0.1)">
+        <Box className="filter-section" bg="white" p={4} borderRadius="lg" border="1px solid rgba(217,108,47,0.1)">
           <Grid templateColumns={{ base: '1fr', md: '1fr 1fr 1fr' }} gap={4}>
             <Box>
               <Text fontSize="sm" fontWeight="600" mb={2} color="gray.600">
@@ -149,10 +269,12 @@ export default function PlayerInventory() {
         </Box>
 
         {/* INVENTORY SECTION */}
-        <InventorySection items={inventory} />
+        <Box className="inventory-section">
+          <InventorySection items={inventory} />
+        </Box>
 
         {/* STORAGE INFO */}
-        <Box bg="rgba(217,100,46,0.05)" p={4} borderRadius="lg" border="1px solid rgba(217,108,47,0.2)">
+        <Box className="storage-info" bg="rgba(217,100,46,0.05)" p={4} borderRadius="lg" border="1px solid rgba(217,108,47,0.2)">
           <HStack justify="space-between">
             <VStack align="start" gap={1}>
               <Text fontWeight="700" color="#D9642E">
@@ -169,6 +291,7 @@ export default function PlayerInventory() {
         </Box>
       </VStack>
     </Box>
+    </>
   );
 }
 

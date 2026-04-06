@@ -14,6 +14,122 @@ import BattlePassSection from '../../components/BattlePassSection';
 import CustomProgress from '../../components/CustomProgress';
 import { generatePlayerProfile, generateDailyChallenges, generateNotifications, generatePlayerInventory, generateTournaments, generateBattlePass, generatePlayerWallet } from '../../lib/mockData';
 
+const animationStyles = `
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.8;
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  .fade-in-up {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .slide-in-down {
+    animation: slideInDown 0.5s ease-out;
+  }
+
+  .scale-in {
+    animation: scaleIn 0.4s ease-out;
+  }
+
+  .float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .pulse-animation {
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .stat-card {
+    animation: scaleIn 0.5s ease-out backwards;
+  }
+
+  .stat-card:nth-child(1) { animation-delay: 0.1s; }
+  .stat-card:nth-child(2) { animation-delay: 0.2s; }
+  .stat-card:nth-child(3) { animation-delay: 0.3s; }
+  .stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+  .tab-button {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .tab-button:hover {
+    transform: translateY(-2px);
+  }
+
+  .tab-content {
+    animation: fadeInUp 0.4s ease-out;
+  }
+`;
+
 export default function GamerDashboard() {
   const currentUser = useCurrentUser();
   const router = useRouter();
@@ -42,8 +158,10 @@ export default function GamerDashboard() {
   const battlePass = generateBattlePass();
 
   return (
-    <Box py={{ base: 4, md: 8 }} px={{ base: 3, md: 8 }}>
-      <VStack align="stretch" gap={8}>
+    <>
+      <style>{animationStyles}</style>
+      <Box py={{ base: 4, md: 8 }} px={{ base: 3, md: 8 }} className="fade-in-up">
+        <VStack align="stretch" gap={8}>
         {/* HERO BANNER */}
         <Box
           bgGradient="linear(to-r, #D9642E 0%, #FF8A3D 50%, #FFB84D 100%)"
@@ -225,16 +343,16 @@ export default function GamerDashboard() {
                       Your Stats
                     </Heading>
                     <Grid templateColumns={{ base: '1fr', md: '1fr 1fr', lg: '1fr 1fr 1fr 1fr' }} gap={4}>
-                      <Box bg="white" p={6} borderRadius="2xl" boxShadow="0 4px 12px rgba(0,0,0,0.08)" border="1px solid rgba(217,108,47,0.15)" transition="all 0.3s" _hover={{ transform: 'translateY(-4px)', boxShadow: '0 12px 24px rgba(217,100,46,0.2)' }}>
+                      <Box className="stat-card" bg="white" p={6} borderRadius="2xl" boxShadow="0 4px 12px rgba(0,0,0,0.08)" border="1px solid rgba(217,108,47,0.15)" transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)" _hover={{ transform: 'translateY(-8px)', boxShadow: '0 20px 40px rgba(217,100,46,0.2)' }}>
                         <HStack justify="space-between" mb={3}>
                           <Text color="gray.600" fontSize="sm" fontWeight="700" textTransform="uppercase">
                             Current Level
                           </Text>
-                          <Box fontSize="24px" color="#D9642E" bg="rgba(217,100,46,0.1)" p={2} borderRadius="lg">
+                          <Box fontSize="24px" color="#D9642E" bg="rgba(217,100,46,0.1)" p={2} borderRadius="lg" className="float">
                             <MdDashboard />
                           </Box>
                         </HStack>
-                        <Text color="#D9642E" fontSize="4xl" fontWeight="800" mb={2}>
+                        <Text color="#D9642E" fontSize="4xl" fontWeight="800" mb={2} className="pulse-animation">
                           {playerProfile.level}
                         </Text>
                         <CustomProgress value={(playerProfile.exp / playerProfile.nextLevelExp) * 100} colorScheme="orange" height="6px" />
@@ -243,12 +361,12 @@ export default function GamerDashboard() {
                         </Text>
                       </Box>
 
-                      <Box bg="linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(16,185,129,0.05) 100%)" p={6} borderRadius="2xl" border="1px solid rgba(16,185,129,0.3)" transition="all 0.3s" _hover={{ transform: 'translateY(-4px)', boxShadow: '0 12px 24px rgba(16,185,129,0.15)' }}>
+                      <Box className="stat-card" bg="linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(16,185,129,0.05) 100%)" p={6} borderRadius="2xl" border="1px solid rgba(16,185,129,0.3)" transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)" _hover={{ transform: 'translateY(-8px)', boxShadow: '0 20px 40px rgba(16,185,129,0.15)' }}>
                         <HStack justify="space-between" mb={3}>
                           <Text color="gray.600" fontSize="sm" fontWeight="700" textTransform="uppercase">
                             Cooking Skill
                           </Text>
-                          <Box fontSize="24px" color="#10b981" bg="rgba(16,185,129,0.1)" p={2} borderRadius="lg">
+                          <Box fontSize="24px" color="#10b981" bg="rgba(16,185,129,0.1)" p={2} borderRadius="lg" className="float" style={{ animationDelay: '0.5s' }}>
                             <MdAnalytics />
                           </Box>
                         </HStack>
@@ -260,12 +378,12 @@ export default function GamerDashboard() {
                         </Text>
                       </Box>
 
-                      <Box bg="linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(59,130,246,0.05) 100%)" p={6} borderRadius="2xl" border="1px solid rgba(59,130,246,0.3)" transition="all 0.3s" _hover={{ transform: 'translateY(-4px)', boxShadow: '0 12px 24px rgba(59,130,246,0.15)' }}>
+                      <Box className="stat-card" bg="linear-gradient(135deg, rgba(59,130,246,0.1) 0%, rgba(59,130,246,0.05) 100%)" p={6} borderRadius="2xl" border="1px solid rgba(59,130,246,0.3)" transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)" _hover={{ transform: 'translateY(-8px)', boxShadow: '0 20px 40px rgba(59,130,246,0.15)' }}>
                         <HStack justify="space-between" mb={3}>
                           <Text color="gray.600" fontSize="sm" fontWeight="700" textTransform="uppercase">
                             Recipes
                           </Text>
-                          <Box fontSize="24px" color="#3b82f6" bg="rgba(59,130,246,0.1)" p={2} borderRadius="lg">
+                          <Box fontSize="24px" color="#3b82f6" bg="rgba(59,130,246,0.1)" p={2} borderRadius="lg" className="float" style={{ animationDelay: '1s' }}>
                             <MdBackpack />
                           </Box>
                         </HStack>
@@ -277,12 +395,12 @@ export default function GamerDashboard() {
                         </Text>
                       </Box>
 
-                      <Box bg="linear-gradient(135deg, rgba(168,85,247,0.1) 0%, rgba(168,85,247,0.05) 100%)" p={6} borderRadius="2xl" border="1px solid rgba(168,85,247,0.3)" transition="all 0.3s" _hover={{ transform: 'translateY(-4px)', boxShadow: '0 12px 24px rgba(168,85,247,0.15)' }}>
+                      <Box className="stat-card" bg="linear-gradient(135deg, rgba(168,85,247,0.1) 0%, rgba(168,85,247,0.05) 100%)" p={6} borderRadius="2xl" border="1px solid rgba(168,85,247,0.3)" transition="all 0.3s cubic-bezier(0.4, 0, 0.2, 1)" _hover={{ transform: 'translateY(-8px)', boxShadow: '0 20px 40px rgba(168,85,247,0.15)' }}>
                         <HStack justify="space-between" mb={3}>
                           <Text color="gray.600" fontSize="sm" fontWeight="700" textTransform="uppercase">
                             Achievements
                           </Text>
-                          <Box fontSize="24px" color="#a855f7" bg="rgba(168,85,247,0.1)" p={2} borderRadius="lg">
+                          <Box fontSize="24px" color="#a855f7" bg="rgba(168,85,247,0.1)" p={2} borderRadius="lg" className="float" style={{ animationDelay: '1.5s' }}>
                             <MdStar />
                           </Box>
                         </HStack>
@@ -443,6 +561,7 @@ export default function GamerDashboard() {
         </Grid>
       </VStack>
     </Box>
+    </>
   );
 }
 

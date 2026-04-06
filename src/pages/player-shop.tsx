@@ -8,6 +8,142 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { generateShopItems } from '../../lib/mockData';
 
+const animationStyles = `
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background: linear-gradient(135deg, #D9642E 0%, #FF8A3D 50%, #FFB84D 100%);
+      filter: brightness(1);
+    }
+    50% {
+      filter: brightness(1.1);
+    }
+    100% {
+      background: linear-gradient(135deg, #D9642E 0%, #FF8A3D 50%, #FFB84D 100%);
+      filter: brightness(1);
+    }
+  }
+
+  @keyframes itemGlow {
+    0%, 100% {
+      box-shadow: 0 4px 12px rgba(217,100,46,0.2);
+    }
+    50% {
+      box-shadow: 0 12px 24px rgba(217,100,46,0.4);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-6px);
+    }
+  }
+
+  .shop-header {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .featured-banner {
+    animation: scaleIn 0.6s ease-out 0.2s backwards;
+  }
+
+  .filter-section {
+    animation: slideInLeft 0.5s ease-out 0.3s backwards;
+  }
+
+  .rarity-filter {
+    animation: slideInLeft 0.5s ease-out 0.4s backwards;
+  }
+
+  .shop-item {
+    animation: scaleIn 0.5s ease-out backwards;
+    transition: all 0.3s ease;
+  }
+
+  .shop-item:nth-child(1) {
+    animation-delay: 0.5s;
+  }
+
+  .shop-item:nth-child(2) {
+    animation-delay: 0.55s;
+  }
+
+  .shop-item:nth-child(3) {
+    animation-delay: 0.6s;
+  }
+
+  .shop-item:nth-child(4) {
+    animation-delay: 0.65s;
+  }
+
+  .shop-item:nth-child(5) {
+    animation-delay: 0.7s;
+  }
+
+  .shop-item:nth-child(6) {
+    animation-delay: 0.75s;
+  }
+
+  .shop-item:hover {
+    transform: translateY(-8px);
+  }
+
+  .bestseller-item {
+    animation: fadeInUp 0.6s ease-out backwards;
+  }
+
+  .bestseller-item:nth-child(1) {
+    animation-delay: 1.2s;
+  }
+
+  .bestseller-item:nth-child(2) {
+    animation-delay: 1.3s;
+  }
+
+  .bestseller-item:nth-child(3) {
+    animation-delay: 1.4s;
+  }
+
+  .featured-badge {
+    animation: shimmer 2s ease-in-out infinite;
+  }
+`;
+
 export default function PlayerShop() {
   const currentUser = useCurrentUser();
   const router = useRouter();
@@ -38,10 +174,12 @@ export default function PlayerShop() {
   };
 
   return (
-    <Box py={{ base: 4, md: 8 }} px={{ base: 3, md: 8 }}>
-      <VStack align="stretch" gap={8}>
-        {/* HEADER */}
-        <Box bg="linear-gradient(135deg, rgba(217,100,46,0.15) 0%, rgba(168,85,247,0.1) 100%)" borderRadius="3xl" p={{ base: 6, md: 8 }} border="2px solid rgba(217,100,46,0.3)">
+    <>
+      <style>{animationStyles}</style>
+      <Box py={{ base: 4, md: 8 }} px={{ base: 3, md: 8 }}>
+        <VStack align="stretch" gap={8}>
+          {/* HEADER */}
+          <Box className="shop-header" bg="linear-gradient(135deg, rgba(217,100,46,0.15) 0%, rgba(168,85,247,0.1) 100%)" borderRadius="3xl" p={{ base: 6, md: 8 }} border="2px solid rgba(217,100,46,0.3)">
           <HStack gap={3}>
             <Box fontSize="40px" color="#D9642E">
               <MdShoppingCart />
@@ -58,7 +196,7 @@ export default function PlayerShop() {
         </Box>
 
         {/* FEATURED CAROUSEL */}
-        <Box bg="linear-gradient(135deg, #D9642E 0%, #FF8A3D 50%, #FFB84D 100%)" p={{ base: 6, md: 10 }} borderRadius="3xl" border="2px solid rgba(255,255,255,0.3)" textAlign="center" position="relative" overflow="hidden" boxShadow="0 12px 40px rgba(217, 100, 46, 0.3)">
+        <Box className="featured-banner" bg="linear-gradient(135deg, #D9642E 0%, #FF8A3D 50%, #FFB84D 100%)" p={{ base: 6, md: 10 }} borderRadius="3xl" border="2px solid rgba(255,255,255,0.3)" textAlign="center" position="relative" overflow="hidden" boxShadow="0 12px 40px rgba(217, 100, 46, 0.3)">
           <Box position="absolute" top={-40} right={-40} fontSize="200px" opacity={0.1}>
             <MdStar />
           </Box>
@@ -84,7 +222,7 @@ export default function PlayerShop() {
         </Box>
 
         {/* FILTERS & SORT */}
-        <Box bg="white" p={6} borderRadius="lg" border="1px solid rgba(217,108,47,0.1)">
+        <Box className="filter-section" bg="white" p={6} borderRadius="lg" border="1px solid rgba(217,108,47,0.1)">
           <Grid templateColumns={{ base: '1fr', md: '1fr 1fr 1fr 1fr' }} gap={4}>
             <Box>
               <Text fontSize="sm" fontWeight="600" mb={2} color="#D9642E">
@@ -133,7 +271,7 @@ export default function PlayerShop() {
         </Box>
 
         {/* RARITY FILTER */}
-        <Box bg="white" p={4} borderRadius="lg" border="1px solid rgba(217,108,47,0.1)">
+        <Box className="rarity-filter" bg="white" p={4} borderRadius="lg" border="1px solid rgba(217,108,47,0.1)">
           <Text fontSize="sm" fontWeight="600" mb={3} color="#D9642E">
             Filter by Rarity
           </Text>
@@ -178,13 +316,13 @@ export default function PlayerShop() {
             {shopItems.slice(0, 12).map((item) => (
               <Box
                 key={item.id}
+                className="shop-item"
                 bg="white"
                 borderRadius="lg"
                 overflow="hidden"
                 border={`2px solid ${rarityColors[item.rarity] || '#95a5a6'}40`}
                 _hover={{
                   boxShadow: `0 12px 24px ${rarityColors[item.rarity] || '#95a5a6'}20`,
-                  transform: 'translateY(-4px)',
                   borderColor: rarityColors[item.rarity] || '#95a5a6',
                 }}
                 transition="all 0.2s"
@@ -272,7 +410,7 @@ export default function PlayerShop() {
             {shopItems
               .slice(0, 3)
               .map((item, idx) => (
-                <Box key={item.id} bg="white" borderRadius="lg" border="1px solid rgba(217,108,46,0.2)" p={4} position="relative">
+                <Box key={item.id} className="bestseller-item" bg="white" borderRadius="lg" border="1px solid rgba(217,108,46,0.2)" p={4} position="relative">
                   {/* Rank Badge */}
                   <Box
                     position="absolute"
@@ -328,6 +466,7 @@ export default function PlayerShop() {
         </Box>
       </VStack>
     </Box>
+    </>
   );
 }
 

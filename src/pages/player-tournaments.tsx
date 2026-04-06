@@ -8,6 +8,108 @@ import { useEffect, useState } from 'react';
 import CurrentTournament from '../../components/CurrentTournament';
 import { generateTournaments } from '../../lib/mockData';
 
+const animationStyles = `
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes slideInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  @keyframes glow {
+    0%, 100% {
+      filter: drop-shadow(0 0 8px rgba(217,100,46,0.4));
+    }
+    50% {
+      filter: drop-shadow(0 0 16px rgba(217,100,46,0.8));
+    }
+  }
+
+  .tournament-header {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .featured-tournament {
+    animation: scaleIn 0.6s ease-out 0.2s backwards;
+  }
+
+  .filter-section {
+    animation: slideInLeft 0.5s ease-out 0.3s backwards;
+  }
+
+  .tournament-card {
+    animation: scaleIn 0.5s ease-out backwards;
+    transition: all 0.3s ease;
+  }
+
+  .tournament-card:nth-child(1) {
+    animation-delay: 0.4s;
+  }
+
+  .tournament-card:nth-child(2) {
+    animation-delay: 0.5s;
+  }
+
+  .tournament-card:nth-child(3) {
+    animation-delay: 0.6s;
+  }
+
+  .tournament-card:nth-child(4) {
+    animation-delay: 0.7s;
+  }
+
+  .tournament-card:hover {
+    transform: translateY(-8px);
+  }
+
+  .trophy-icon {
+    animation: glow 2s ease-in-out infinite;
+  }
+
+  .registration-table {
+    animation: fadeInUp 0.6s ease-out 0.8s backwards;
+  }
+
+  .history-table {
+    animation: fadeInUp 0.6s ease-out 1s backwards;
+  }
+`;
+
 export default function PlayerTournaments() {
   const currentUser = useCurrentUser();
   const router = useRouter();
@@ -30,10 +132,12 @@ export default function PlayerTournaments() {
   const myTournaments = tournaments.slice(0, 2);
 
   return (
-    <Box py={{ base: 4, md: 8 }} px={{ base: 3, md: 8 }}>
-      <VStack align="stretch" gap={8}>
-        {/* HEADER */}
-        <Box bg="linear-gradient(135deg, rgba(217,100,46,0.15) 0%, rgba(251,146,60,0.1) 100%)" borderRadius="3xl" p={{ base: 6, md: 8 }} border="2px solid rgba(217,100,46,0.3)">
+    <>
+      <style>{animationStyles}</style>
+      <Box py={{ base: 4, md: 8 }} px={{ base: 3, md: 8 }}>
+        <VStack align="stretch" gap={8}>
+          {/* HEADER */}
+          <Box className="tournament-header" bg="linear-gradient(135deg, rgba(217,100,46,0.15) 0%, rgba(251,146,60,0.1) 100%)" borderRadius="3xl" p={{ base: 6, md: 8 }} border="2px solid rgba(217,100,46,0.3)">
           <HStack gap={3}>
             <Box fontSize="40px" color="#D9642E">
               <MdEmojiEvents />
@@ -50,7 +154,7 @@ export default function PlayerTournaments() {
         </Box>
 
         {/* FEATURED TOURNAMENT */}
-        <Box>
+        <Box className="featured-tournament">
           <Heading as="h2" size={{ base: 'md', md: 'lg' }} color="#D9642E" mb={4}>
             Featured Tournament
           </Heading>
@@ -58,7 +162,7 @@ export default function PlayerTournaments() {
         </Box>
 
         {/* FILTERS */}
-        <Box bg="white" p={4} borderRadius="lg" border="1px solid rgba(217,108,47,0.1)">
+        <Box className="filter-section" bg="white" p={4} borderRadius="lg" border="1px solid rgba(217,108,47,0.1)">
           <Grid templateColumns={{ base: '1fr', md: '1fr 1fr', lg: 'repeat(4, 1fr)' }} gap={4}>
             <Box>
               <Text fontSize="sm" fontWeight="600" mb={2} color="#D9642E">
@@ -112,7 +216,7 @@ export default function PlayerTournaments() {
           </Heading>
           <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={4}>
             {tournaments.slice(1, 5).map((tournament) => (
-              <Box key={tournament.id} bg="white" p={6} borderRadius="2xl" border="2px solid rgba(217,108,47,0.15)" boxShadow="0 4px 12px rgba(0,0,0,0.08)" transition="all 0.3s ease" _hover={{ borderColor: '#D9642E', boxShadow: '0 12px 32px rgba(217,100,46,0.25)', transform: 'translateY(-6px)' }}>
+              <Box key={tournament.id} className="tournament-card" bg="white" p={6} borderRadius="2xl" border="2px solid rgba(217,108,47,0.15)" boxShadow="0 4px 12px rgba(0,0,0,0.08)" _hover={{ borderColor: '#D9642E', boxShadow: '0 12px 32px rgba(217,100,46,0.25)' }}>
                 <HStack justify="space-between" mb={4}>
                   <Heading as="h3" size="md" color="#1a1a1a" maxW="70%">
                     {tournament.name}
@@ -164,7 +268,7 @@ export default function PlayerTournaments() {
         </Box>
 
         {/* MY REGISTRATIONS */}
-        <Box>
+        <Box className="registration-table">
           <Heading as="h2" size={{ base: 'md', md: 'lg' }} color="#D9642E" mb={4}>
             My Registrations
           </Heading>
@@ -215,7 +319,7 @@ export default function PlayerTournaments() {
         </Box>
 
         {/* TOURNAMENT HISTORY */}
-        <Box>
+        <Box className="history-table">
           <Heading as="h2" size={{ base: 'md', md: 'lg' }} color="#D9642E" mb={4}>
             Past Results
           </Heading>
@@ -270,6 +374,7 @@ export default function PlayerTournaments() {
         </Box>
       </VStack>
     </Box>
+    </>
   );
 }
 
