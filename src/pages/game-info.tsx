@@ -12,6 +12,9 @@ function FeatureCard({ title, description }: { title: string; description: strin
       border="1px solid rgba(217,108,47,0.08)"
       _hover={{ boxShadow: '0 8px 20px rgba(217,108,47,0.12)', transform: 'translateY(-2px)' }}
       transition="all 0.18s ease"
+      width="100%"
+      maxW="100%"
+      boxSizing="border-box"
     >
       <Heading as="h3" size={{ base: 'sm', md: 'md' }} mb={3} style={{ color: '#000000' }}>
         {title}
@@ -25,13 +28,13 @@ function FeatureCard({ title, description }: { title: string; description: strin
 
 export default function GameInfo() {
   return (
-    <Box minH="100vh" width="100vw" position="relative" overflow="hidden">
+    <Box minH="100vh" width="100%" position="relative" overflow="hidden" boxSizing="border-box">
       <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
         <img src="https://res.cloudinary.com/djnzwvb2t/image/upload/v1774440372/Background_htozsp.png" alt="background" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
       </div>
       <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.35)', zIndex: 1 }} />
-      <Box position="relative" zIndex={2} width="100%" minH="100vh" py={{ base: 6, md: 10 }} px={{ base: 4, md: 6 }} overflowX="hidden">
-        <VStack align="stretch" gap={{ base: 6, md: 8, lg: 12 }} width="100%">
+      <Box position="relative" zIndex={2} width="100%" minH="100vh" py={{ base: 6, md: 10 }} px={{ base: 4, md: 6 }} overflowX="hidden" boxSizing="border-box">
+        <VStack align="stretch" gap={{ base: 6, md: 8, lg: 12 }} width="100%" maxW="100%">
           {/* Hero Section */}
           <VStack align="center" gap={{ base: 3, md: 4 }} textAlign="center">
           <Heading as="h1" size={{ base: 'lg', md: '2xl', lg: '3xl' }} style={{ color: '#FFFFFF !important' }}>
@@ -47,7 +50,7 @@ export default function GameInfo() {
           <Heading as="h2" size={{ base: 'md', md: 'lg' }} style={{ color: '#FFFFFF !important' }}>
             Game Features
           </Heading>
-          <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={{ base: 3, md: 6 }} width="100%">
+          <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={{ base: 3, md: 6 }} width="100%" maxW="100%">
             <GridItem>
               <FeatureCard
                 title="Recipe Mastery"
@@ -95,7 +98,7 @@ export default function GameInfo() {
               <Heading as="h3" size={{ base: 'sm', md: 'md' }} style={{ color: '#FFFFFF !important' }}>
                 Reward Tiers
               </Heading>
-              <Grid templateColumns={{ base: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr', lg: 'repeat(5, 1fr)' }} gap={{ base: 3, md: 4 }}>
+              <Grid templateColumns={{ base: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr', lg: 'repeat(5, 1fr)' }} gap={{ base: 3, md: 4 }} width="100%" maxW="100%">
                 {/* Unlocked Rewards */}
                 <Box borderRadius="lg" border="2px solid #FFFFFF" p={{ base: 3, md: 4 }} textAlign="center" bg="white">
                   <Box fontSize={{ base: '24px', md: '32px' }} mb={2} style={{ color: '#D9642E !important' }}>
@@ -157,7 +160,7 @@ export default function GameInfo() {
               <Text color="#FFFFFF" fontSize={{ base: 'xs', md: 'sm' }}>
                 Featured Tournament
               </Text>
-              <Grid templateColumns={{ base: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }} gap={4}>
+              <Grid templateColumns={{ base: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }} gap={4} width="100%" maxW="100%">
                 <Box>
                   <Text fontSize="xs" color="#FFFFFF" fontWeight="600" mb={1}>
                     Prize Pool
@@ -193,7 +196,7 @@ export default function GameInfo() {
                 <Heading as="h4" size={{ base: 'xs', md: 'sm' }} color="gray.700" mb={3}>
                   TOP REWARDS
                 </Heading>
-                <Grid templateColumns={{ base: '1fr', sm: 'repeat(3, 1fr)' }} gap={{ base: 2, md: 4 }} textAlign="center">
+                <Grid templateColumns={{ base: '1fr', sm: 'repeat(3, 1fr)' }} gap={{ base: 2, md: 4 }} textAlign="center" width="100%" maxW="100%">
                   <Box>
                     <Box fontSize={{ base: '24px', md: '32px' }} mb={2} color="#FFD700">
                       <MdEmojiEvents />
@@ -243,7 +246,7 @@ export default function GameInfo() {
           <Heading as="h2" size={{ base: 'md', md: 'lg' }} style={{ color: '#FFFFFF !important' }}>
             System Requirements
           </Heading>
-          <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={{ base: 3, md: 6 }} width="100%">
+          <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={{ base: 3, md: 6 }} width="100%" maxW="100%">
             <Box>
               <Heading as="h3" size={{ base: 'sm', md: 'md' }} mb={3} color="#FFFFFF">
                 Minimum
