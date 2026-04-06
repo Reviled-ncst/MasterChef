@@ -1,22 +1,19 @@
 import { Box, VStack, Button, Text, Badge } from '@chakra-ui/react';
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
-import { MdShield, MdDashboard, MdPeople, MdDescription, MdTrendingUp, MdSettings, MdHistory, MdLock, MdStorage, MdFileDownload } from 'react-icons/md';
+import { MdShield, MdDashboard, MdHistory, MdLock, MdStorage, MdSettings, MdFileDownload, MdPeople } from 'react-icons/md';
 
 const ADMIN_SIDEBAR_WIDTH = '280px';
 
 const MENU_ITEMS = [
-  // Main sections (anchor links on dashboard)
-  { label: 'Dashboard', href: '#dashboard', isPage: false },
-  { label: 'Users', href: '#users', isPage: false },
-  { label: 'Content', href: '#content', isPage: false },
-  { label: 'Analytics', href: '#analytics', isPage: false },
-
-  // Admin Tools (separate pages)
-  { label: 'Audit Logs', href: '/admin-logs', isPage: true },
-  { label: 'Security', href: '/admin-security', isPage: true },
-  { label: 'Backups', href: '/admin-backup', isPage: true },
-  { label: 'Configuration', href: '/admin-config', isPage: true },
+  { label: 'Dashboard', href: '/admin-dashboard' },
+  { label: 'Users', href: '/admin-users' },
+  { label: 'Activity', href: '/admin-activity' },
+  { label: 'Audit Logs', href: '/admin-logs' },
+  { label: 'Security', href: '/admin-security' },
+  { label: 'Settings', href: '/admin-settings' },
+  { label: 'Backups', href: '/admin-backup' },
+  { label: 'Reports', href: '/admin-reports' },
+  { label: 'Configuration', href: '/admin-config' },
 ];
 
 const getMenuIcon = (label: string) => {
@@ -26,16 +23,18 @@ const getMenuIcon = (label: string) => {
       return <MdDashboard {...iconProps} />;
     case 'Users':
       return <MdPeople {...iconProps} />;
-    case 'Content':
-      return <MdDescription {...iconProps} />;
-    case 'Analytics':
-      return <MdTrendingUp {...iconProps} />;
+    case 'Activity':
+      return <MdHistory {...iconProps} />;
     case 'Audit Logs':
       return <MdHistory {...iconProps} />;
     case 'Security':
       return <MdLock {...iconProps} />;
     case 'Backups':
       return <MdStorage {...iconProps} />;
+    case 'Reports':
+      return <MdFileDownload {...iconProps} />;
+    case 'Settings':
+      return <MdSettings {...iconProps} />;
     case 'Configuration':
       return <MdSettings {...iconProps} />;
     default:
@@ -45,31 +44,10 @@ const getMenuIcon = (label: string) => {
 
 export default function AdminSidebar({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
   const router = useRouter();
-  const [activeSection, setActiveSection] = useState('dashboard');
 
-  useEffect(() => {
-    // Get the hash from the URL
-    const hash = window.location.hash.slice(1) || 'dashboard';
-    setActiveSection(hash);
-  }, []);
-
-  const handleNavigation = (href: string, isPage: boolean) => {
+  const handleNavigation = (href: string) => {
     onClose(); // Close sidebar on mobile after navigation
-
-    if (isPage) {
-      // Navigate to a diff erent page
-      router.push(href);
-    } else {
-      // Scroll to dashboard section (anchor link)
-      const sectionId = href.slice(1);
-      setActiveSection(sectionId);
-      const element = document.getElementById(sectionId);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        window.location.hash = href;
-      }
-    }
+    router.push(href);
   };
 
   return (
@@ -129,21 +107,12 @@ export default function AdminSidebar({ isOpen, onClose }: { isOpen: boolean; onC
           </Text>
 
           {MENU_ITEMS.map((item) => {
-            // Determine if this item is active
-            let isActive = false;
-            if (!item.isPage) {
-              // For anchor links, check activeSection
-              const sectionId = item.href.slice(1);
-              isActive = activeSection === sectionId;
-            } else {
-              // For pages, check router pathname
-              isActive = router.pathname === item.href;
-            }
+            const isActive = router.pathname === item.href;
 
             return (
               <Button
                 key={item.label}
-                onClick={() => handleNavigation(item.href, item.isPage)}
+                onClick={() => handleNavigation(item.href)}
                 variant="ghost"
                 justifyContent="flex-start"
                 w="100%"
@@ -167,13 +136,6 @@ export default function AdminSidebar({ isOpen, onClose }: { isOpen: boolean; onC
               </Button>
             );
           })}
-
-          {/* Divider */}
-          <Box height="1px" bg="rgba(217,108,47,0.15)" my={2} />
-
-          <Text fontSize="xs" fontWeight="700" textTransform="uppercase" color="gray.500" px={3} py={2} mt={4}>
-            Tools
-          </Text>
         </VStack>
 
         {/* Footer - Admin Profile */}
