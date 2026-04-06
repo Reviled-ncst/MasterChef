@@ -1,0 +1,42 @@
+:root {
+  --mc-primary: #D9642E;
+  --mc-primary-600: #C65525;
+  --mc-muted: #ECECEC;
+  --mc-input-bg: rgba(255,255,255,0.98);
+  --mc-surface: rgba(255,255,255,0.96);
+  --mc-bg-graphic: url('https://res.cloudinary.com/djnzwvb2t/image/upload/v1774440372/Background_htozsp.png');
+  --mc-text: #1a202c;
+  --mc-accent: rgba(217,100,46,0.08);
+}
+
+html, body, #__next {
+  height: 100%;
+}
+
+body {
+  background-color: #fff;
+  background-image: radial-gradient(circle at 10% 15%, rgba(217,100,46,0.035), transparent 18%), radial-gradient(circle at 90% 85%, rgba(217,100,46,0.02), transparent 14%), var(--mc-bg-graphic);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--mc-text);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+/* Utility: subtle card surface used by modal/dialogs */
+.mc-surface {
+  background: var(--mc-surface);
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+
+/* Force light text on dark backgrounds */
+.white-text {
+  color: #FFFFFF !important;
+}
