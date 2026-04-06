@@ -7,6 +7,7 @@
   z-index: 999;
   background: rgba(0,0,0,0.55);
   animation: overlayFade 220ms ease forwards;
+  pointer-events: auto;
 }
 
 .drawer {
@@ -24,11 +25,19 @@
   box-shadow: -2px 0 12px rgba(0,0,0,0.15);
   transform: translateX(100%);
   animation: drawerIn 260ms cubic-bezier(.2,.9,.3,1) forwards;
+  will-change: transform;
+}
+
+@media (max-width: 600px) {
+  .drawer {
+    width: 75vw;
+    max-width: none;
+  }
 }
 
 @media (max-width: 480px) {
   .drawer {
-    width: 90vw;
+    width: 70vw;
     max-width: none;
   }
 }
