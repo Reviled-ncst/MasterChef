@@ -197,12 +197,6 @@ export function LoginModal({ isOpen, onClose, onSwitch }: AuthProps) {
             <div className={styles.divider}><span>or</span></div>
 
             <form onSubmit={handleSubmit}>
-              <div style={{ marginBottom: 14, padding: '10px 12px', background: 'rgba(13, 110, 253, 0.08)', borderRadius: 6, fontSize: 12, color: '#005fcc' }}>
-                <strong>Demo Accounts:</strong><br/>
-                Gamer: gamer@masterchef.com / player123<br/>
-                Admin: admin@masterchef.com / admin123
-              </div>
-
               <div style={{ marginBottom: 14 }}>
                 <label htmlFor="mc-email" className={styles.fieldLabel}>Email</label>
                 <input id="mc-email" ref={emailRef} className={styles.textInput} type="email" value={email} onChange={(e) => setEmail(e.target.value)} onFocus={focusStyle} onBlur={blurStyle} style={inputBase} aria-required="true" />
