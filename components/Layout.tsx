@@ -229,11 +229,11 @@ export default function Layout({ children, title = 'Master Chef', fullWidth = fa
         {isDrawerOpen && (
           <>
             <div className={styles.drawerOverlay} onClick={closeDrawer} />
-            <Box className={styles.drawer} p={{ base: 4, sm: 6 }}>
-              <Box position="absolute" top={4} right={4}>
-                <CloseButton onClick={closeDrawer} />
+            <Box className={styles.drawer} p={{ base: 3, sm: 4 }} maxW="100%">
+              <Box position="absolute" top={3} right={3} zIndex={10}>
+                <CloseButton onClick={closeDrawer} size="sm" />
               </Box>
-              <VStack align="stretch" mt={12} style={{ gap: '16px' }}>
+              <VStack align="stretch" mt={10} style={{ gap: '12px' }}>
                 <NavLink href="/" onClick={closeDrawer}>Home</NavLink>
                 <Separator />
                 {!currentUser && (
