@@ -137,7 +137,7 @@ export default function PlayerTournaments() {
       <Box py={{ base: 4, md: 8 }} px={{ base: 3, md: 8 }}>
         <VStack align="stretch" gap={8}>
           {/* HEADER */}
-          <Box className="tournament-header" bg="linear-gradient(135deg, rgba(217,100,46,0.15) 0%, rgba(251,146,60,0.1) 100%)" borderRadius="3xl" p={{ base: 6, md: 8 }} border="2px solid rgba(217,100,46,0.3)">
+          <Box className="tournament-header" bg="linear-gradient(135deg, rgba(217,100,46,0.25) 0%, rgba(251,146,60,0.15) 100%)" borderRadius="3xl" p={{ base: 6, md: 8 }} border="2px solid rgba(217,100,46,0.4)">
           <HStack gap={3}>
             <Box fontSize="40px" color="#D9642E">
               <MdEmojiEvents />

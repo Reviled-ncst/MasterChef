@@ -179,7 +179,7 @@ export default function PlayerShop() {
       <Box py={{ base: 4, md: 8 }} px={{ base: 3, md: 8 }}>
         <VStack align="stretch" gap={8}>
           {/* HEADER */}
-          <Box className="shop-header" bg="linear-gradient(135deg, rgba(217,100,46,0.15) 0%, rgba(168,85,247,0.1) 100%)" borderRadius="3xl" p={{ base: 6, md: 8 }} border="2px solid rgba(217,100,46,0.3)">
+          <Box className="shop-header" bg="linear-gradient(135deg, rgba(217,100,46,0.25) 0%, rgba(168,85,247,0.15) 100%)" borderRadius="3xl" p={{ base: 6, md: 8 }} border="2px solid rgba(217,100,46,0.4)">
           <HStack gap={3}>
             <Box fontSize="40px" color="#D9642E">
               <MdShoppingCart />

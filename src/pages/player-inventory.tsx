@@ -153,7 +153,7 @@ export default function PlayerInventory() {
       <Box py={{ base: 4, md: 8 }} px={{ base: 3, md: 8 }}>
         <VStack align="stretch" gap={8}>
           {/* HEADER */}
-          <Box className="inventory-header" bg="linear-gradient(135deg, rgba(217,100,46,0.15) 0%, rgba(59,130,246,0.1) 100%)" borderRadius="3xl" p={{ base: 6, md: 8 }} border="2px solid rgba(217,100,46,0.3)">
+          <Box className="inventory-header" bg="linear-gradient(135deg, rgba(217,100,46,0.25) 0%, rgba(59,130,246,0.15) 100%)" borderRadius="3xl" p={{ base: 6, md: 8 }} border="2px solid rgba(217,100,46,0.4)">
           <HStack gap={3} mb={2}>
             <Box fontSize="40px" color="#D9642E">
               <MdBackpack />
@@ -186,49 +186,49 @@ export default function PlayerInventory() {
             <Text fontSize="xs" color="gray.500" mt={1}>Items collected</Text>
           </Box>
 
-          <Box className="stat-card" bg="linear-gradient(135deg, rgba(16,185,129,0.1) 0%, rgba(16,185,129,0.05) 100%)" p={5} borderRadius="2xl" border="1px solid rgba(16,185,129,0.3)" transition="all 0.3s" _hover={{ transform: 'translateY(-8px)', boxShadow: '0 12px 24px rgba(16,185,129,0.2)' }}>
+          <Box className="stat-card" bg="linear-gradient(135deg, rgba(16,185,129,0.08) 0%, rgba(16,185,129,0.04) 100%)" p={5} borderRadius="2xl" border="1px solid rgba(16,185,129,0.3)" borderLeft="4px solid #10b981" transition="all 0.3s" _hover={{ transform: 'translateY(-8px)', boxShadow: '0 12px 24px rgba(16,185,129,0.25)', borderLeftColor: '#059669' }}>
             <HStack justify="space-between" mb={2}>
-              <Text color="gray.600" fontSize="xs" fontWeight="700" textTransform="uppercase">
+              <Text color="#1a1a1a" fontSize="xs" fontWeight="700" textTransform="uppercase">
                 Equipped
               </Text>
-              <Box className="stat-icon" fontSize="20px" color="#10b981" bg="rgba(16,185,129,0.1)" p={2} borderRadius="lg">
+              <Box className="stat-icon" fontSize="20px" color="#10b981" bg="rgba(16,185,129,0.15)" p={2} borderRadius="lg">
                 <MdShield />
               </Box>
             </HStack>
             <Text color="#10b981" fontSize="3xl" fontWeight="800">
               {inventory.filter(i => i.equipped).length}
             </Text>
-            <Text fontSize="xs" color="gray.500" mt={1}>Now in use</Text>
+            <Text fontSize="xs" color="#1a1a1a" mt={1} fontWeight="600">Now in use</Text>
           </Box>
 
-          <Box className="stat-card" bg="linear-gradient(135deg, rgba(251,146,60,0.1) 0%, rgba(251,146,60,0.05) 100%)" p={5} borderRadius="2xl" border="1px solid rgba(251,146,60,0.3)" transition="all 0.3s" _hover={{ transform: 'translateY(-8px)', boxShadow: '0 12px 24px rgba(251,146,60,0.2)' }}>
+          <Box className="stat-card" bg="linear-gradient(135deg, rgba(251,146,60,0.08) 0%, rgba(251,146,60,0.04) 100%)" p={5} borderRadius="2xl" border="1px solid rgba(251,146,60,0.3)" borderLeft="4px solid #fb923c" transition="all 0.3s" _hover={{ transform: 'translateY(-8px)', boxShadow: '0 12px 24px rgba(251,146,60,0.25)', borderLeftColor: '#f97316' }}>
             <HStack justify="space-between" mb={2}>
-              <Text color="gray.600" fontSize="xs" fontWeight="700" textTransform="uppercase">
+              <Text color="#1a1a1a" fontSize="xs" fontWeight="700" textTransform="uppercase">
                 Legendary
               </Text>
-              <Box className="stat-icon" fontSize="20px" color="#fb923c" bg="rgba(251,146,60,0.1)" p={2} borderRadius="lg">
+              <Box className="stat-icon" fontSize="20px" color="#fb923c" bg="rgba(251,146,60,0.15)" p={2} borderRadius="lg">
                 <MdTrendingUp />
               </Box>
             </HStack>
             <Text color="#fb923c" fontSize="3xl" fontWeight="800">
               {inventory.filter(i => i.rarity === 'legendary').length}
             </Text>
-            <Text fontSize="xs" color="gray.500" mt={1}>Rare items</Text>
+            <Text fontSize="xs" color="#1a1a1a" mt={1} fontWeight="600">Rare items</Text>
           </Box>
 
-          <Box className="stat-card" bg="linear-gradient(135deg, rgba(168,85,247,0.1) 0%, rgba(168,85,247,0.05) 100%)" p={5} borderRadius="2xl" border="1px solid rgba(168,85,247,0.3)" transition="all 0.3s" _hover={{ transform: 'translateY(-8px)', boxShadow: '0 12px 24px rgba(168,85,247,0.2)' }}>
+          <Box className="stat-card" bg="linear-gradient(135deg, rgba(168,85,247,0.08) 0%, rgba(168,85,247,0.04) 100%)" p={5} borderRadius="2xl" border="1px solid rgba(168,85,247,0.3)" borderLeft="4px solid #a855f7" transition="all 0.3s" _hover={{ transform: 'translateY(-8px)', boxShadow: '0 12px 24px rgba(168,85,247,0.25)', borderLeftColor: '#9333ea' }}>
             <HStack justify="space-between" mb={2}>
-              <Text color="gray.600" fontSize="xs" fontWeight="700" textTransform="uppercase">
+              <Text color="#1a1a1a" fontSize="xs" fontWeight="700" textTransform="uppercase">
                 Storage
               </Text>
-              <Box className="stat-icon" fontSize="20px" color="#a855f7" bg="rgba(168,85,247,0.1)" p={2} borderRadius="lg">
+              <Box className="stat-icon" fontSize="20px" color="#a855f7" bg="rgba(168,85,247,0.15)" p={2} borderRadius="lg">
                 <MdStorage />
               </Box>
             </HStack>
             <Text color="#a855f7" fontSize="3xl" fontWeight="800">
               {Math.round((inventory.length / 200) * 100)}%
             </Text>
-            <Text fontSize="xs" color="gray.500" mt={1}>{inventory.length}/200 slots</Text>
+            <Text fontSize="xs" color="#1a1a1a" mt={1} fontWeight="600">{inventory.length}/200 slots</Text>
           </Box>
         </Grid>
 
