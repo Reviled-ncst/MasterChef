@@ -25,13 +25,13 @@ function FeatureCard({ title, description }: { title: string; description: strin
 
 export default function GameInfo() {
   return (
-    <Box py={{ base: 6, md: 10 }} px={{ base: 4, md: 6 }} minH="100vh">
+    <Box py={{ base: 6, md: 10 }} px={{ base: 4, md: 6 }} minH="100vh" width="100%" overflowX="hidden">
       <div style={{ position: 'fixed', inset: 0, zIndex: 0, pointerEvents: 'none' }}>
         <img src="https://res.cloudinary.com/djnzwvb2t/image/upload/v1774440372/Background_htozsp.png" alt="background" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center' }} />
       </div>
       <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.35)', zIndex: 1 }} />
-      <Box position="relative" zIndex={2} maxW="1200px" mx="auto">
-      <VStack align="stretch" gap={{ base: 6, md: 8, lg: 12 }}>
+      <Box position="relative" zIndex={2} maxW="1200px" mx="auto" width="100%">
+      <VStack align="stretch" gap={{ base: 6, md: 8, lg: 12 }} width="100%">
         {/* Hero Section */}
         <VStack align="center" gap={{ base: 3, md: 4 }} textAlign="center">
           <Heading as="h1" size={{ base: 'lg', md: '2xl', lg: '3xl' }} style={{ color: '#FFFFFF !important' }}>
@@ -43,11 +43,11 @@ export default function GameInfo() {
         </VStack>
 
         {/* Features Section */}
-        <VStack align="stretch" gap={{ base: 3, md: 4 }}>
+        <VStack align="stretch" gap={{ base: 3, md: 4 }} width="100%">
           <Heading as="h2" size={{ base: 'md', md: 'lg' }} style={{ color: '#FFFFFF !important' }}>
             Game Features
           </Heading>
-          <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={{ base: 3, md: 6 }}>
+          <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={{ base: 3, md: 6 }} width="100%">
             <GridItem>
               <FeatureCard
                 title="Recipe Mastery"
@@ -76,13 +76,13 @@ export default function GameInfo() {
         </VStack>
 
         {/* Battle Pass Section */}
-        <VStack align="stretch" gap={{ base: 3, md: 4 }}>
+        <VStack align="stretch" gap={{ base: 3, md: 4 }} width="100%">
           <Heading as="h2" size={{ base: 'md', md: 'lg' }} style={{ color: '#FFFFFF !important' }} display="flex" alignItems="center" gap={2} flexWrap="wrap">
             <Box fontSize={{ base: '18px', md: '24px' }}><MdStar /></Box>
             Battle Pass System
           </Heading>
-          <Box bg="linear-gradient(135deg, rgba(217,100,46,0.15) 0%, rgba(255,184,77,0.08) 100%)" p={{ base: 4, md: 8 }} borderRadius="lg" border="2px solid #FFFFFF">
-            <VStack align="stretch" gap={4}>
+          <Box bg="linear-gradient(135deg, rgba(217,100,46,0.15) 0%, rgba(255,184,77,0.08) 100%)" p={{ base: 3, md: 8 }} borderRadius="lg" border="2px solid #FFFFFF" width="100%" overflowX="hidden">
+            <VStack align="stretch" gap={4} width="100%">
               <Box>
                 <Text fontSize="sm" fontWeight="600" mb={2} color="#FFFFFF">
                   Current Progress
@@ -139,13 +139,13 @@ export default function GameInfo() {
         </VStack>
 
         {/* Featured Tournament Section */}
-        <VStack align="stretch" gap={{ base: 3, md: 4 }}>
+        <VStack align="stretch" gap={{ base: 3, md: 4 }} width="100%">
           <Heading as="h2" size={{ base: 'md', md: 'lg' }} style={{ color: '#FFFFFF !important' }} display="flex" alignItems="center" gap={2} flexWrap="wrap">
             <Box fontSize={{ base: '18px', md: '24px' }}><MdEmojiEvents /></Box>
             Featured Tournament
           </Heading>
-          <Box bg="linear-gradient(135deg, rgba(217,100,46,0.15) 0%, rgba(255,184,77,0.08) 100%)" p={{ base: 4, md: 8 }} borderRadius="lg" border="2px solid #FFFFFF">
-            <VStack align="stretch" gap={4}>
+          <Box bg="linear-gradient(135deg, rgba(217,100,46,0.15) 0%, rgba(255,184,77,0.08) 100%)" p={{ base: 3, md: 8 }} borderRadius="lg" border="2px solid #FFFFFF" width="100%" overflowX="hidden">
+            <VStack align="stretch" gap={4} width="100%">
               <Box display="flex" justifyContent="space-between" alignItems="flex-start" mb={2} flexWrap="wrap" gap={2}>
                 <h3 style={{ color: '#FFFFFF', fontSize: 'clamp(14px, 5vw, 18px)', fontWeight: 700, margin: 0 }}>
                   Spring Championship 2024
@@ -223,7 +223,7 @@ export default function GameInfo() {
             </VStack>
           </Box>
         </VStack>
-        <VStack align="stretch" gap={{ base: 3, md: 4 }}>
+        <VStack align="stretch" gap={{ base: 3, md: 4 }} width="100%">
           <Heading as="h2" size={{ base: 'md', md: 'lg' }} style={{ color: '#FFFFFF !important' }}>
             The Story
           </Heading>
@@ -239,11 +239,11 @@ export default function GameInfo() {
         </VStack>
 
         {/* Requirements Section */}
-        <VStack align="stretch" gap={{ base: 3, md: 4 }}>
+        <VStack align="stretch" gap={{ base: 3, md: 4 }} width="100%">
           <Heading as="h2" size={{ base: 'md', md: 'lg' }} style={{ color: '#FFFFFF !important' }}>
             System Requirements
           </Heading>
-          <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={{ base: 3, md: 6 }}>
+          <Grid templateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={{ base: 3, md: 6 }} width="100%">
             <Box>
               <Heading as="h3" size={{ base: 'sm', md: 'md' }} mb={3} color="#FFFFFF">
                 Minimum
