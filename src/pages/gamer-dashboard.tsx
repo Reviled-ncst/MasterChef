@@ -15,6 +15,7 @@ import CustomProgress from '../../components/CustomProgress';
 import { generatePlayerProfile, generateDailyChallenges, generateNotifications, generatePlayerInventory, generateTournaments, generateBattlePass, generatePlayerWallet } from '../../lib/mockData';
 
 const animationStyles = `
+  /* ENTRANCE ANIMATIONS */
   @keyframes fadeInUp {
     from {
       opacity: 0;
@@ -26,13 +27,157 @@ const animationStyles = `
     }
   }
 
-  @keyframes fadeIn {
+  @keyframes bounceIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    50% {
+      transform: scale(1.08);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes popIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.5) rotate(-10deg);
+    }
+    50% {
+      transform: scale(1.12) rotate(5deg);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+  }
+
+  @keyframes rotateInY {
     from {
       opacity: 0;
+      transform: perspective(400px) rotateY(90deg);
     }
     to {
       opacity: 1;
+      transform: perspective(400px) rotateY(0deg);
     }
+  }
+
+  @keyframes slideInUpScale {
+    from {
+      opacity: 0;
+      transform: translateY(40px) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes morphIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.85);
+      filter: blur(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+      filter: blur(0px);
+    }
+  }
+
+  /* INTERACTIVE ANIMATIONS */
+  @keyframes glow {
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(217,100,46,0.3), 0 8px 32px rgba(217,100,46,0.15);
+    }
+    50% {
+      box-shadow: 0 0 40px rgba(217,100,46,0.5), 0 16px 48px rgba(217,100,46,0.25);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  @keyframes ripple {
+    0% {
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(4);
+      opacity: 0;
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-15px) rotate(8deg);
+    }
+  }
+
+  @keyframes iconSpin {
+    0% {
+      transform: rotate(0deg);
+      filter: hue-rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+      filter: hue-rotate(45deg);
+    }
+  }
+
+  @keyframes hoverLift3D {
+    from {
+      transform: translateY(0px) translateZ(0px);
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.1));
+    }
+    to {
+      transform: translateY(-12px) translateZ(20px);
+      filter: drop-shadow(0 16px 40px rgba(217,100,46,0.3));
+    }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      opacity: 1;
+      filter: drop-shadow(0 0 8px rgba(217,100,46,0.3));
+    }
+    50% {
+      opacity: 0.8;
+      filter: drop-shadow(0 0 20px rgba(217,100,46,0.6));
+    }
+  }
+
+  /* STATE ANIMATIONS */
+  @keyframes breathing {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.9;
+      transform: scale(1.02);
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 
   @keyframes slideInDown {
@@ -57,33 +202,12 @@ const animationStyles = `
     }
   }
 
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-15px);
-    }
-  }
-
   @keyframes pulse {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.8;
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
   }
 
-  @keyframes shimmer {
-    0% {
-      background-position: -1000px 0;
-    }
-    100% {
-      background-position: 1000px 0;
-    }
-  }
-
+  /* CLASS ANIMATIONS */
   .fade-in-up {
     animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
@@ -101,7 +225,7 @@ const animationStyles = `
   }
 
   .float {
-    animation: float 3.5s ease-in-out infinite;
+    animation: float 4s ease-in-out infinite;
   }
 
   .pulse-animation {
@@ -109,7 +233,18 @@ const animationStyles = `
   }
 
   .stat-card {
-    animation: scaleIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+    animation: bounceIn 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+    background: rgba(255,255,255,0.08) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255,255,255,0.15) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-12px) scale(1.04);
+    background: rgba(255,255,255,0.12) !important;
+    backdrop-filter: blur(12px) !important;
+    box-shadow: 0 0 40px rgba(217,100,46,0.4), 0 20px 60px rgba(217,100,46,0.25), 0 0 0 1px rgba(255,255,255,0.3) inset !important;
   }
 
   .stat-card:nth-child(1) { animation-delay: 0.15s; }
@@ -117,16 +252,96 @@ const animationStyles = `
   .stat-card:nth-child(3) { animation-delay: 0.45s; }
   .stat-card:nth-child(4) { animation-delay: 0.6s; }
 
+  .stat-icon {
+    animation: float 3.5s ease-in-out infinite;
+    transition: all 0.3s ease;
+  }
+
+  .stat-card:hover .stat-icon {
+    animation: iconSpin 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 0 16px rgba(217,100,46,0.5));
+  }
+
   .tab-button {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .tab-button:hover {
-    transform: translateY(-2px);
+    transform: translateY(-4px) scale(1.05);
+    color: #D9642E;
+  }
+
+  .tab-button::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #D9642E, #FFB84D);
+    border-radius: 2px;
+    transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .tab-button.active::after {
+    width: 100%;
   }
 
   .tab-content {
     animation: fadeInUp 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* HERO BANNER ENHANCEMENTS */
+  .hero-banner-icon {
+    animation: float 4s ease-in-out infinite;
+    filter: drop-shadow(0 4px 12px rgba(217,100,46,0.3));
+  }
+
+  .hero-banner-icon:hover {
+    animation: iconSpin 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 0 24px rgba(217,100,46,0.6));
+  }
+
+  /* SECTION HEADERS */
+  .section-header {
+    animation: slideInDown 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* PROGRESS BARS */
+  .progress-fill {
+    background: linear-gradient(90deg, #D9642E, #FFB84D);
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+    transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* GRID ITEMS STAGGER */
+  .grid-item {
+    animation: bounceIn 0.85s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+  }
+
+  .grid-item:nth-child(1) { animation-delay: 0.1s; }
+  .grid-item:nth-child(2) { animation-delay: 0.18s; }
+  .grid-item:nth-child(3) { animation-delay: 0.26s; }
+  .grid-item:nth-child(4) { animation-delay: 0.34s; }
+  .grid-item:nth-child(5) { animation-delay: 0.42s; }
+  .grid-item:nth-child(6) { animation-delay: 0.5s; }
+
+  /* BUTTON ANIMATIONS */
+  .action-button {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .action-button:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 16px 40px rgba(217,100,46,0.3);
+  }
+
+  .action-button:active {
+    transform: translateY(-2px) scale(1.02);
   }
 `;
 

@@ -9,120 +9,159 @@ import InventorySection from '../../components/InventorySection';
 import { generatePlayerInventory } from '../../lib/mockData';
 
 const animationStyles = `
+  /* ENTRANCE ANIMATIONS */
   @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 
-  @keyframes scaleIn {
-    from {
-      opacity: 0;
-      transform: scale(0.88);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
+  @keyframes bounceIn {
+    0% { opacity: 0; transform: scale(0.8); }
+    50% { transform: scale(1.08); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes popIn {
+    0% { opacity: 0; transform: scale(0.5) rotate(-10deg); }
+    50% { transform: scale(1.12) rotate(5deg); }
+    100% { opacity: 1; transform: scale(1) rotate(0deg); }
   }
 
   @keyframes slideInLeft {
-    from {
-      opacity: 0;
-      transform: translateX(-40px);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
+    from { opacity: 0; transform: translateX(-40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes morphIn {
+    0% { opacity: 0; transform: scale(0.85); filter: blur(10px); }
+    100% { opacity: 1; transform: scale(1); filter: blur(0px); }
+  }
+
+  /* INTERACTIVE ANIMATIONS */
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 0 20px rgba(217,100,46,0.3), 0 8px 32px rgba(217,100,46,0.15); }
+    50% { box-shadow: 0 0 40px rgba(217,100,46,0.5), 0 16px 48px rgba(217,100,46,0.25); }
+  }
+
+  @keyframes glowRarity {
+    0%, 100% { filter: drop-shadow(0 0 8px currentColor); }
+    50% { filter: drop-shadow(0 0 20px currentColor); }
+  }
+
+  @keyframes iconSpin {
+    0% { transform: rotate(0deg); filter: hue-rotate(0deg); }
+    100% { transform: rotate(360deg); filter: hue-rotate(45deg); }
   }
 
   @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-15px);
-    }
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(8deg); }
   }
 
   @keyframes shimmer {
-    0% {
-      background-position: -1000px 0;
-    }
-    100% {
-      background-position: 1000px 0;
-    }
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+  }
+
+  /* STATE ANIMATIONS */
+  @keyframes breathing {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.9; transform: scale(1.02); }
   }
 
   @keyframes pulse {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.8;
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+  }
+
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.88); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  /* STAT CARDS WITH GLASSMORPHISM */
+  .stat-card {
+    animation: bounceIn 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+    background: rgba(255,255,255,0.08) !important;
+    backdrop-filter: blur(10px) !important;
+    border: 1px solid rgba(255,255,255,0.15) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative;
+  }
+
+  .stat-card:hover {
+    transform: translateY(-12px) scale(1.04);
+    background: rgba(255,255,255,0.12) !important;
+    backdrop-filter: blur(12px) !important;
+    box-shadow: 0 0 40px rgba(217,100,46,0.4), 0 20px 60px rgba(217,100,46,0.25), 0 0 0 1px rgba(255,255,255,0.3) inset !important;
+    border-left: 4px solid currentColor !important;
+  }
+
+  .stat-card:nth-child(1) { animation-delay: 0.15s; }
+  .stat-card:nth-child(2) { animation-delay: 0.3s; }
+  .stat-card:nth-child(3) { animation-delay: 0.45s; }
+  .stat-card:nth-child(4) { animation-delay: 0.6s; }
+
+  .stat-icon {
+    animation: float 3.5s ease-in-out infinite;
+    transition: all 0.3s ease;
+  }
+
+  .stat-card:hover .stat-icon {
+    animation: iconSpin 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 0 16px rgba(217,100,46,0.5));
   }
 
   .inventory-header {
     animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
-  .stat-card {
-    animation: scaleIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
-  }
-
-  .stat-card:nth-child(1) {
-    animation-delay: 0.2s;
-  }
-
-  .stat-card:nth-child(2) {
-    animation-delay: 0.35s;
-  }
-
-  .stat-card:nth-child(3) {
-    animation-delay: 0.5s;
-  }
-
-  .stat-card:nth-child(4) {
-    animation-delay: 0.65s;
-  }
-
-  .stat-icon {
-    animation: float 3.5s ease-in-out infinite;
-  }
-
-  .stat-card:nth-child(1) .stat-icon {
-    animation-delay: 0.2s;
-  }
-
-  .stat-card:nth-child(2) .stat-icon {
-    animation-delay: 0.55s;
-  }
-
-  .stat-card:nth-child(3) .stat-icon {
-    animation-delay: 0.9s;
-  }
-
-  .stat-card:nth-child(4) .stat-icon {
-    animation-delay: 1.25s;
-  }
-
   .filter-section {
-    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.8s backwards;
+    animation: slideInLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.3s backwards;
+    background: rgba(255,255,255,0.06) !important;
+    backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(255,255,255,0.1) !important;
   }
 
   .inventory-section {
-    animation: slideInLeft 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 1.1s backwards;
+    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s backwards;
   }
 
   .storage-info {
-    animation: fadeInUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 1.5s backwards;
+    animation: popIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.9s backwards;
+  }
+
+  /* INVENTORY GRID ITEMS */
+  .inventory-item {
+    animation: bounceIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .inventory-item:nth-child(1) { animation-delay: 0.7s; }
+  .inventory-item:nth-child(2) { animation-delay: 0.78s; }
+  .inventory-item:nth-child(3) { animation-delay: 0.86s; }
+  .inventory-item:nth-child(4) { animation-delay: 0.94s; }
+  .inventory-item:nth-child(5) { animation-delay: 1.02s; }
+  .inventory-item:nth-child(6) { animation-delay: 1.1s; }
+
+  .inventory-item:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 0 30px rgba(217,100,46,0.3), 0 12px 36px rgba(217,100,46,0.2);
+  }
+
+  .rarity-border {
+    animation: glowRarity 2s ease-in-out infinite;
+    transition: border 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  /* FILTER DROPDOWN */
+  .filter-dropdown {
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .filter-dropdown:hover, .filter-dropdown:focus {
+    border-color: #D9642E;
+    box-shadow: 0 0 12px rgba(217,100,46,0.3);
   }
 `;
 
