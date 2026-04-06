@@ -273,3 +273,5 @@ export default function GameInfo() {
     </Box>
   );
 }
+
+GameInfo.fullWidth = true;
