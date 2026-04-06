@@ -137,7 +137,7 @@ export default function Layout({ children, title = 'Master Chef', fullWidth = fa
         top={0}
         left={0}
         right={0}
-        zIndex={40}
+        zIndex={9998}
         style={{ backdropFilter: 'saturate(130%) blur(6px)' }}
         bg="rgba(10,10,10,0.66)"
         borderBottom="1px solid rgba(255,255,255,0.04)"
