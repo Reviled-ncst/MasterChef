@@ -162,16 +162,16 @@ export default function Leaderboards() {
       <Box py={{ base: 4, md: 8 }} px={{ base: 3, md: 8 }}>
         <VStack align="stretch" gap={8}>
           {/* HEADER */}
-          <Box className="leaderboard-header" bg="linear-gradient(135deg, rgba(217,100,46,0.25) 0%, rgba(251,146,60,0.15) 100%)" borderRadius="3xl" p={{ base: 6, md: 8 }} border="2px solid rgba(217,100,46,0.4)">
+          <Box className="leaderboard-header" bg="linear-gradient(135deg, rgba(217,100,46,0.35) 0%, rgba(251,146,60,0.25) 100%)" borderRadius="3xl" p={{ base: 6, md: 8 }} border="2px solid rgba(217,100,46,0.5)">
             <HStack gap={3}>
-              <Box fontSize="40px" color="#D9642E">
+              <Box fontSize="40px" color="white">
                 <MdTrendingUp />
               </Box>
               <VStack align="start" gap={0}>
-                <Heading as="h1" size={{ base: 'lg', md: '2xl' }} color="#1a1a1a">
+                <Heading as="h1" size={{ base: 'lg', md: '2xl' }} color="white">
                   Global Leaderboards
                 </Heading>
-                <Text color="#1a1a1a" fontSize={{ base: 'sm', md: 'md' }} fontWeight="500">
+                <Text color="rgba(255,255,255,0.95)" fontSize={{ base: 'sm', md: 'md' }} fontWeight="500">
                   Compete with players worldwide and climb the rankings
                 </Text>
               </VStack>
@@ -195,19 +195,19 @@ export default function Leaderboards() {
               <Text fontSize="xs" color="#1a1a1a" mt={1} fontWeight="600">Active players</Text>
             </Box>
 
-            <Box className="stat-card" bg="linear-gradient(135deg, rgba(251,146,60,0.08) 0%, rgba(251,146,60,0.04) 100%)" p={5} borderRadius="2xl" border="1px solid rgba(251,146,60,0.3)" borderLeft="4px solid #fb923c">
+            <Box className="stat-card" bg="linear-gradient(135deg, rgba(251,146,60,0.2) 0%, rgba(251,146,60,0.12) 100%)" p={5} borderRadius="2xl" border="1px solid rgba(251,146,60,0.4)" borderLeft="4px solid #fb923c">
               <HStack justify="space-between" mb={2}>
-                <Text color="#1a1a1a" fontSize="xs" fontWeight="700" textTransform="uppercase">
+                <Text color="white" fontSize="xs" fontWeight="700" textTransform="uppercase">
                   Top Score
                 </Text>
-                <Box className="stat-icon" fontSize="20px" color="#fb923c" bg="rgba(251,146,60,0.15)" p={2} borderRadius="lg">
+                <Box className="stat-icon" fontSize="20px" color="#fb923c" bg="rgba(251,146,60,0.2)" p={2} borderRadius="lg">
                   <MdStar />
                 </Box>
               </HStack>
-              <Text color="#fb923c" fontSize="3xl" fontWeight="800">
+              <Text color="#FFB84D" fontSize="3xl" fontWeight="800">
                 15,850
               </Text>
-              <Text fontSize="xs" color="#1a1a1a" mt={1} fontWeight="600">Current record</Text>
+              <Text fontSize="xs" color="rgba(255,255,255,0.8)" mt={1} fontWeight="600">Current record</Text>
             </Box>
 
             <Box className="stat-card" bg="linear-gradient(135deg, rgba(168,85,247,0.08) 0%, rgba(168,85,247,0.04) 100%)" p={5} borderRadius="2xl" border="1px solid rgba(168,85,247,0.3)" borderLeft="4px solid #a855f7">
