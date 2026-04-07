@@ -18,7 +18,7 @@ import {
   CloseButton,
   useDisclosure,
 } from '@chakra-ui/react';
-import { MdMenu, MdShield, MdDashboard, MdShoppingCart, MdBackpack, MdEmojiEvents } from 'react-icons/md';
+import { MdMenu, MdShield, MdDashboard, MdShoppingCart, MdBackpack, MdEmojiEvents, MdGroup, MdTrendingUp } from 'react-icons/md';
 import styles from './Layout.module.css';
 import { setToasterInstance } from '../lib/toast';
 import { useCurrentUser, useIsAdmin } from '../lib/authHooks';
@@ -165,6 +165,8 @@ export default function Layout({ children, title = 'Master Chef', fullWidth = fa
                     <NavLink href="/game-info">Game Info</NavLink>
                     <NavLink href="/news">News</NavLink>
                     <NavLink href="/download">Download</NavLink>
+                    <NavLink href="/leaderboards">Leaderboards</NavLink>
+                    <NavLink href="/community">Community</NavLink>
                   </>
                 )}
                 {currentUser && isAdmin && (
@@ -192,6 +194,14 @@ export default function Layout({ children, title = 'Master Chef', fullWidth = fa
                     <ChakraLink as={NextLink} href="/player-shop" px={3} py={2} borderRadius="md" color="orange.600" fontWeight="600" _hover={{ textDecoration: 'none', bg: 'rgba(217,100,46,0.1)' }} display="flex" alignItems="center" gap="8px">
                       <MdShoppingCart size={18} />
                       <Text>Shop</Text>
+                    </ChakraLink>
+                    <ChakraLink as={NextLink} href="/leaderboards" px={3} py={2} borderRadius="md" color="orange.600" fontWeight="600" _hover={{ textDecoration: 'none', bg: 'rgba(217,100,46,0.1)' }} display="flex" alignItems="center" gap="8px">
+                      <MdTrendingUp size={18} />
+                      <Text>Leaderboards</Text>
+                    </ChakraLink>
+                    <ChakraLink as={NextLink} href="/community" px={3} py={2} borderRadius="md" color="orange.600" fontWeight="600" _hover={{ textDecoration: 'none', bg: 'rgba(217,100,46,0.1)' }} display="flex" alignItems="center" gap="8px">
+                      <MdGroup size={18} />
+                      <Text>Community</Text>
                     </ChakraLink>
                   </>
                 )}
@@ -236,6 +246,8 @@ export default function Layout({ children, title = 'Master Chef', fullWidth = fa
                     <NavLink href="/game-info" onClick={closeDrawer}>Game Info</NavLink>
                     <NavLink href="/news" onClick={closeDrawer}>News</NavLink>
                     <NavLink href="/download" onClick={closeDrawer}>Download</NavLink>
+                    <NavLink href="/leaderboards" onClick={closeDrawer}>Leaderboards</NavLink>
+                    <NavLink href="/community" onClick={closeDrawer}>Community</NavLink>
                   </>
                 )}
                 {currentUser && isAdmin && (
@@ -263,6 +275,14 @@ export default function Layout({ children, title = 'Master Chef', fullWidth = fa
                     <ChakraLink as={NextLink} href="/player-shop" onClick={closeDrawer} px={3} py={2} borderRadius="md" color="orange.600" fontWeight="600" _hover={{ textDecoration: 'none', bg: 'rgba(217,100,46,0.1)' }} display="flex" alignItems="center" gap="8px">
                       <MdShoppingCart size={18} />
                       <Text>Shop</Text>
+                    </ChakraLink>
+                    <ChakraLink as={NextLink} href="/leaderboards" onClick={closeDrawer} px={3} py={2} borderRadius="md" color="orange.600" fontWeight="600" _hover={{ textDecoration: 'none', bg: 'rgba(217,100,46,0.1)' }} display="flex" alignItems="center" gap="8px">
+                      <MdTrendingUp size={18} />
+                      <Text>Leaderboards</Text>
+                    </ChakraLink>
+                    <ChakraLink as={NextLink} href="/community" onClick={closeDrawer} px={3} py={2} borderRadius="md" color="orange.600" fontWeight="600" _hover={{ textDecoration: 'none', bg: 'rgba(217,100,46,0.1)' }} display="flex" alignItems="center" gap="8px">
+                      <MdGroup size={18} />
+                      <Text>Community</Text>
                     </ChakraLink>
                   </>
                 )}
@@ -330,6 +350,8 @@ export default function Layout({ children, title = 'Master Chef', fullWidth = fa
                 <HStack display={{ base: 'none', md: 'flex' }} style={{ gap: '16px' }}>
                   <ChakraLink as={NextLink} href="/" color="gray.200" fontSize={{ base: 'sm', md: 'md' }}>Home</ChakraLink>
                   <ChakraLink as={NextLink} href="/download" color="gray.200" fontSize={{ base: 'sm', md: 'md' }}>Download</ChakraLink>
+                  <ChakraLink as={NextLink} href="/leaderboards" color="gray.200" fontSize={{ base: 'sm', md: 'md' }}>Leaderboards</ChakraLink>
+                  <ChakraLink as={NextLink} href="/community" color="gray.200" fontSize={{ base: 'sm', md: 'md' }}>Community</ChakraLink>
                   <ChakraLink as={NextLink} href="/legal" color="gray.200" fontSize={{ base: 'sm', md: 'md' }}>Legal</ChakraLink>
                 </HStack>
               </Flex>
