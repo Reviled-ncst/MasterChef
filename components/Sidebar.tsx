@@ -4,7 +4,7 @@ import { Box, VStack, HStack, Text, Icon } from '@chakra-ui/react';
 import { useRouter, usePathname } from 'next/navigation';
 import { MdDashboard, MdPeople, MdHistory, MdSettings, MdLock, MdBackup, MdFileDownload, MdLogout, MdSportsEsports, MdNewspaper, MdBarChart, MdBlock, MdNotifications, MdRestaurant, MdEmojiEvents, MdExpandMore, MdChevronRight } from 'react-icons/md';
 import { useAuth } from '../lib/authContext';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const sidebarStyles = `
   @keyframes slideIn {
@@ -140,7 +140,26 @@ export default function Sidebar() {
   const router = useRouter();
   const pathname = usePathname();
   const { logout } = useAuth();
-  const [expandedSections, setExpandedSections] = useState<string[]>(['Main', 'User Management']);
+
+  // Find which section contains the current active page
+  const getCurrentSections = () => {
+    const defaults = ['Main', 'User Management'];
+    const currentSection = adminNavSections.find(section =>
+      section.items.some(link => pathname.includes(link.path.split('/')[1]))
+    );
+
+    if (currentSection && !defaults.includes(currentSection.label)) {
+      return [...defaults, currentSection.label];
+    }
+    return defaults;
+  };
+
+  const [expandedSections, setExpandedSections] = useState<string[]>(getCurrentSections());
+
+  // Auto-expand section containing current active page
+  useEffect(() => {
+    setExpandedSections(getCurrentSections());
+  }, [pathname]);
 
   const handleLogout = () => {
     logout();
