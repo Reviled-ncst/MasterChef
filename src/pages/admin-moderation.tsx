@@ -1,14 +1,31 @@
 'use client';
 
 import { Box, Container, Heading, Text, VStack, HStack, Grid, Badge, Button, useDisclosure } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Sidebar from '../../components/Sidebar';
 import ConfirmDialog from '../../components/ConfirmDialog';
+import { useLoading } from '../../lib/loadingContext';
+import AdminPageSkeleton from '../../components/skeletons/AdminPageSkeleton';
 
 export default function AdminModeration() {
   const [selectedReport, setSelectedReport] = useState<any>(null);
   const { open: isOpen, onOpen, onClose } = useDisclosure();
   const [dialogAction, setDialogAction] = useState<'approve' | 'reject' | 'ban'>('approve');
+  const { shouldShowSkeleton } = useLoading();
+  const [showContent, setShowContent] = useState(false);
+
+  useEffect(() => {
+    // Show content after skeleton renders
+    const timer = setTimeout(() => {
+      setShowContent(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Show skeleton for first-time visitors to this page
+  if (shouldShowSkeleton('/admin-moderation') && !showContent) {
+    return <AdminPageSkeleton />;
+  }
 
   const stats = [
     { label: 'Pending Reports', value: '23', desc: 'Awaiting review' },

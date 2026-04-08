@@ -1,14 +1,31 @@
 'use client';
 
 import { Box, Container, Heading, Text, VStack, HStack, Button, Grid, useDisclosure } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Sidebar from '../../components/Sidebar';
 import ConfirmDialog from '../../components/ConfirmDialog';
+import { useLoading } from '../../lib/loadingContext';
+import AdminPageSkeleton from '../../components/skeletons/AdminPageSkeleton';
 
 export default function AdminBackup() {
   const [backupAction, setBackupAction] = useState<'create' | 'restore' | 'delete'>('create');
   const [selectedBackup, setSelectedBackup] = useState<any>(null);
   const { open, onOpen, onClose } = useDisclosure();
+  const { shouldShowSkeleton } = useLoading();
+  const [showContent, setShowContent] = useState(false);
+
+  useEffect(() => {
+    // Show content after skeleton renders
+    const timer = setTimeout(() => {
+      setShowContent(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Show skeleton for first-time visitors to this page
+  if (shouldShowSkeleton('/admin-backup') && !showContent) {
+    return <AdminPageSkeleton />;
+  }
 
   const backups = [
     { date: '2026-04-08 10:30 AM', size: '2.4 GB', status: 'Complete' },

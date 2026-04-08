@@ -2,15 +2,32 @@
 
 import { Box, Container, Heading, Text, VStack, HStack, Grid, Badge, Button, Input, useDisclosure } from '@chakra-ui/react';
 import { MdAdd, MdSearch } from 'react-icons/md';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Sidebar from '../../components/Sidebar';
 import ConfirmDialog from '../../components/ConfirmDialog';
+import { useLoading } from '../../lib/loadingContext';
+import AdminPageSkeleton from '../../components/skeletons/AdminPageSkeleton';
 
 export default function AdminUsers() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedUser, setSelectedUser] = useState<any>(null);
   const { open: isOpen, onOpen, onClose } = useDisclosure();
   const [dialogAction, setDialogAction] = useState<'suspend' | 'ban' | 'delete'>('suspend');
+  const { shouldShowSkeleton } = useLoading();
+  const [showContent, setShowContent] = useState(false);
+
+  useEffect(() => {
+    // Show content after skeleton renders
+    const timer = setTimeout(() => {
+      setShowContent(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Show skeleton for first-time visitors to this page
+  if (shouldShowSkeleton('/admin-users') && !showContent) {
+    return <AdminPageSkeleton />;
+  }
 
   const users = [
     { id: 1, name: 'Chef Player', email: 'gamer@masterchef.com', status: 'Active', joinDate: 'Mar 15' },

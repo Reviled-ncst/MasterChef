@@ -2,6 +2,7 @@
 
 import { Box, VStack, HStack, Text, Icon } from '@chakra-ui/react';
 import { useRouter, usePathname } from 'next/navigation';
+import NextLink from 'next/link';
 import { MdDashboard, MdPeople, MdHistory, MdSettings, MdLock, MdBackup, MdFileDownload, MdLogout, MdSportsEsports, MdNewspaper, MdBarChart, MdBlock, MdNotifications, MdRestaurant, MdEmojiEvents, MdExpandMore, MdChevronRight } from 'react-icons/md';
 import { useAuth } from '../lib/authContext';
 import { useState, useEffect } from 'react';
@@ -233,22 +234,22 @@ export default function Sidebar() {
                   {section.items.map((link, idx) => {
                     const isActive = pathname.includes(link.path.split('/')[1]);
                     return (
-                      <Box
-                        key={idx}
-                        className={`nav-item ${isActive ? 'active' : ''}`}
-                        p={3}
-                        borderRadius="md"
-                        cursor="pointer"
-                        onClick={() => router.push(link.path)}
-                        display="flex"
-                        alignItems="center"
-                        gap={3}
-                      >
-                        <Icon as={link.icon} className="nav-icon" fontSize="18px" color={isActive ? '#D9642E' : 'gray.400'} />
-                        <Text fontSize="sm" fontWeight="600" color={isActive ? '#D9642E' : 'gray.300'}>
-                          {link.label}
-                        </Text>
-                      </Box>
+                      <NextLink key={idx} href={link.path} prefetch={true}>
+                        <Box
+                          className={`nav-item ${isActive ? 'active' : ''}`}
+                          p={3}
+                          borderRadius="md"
+                          cursor="pointer"
+                          display="flex"
+                          alignItems="center"
+                          gap={3}
+                        >
+                          <Icon as={link.icon} className="nav-icon" fontSize="18px" color={isActive ? '#D9642E' : 'gray.400'} />
+                          <Text fontSize="sm" fontWeight="600" color={isActive ? '#D9642E' : 'gray.300'}>
+                            {link.label}
+                          </Text>
+                        </Box>
+                      </NextLink>
                     );
                   })}
                 </VStack>

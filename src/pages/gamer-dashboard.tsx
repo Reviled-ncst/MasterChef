@@ -4,11 +4,15 @@ import { Box, Container, Heading, Text, VStack, HStack, Grid, Badge, Button } fr
 import { MdDashboard, MdAttachMoney, MdEmojiEvents, MdTrendingUp } from 'react-icons/md';
 import { useCurrentUser } from '../../lib/authHooks';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useLoading } from '../../lib/loadingContext';
+import DashboardSkeleton from '../../components/skeletons/DashboardSkeleton';
 
 export default function GamerDashboard() {
   const currentUser = useCurrentUser();
   const router = useRouter();
+  const { shouldShowSkeleton } = useLoading();
+  const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
     if (!currentUser) {
@@ -16,8 +20,22 @@ export default function GamerDashboard() {
     }
   }, [currentUser, router]);
 
+  useEffect(() => {
+    // Show content after skeleton has had a chance to render
+    // This creates a fade transition from skeleton to content
+    const timer = setTimeout(() => {
+      setShowContent(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
   if (!currentUser) {
     return null;
+  }
+
+  // Show skeleton for first-time visitors to this page
+  if (shouldShowSkeleton('/gamer-dashboard') && !showContent) {
+    return <DashboardSkeleton />;
   }
 
   return (

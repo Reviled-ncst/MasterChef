@@ -39,20 +39,22 @@ const LOGO = 'https://res.cloudinary.com/djnzwvb2t/image/upload/v1774440374/Mast
 
 function NavLink({ href, children, onClick }: { href: string; children: ReactNode; onClick?: () => void }) {
   return (
-    <ChakraLink
-      as={NextLink}
-      href={href}
-      px={3}
-      py={2}
-      borderRadius="md"
-      color="orange.600"
-      fontWeight="600"
-      fontSize={{ base: 'sm', md: 'md' }}
-      _hover={{ textDecoration: 'none', bg: 'rgba(217,108,47,0.06)' }}
-      onClick={onClick}
-    >
-      {children}
-    </ChakraLink>
+    <NextLink href={href} prefetch={true}>
+      <ChakraLink
+        as="div"
+        px={3}
+        py={2}
+        borderRadius="md"
+        color="orange.600"
+        fontWeight="600"
+        fontSize={{ base: 'sm', md: 'md' }}
+        _hover={{ textDecoration: 'none', bg: 'rgba(217,108,47,0.06)' }}
+        onClick={onClick}
+        cursor="pointer"
+      >
+        {children}
+      </ChakraLink>
+    </NextLink>
   );
 }
 
