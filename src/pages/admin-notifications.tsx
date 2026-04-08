@@ -1,9 +1,16 @@
 'use client';
 
-import { Box, Container, Heading, Text, VStack, HStack, Grid, Badge, Button } from '@chakra-ui/react';
+import { Box, Container, Heading, Text, VStack, HStack, Grid, Badge, Button, useDisclosure } from '@chakra-ui/react';
+import { MdDelete } from 'react-icons/md';
+import { useState } from 'react';
 import Sidebar from '../../components/Sidebar';
+import ConfirmDialog from '../../components/ConfirmDialog';
 
 export default function AdminNotifications() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedCampaign, setSelectedCampaign] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
   const stats = [
     { label: 'Sent Today', value: '1.2K', desc: 'Notifications' },
     { label: 'Delivery Rate', value: '98.5%', desc: 'Successfully' },
@@ -16,10 +23,23 @@ export default function AdminNotifications() {
     { name: 'Tournament Alert', status: 'Scheduled', sent: '-', opened: '-' },
   ];
 
+  const handleDelete = (name: string) => {
+    setSelectedCampaign(name);
+    onOpen();
+  };
+
+  const confirmDelete = async () => {
+    setIsLoading(true);
+    await new Promise(r => setTimeout(r, 800));
+    console.log('Delete campaign:', selectedCampaign);
+    setIsLoading(false);
+    onClose();
+  };
+
   return (
     <>
       <Sidebar />
-      <Box minH="100vh" py={12} color="gray.100" ml={{ base: 0, md: '280px' }} transition="margin 0.3s ease">
+      <Box minH="100vh" py={12} color="gray.100" ml={{ base: 0, md: '300px' }} transition="margin 0.3s ease">
         <Container maxW="container.lg">
           <VStack align="stretch" gap={8}>
             {/* Header */}
@@ -92,8 +112,11 @@ export default function AdminNotifications() {
                       </Badge>
                     </HStack>
                     <HStack gap={2}>
-                      <Button size="sm" bg="#D9642E" color="white">Edit</Button>
-                      <Button size="sm" variant="outline" color="gray.400">Pause</Button>
+                      <Button size="sm" bg="#D9642E" color="white" _hover={{ bg: '#C65525' }}>Edit</Button>
+                      <Button size="sm" bg="#eab308" color="black" _hover={{ bg: '#dcaa02' }}>Pause</Button>
+                      <Button size="sm" bg="rgba(139,0,0,0.9)" color="white" _hover={{ bg: 'rgba(139,0,0,1)' }} onClick={() => handleDelete(campaign.name)}>
+                        <MdDelete />
+                      </Button>
                     </HStack>
                   </Box>
                 ))}
@@ -102,6 +125,17 @@ export default function AdminNotifications() {
           </VStack>
         </Container>
       </Box>
+
+      {/* Confirm Dialog */}
+      <ConfirmDialog
+        isOpen={isOpen}
+        onClose={onClose}
+        onConfirm={confirmDelete}
+        title="Delete Campaign"
+        message={`Are you sure you want to delete "${selectedCampaign}"? This cannot be undone.`}
+        isDangerous={true}
+        isLoading={isLoading}
+      />
     </>
   );
 }

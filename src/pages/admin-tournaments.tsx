@@ -1,9 +1,16 @@
 'use client';
 
-import { Box, Container, Heading, Text, VStack, HStack, Grid, Badge, Button } from '@chakra-ui/react';
+import { Box, Container, Heading, Text, VStack, HStack, Grid, Badge, Button, useDisclosure } from '@chakra-ui/react';
+import { MdDelete } from 'react-icons/md';
+import { useState } from 'react';
 import Sidebar from '../../components/Sidebar';
+import ConfirmDialog from '../../components/ConfirmDialog';
 
 export default function AdminTournaments() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [selectedTournament, setSelectedTournament] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
+
   const stats = [
     { label: 'Active Tournaments', value: '5', desc: 'Currently running' },
     { label: 'Total Participants', value: '2.4K', desc: 'All tournaments' },
@@ -17,10 +24,23 @@ export default function AdminTournaments() {
     { name: 'Elite League', status: 'Upcoming', participants: 64, prize: '$20K' },
   ];
 
+  const handleDelete = (name: string) => {
+    setSelectedTournament(name);
+    onOpen();
+  };
+
+  const confirmDelete = async () => {
+    setIsLoading(true);
+    await new Promise(r => setTimeout(r, 800));
+    console.log('Delete tournament:', selectedTournament);
+    setIsLoading(false);
+    onClose();
+  };
+
   return (
     <>
       <Sidebar />
-      <Box minH="100vh" py={12} color="gray.100" ml={{ base: 0, md: '280px' }} transition="margin 0.3s ease">
+      <Box minH="100vh" py={12} color="gray.100" ml={{ base: 0, md: '300px' }} transition="margin 0.3s ease">
         <Container maxW="container.lg">
           <VStack align="stretch" gap={8}>
             {/* Header */}
@@ -91,8 +111,11 @@ export default function AdminTournaments() {
                       </Badge>
                     </HStack>
                     <HStack gap={2}>
-                      <Button size="sm" bg="#D9642E" color="white">Edit</Button>
-                      <Button size="sm" variant="outline" color="gray.400">Leaderboard</Button>
+                      <Button size="sm" bg="#D9642E" color="white" _hover={{ bg: '#C65525' }}>Edit</Button>
+                      <Button size="sm" variant="outline" color="gray.400" _hover={{ bg: 'rgba(0,0,0,0.4)' }}>Leaderboard</Button>
+                      <Button size="sm" bg="rgba(139,0,0,0.9)" color="white" _hover={{ bg: 'rgba(139,0,0,1)' }} onClick={() => handleDelete(tournament.name)}>
+                        <MdDelete />
+                      </Button>
                     </HStack>
                   </Box>
                 ))}
@@ -101,6 +124,17 @@ export default function AdminTournaments() {
           </VStack>
         </Container>
       </Box>
+
+      {/* Confirm Dialog */}
+      <ConfirmDialog
+        isOpen={isOpen}
+        onClose={onClose}
+        onConfirm={confirmDelete}
+        title="Delete Tournament"
+        message={`Are you sure you want to delete "${selectedTournament}"? This action cannot be undone.`}
+        isDangerous={true}
+        isLoading={isLoading}
+      />
     </>
   );
 }
