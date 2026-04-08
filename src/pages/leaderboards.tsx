@@ -267,18 +267,21 @@ export default function Leaderboards() {
                 <Box
                   key={player.rank}
                   className="leaderboard-row"
-                  bg={player.rank <= 3 ? 'linear-gradient(90deg, rgba(255,184,77,0.1) 0%, transparent 100%)' : 'white'}
+                  bg="white"
                   p={4}
                   borderRadius="lg"
-                  border="1px solid rgba(217,108,47,0.1)"
+                  border="1px solid rgba(217,108,47,0.15)"
                   display="flex"
                   justifyContent="space-between"
                   alignItems="center"
+                  boxShadow="0 2px 8px rgba(0,0,0,0.08)"
                 >
                   <HStack gap={4} flex={1}>
                     <Box className={`rank-badge ${player.rank <= 3 ? 'top-3' : ''}`} fontSize={player.rank <= 3 ? '20px' : '16px'}>
                       {player.rank <= 3 && '👑'}
-                      {player.rank}
+                      <Text as="span" fontSize="md" fontWeight="700" color={player.rank <= 3 ? '#FFB84D' : '#1a1a1a'} ml={1}>
+                        {player.rank}
+                      </Text>
                     </Box>
                     <VStack align="start" gap={0}>
                       <Text fontWeight="700" fontSize="md" color="#1a1a1a">

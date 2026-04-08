@@ -36,8 +36,8 @@ const animationStyles = `
   }
 
   @keyframes iconSpin {
-    0% { transform: rotate(0deg); filter: hue-rotate(0deg); }
-    100% { transform: rotate(360deg); filter: hue-rotate(45deg); }
+    0% { transform: rotate(0deg) scale(1); filter: hue-rotate(0deg); }
+    100% { transform: rotate(360deg) scale(1.1); filter: hue-rotate(45deg); }
   }
 
   @keyframes float {
@@ -48,6 +48,16 @@ const animationStyles = `
   @keyframes shimmer {
     0% { background-position: -1000px 0; }
     100% { background-position: 1000px 0; }
+  }
+
+  @keyframes rankGlow {
+    0%, 100% { box-shadow: 0 0 12px rgba(255,184,77,0.3); }
+    50% { box-shadow: 0 0 24px rgba(255,184,77,0.6); }
+  }
+
+  @keyframes rowHoverGlow {
+    0% { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+    100% { box-shadow: 0 12px 32px rgba(217,100,46,0.2), 0 0 20px rgba(217,100,46,0.15); }
   }
 
   /* STATE ANIMATIONS */
@@ -67,17 +77,12 @@ const animationStyles = `
 
   .stat-card {
     animation: bounceIn 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
-    background: rgba(255,255,255,0.08) !important;
-    backdrop-filter: blur(10px) !important;
-    border: 1px solid rgba(255,255,255,0.15) !important;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
   }
 
   .stat-card:hover {
-    transform: translateY(-12px) scale(1.04);
-    background: rgba(255,255,255,0.12) !important;
-    backdrop-filter: blur(12px) !important;
-    box-shadow: 0 0 40px rgba(217,100,46,0.4), 0 20px 60px rgba(217,100,46,0.25), 0 0 0 1px rgba(255,255,255,0.3) inset !important;
+    transform: translateY(-16px) scale(1.06);
+    box-shadow: 0 20px 60px rgba(217,100,46,0.3) !important;
   }
 
   .stat-card:nth-child(1) { animation-delay: 0.15s; }
@@ -87,17 +92,19 @@ const animationStyles = `
 
   .stat-icon {
     animation: float 3.5s ease-in-out infinite;
-    transition: all 0.3s ease;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .stat-card:hover .stat-icon {
-    animation: iconSpin 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    filter: drop-shadow(0 0 16px rgba(217,100,46,0.5));
+    animation: iconSpin 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+    filter: drop-shadow(0 0 20px rgba(217,100,46,0.6));
   }
 
   .leaderboard-row {
     animation: slideInLeft 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    border-left: 4px solid transparent;
   }
 
   .leaderboard-row:nth-child(1) { animation-delay: 0.2s; }
@@ -112,9 +119,17 @@ const animationStyles = `
   .leaderboard-row:nth-child(10) { animation-delay: 0.92s; }
 
   .leaderboard-row:hover {
-    transform: translateX(8px);
-    background: rgba(217,100,46,0.1) !important;
-    border-left: 4px solid #D9642E !important;
+    transform: translateY(-6px) scale(1.02);
+    border-left-color: #D9642E;
+    background: linear-gradient(90deg, rgba(217,100,46,0.08) 0%, transparent 100%) !important;
+  }
+
+  .leaderboard-row:nth-child(-n+3):hover {
+    box-shadow: 0 12px 32px rgba(255,184,77,0.2), 0 0 20px rgba(255,184,77,0.1) !important;
+  }
+
+  .leaderboard-row:nth-child(n+4):hover {
+    box-shadow: 0 12px 32px rgba(217,100,46,0.15), 0 0 20px rgba(217,100,46,0.1) !important;
   }
 
   .rank-badge {
@@ -122,20 +137,33 @@ const animationStyles = `
     font-weight: 700;
     min-width: 32px;
     text-align: center;
+    transition: all 0.3s ease;
   }
 
   .rank-badge.top-3 {
-    animation: pulse 1.5s ease-in-out infinite;
+    animation: rankGlow 2s ease-in-out infinite;
     color: #FFB84D;
     font-size: 18px;
   }
 
+  .leaderboard-row:hover .rank-badge {
+    transform: scale(1.15);
+  }
+
+  .leaderboard-row:hover .rank-badge.top-3 {
+    filter: drop-shadow(0 0 12px rgba(255,184,77,0.8));
+  }
+
   .tab-button {
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    border-bottom: 3px solid transparent;
   }
 
   .tab-button:hover {
-    transform: translateY(-2px) scale(1.05);
+    transform: translateY(-3px);
+    color: #D9642E !important;
+    border-bottom-color: #D9642E;
   }
 `;
 
@@ -179,65 +207,69 @@ export default function Leaderboards() {
           </Box>
 
           {/* STAT CARDS */}
-          <Grid templateColumns={{ base: '1fr', md: '1fr 1fr', lg: 'repeat(4, 1fr)' }} gap={4}>
-            <Box className="stat-card" bg="white" p={5} borderRadius="2xl" border="1px solid rgba(217,108,47,0.1)" boxShadow="0 4px 12px rgba(0,0,0,0.05)">
-              <HStack justify="space-between" mb={2}>
-                <Text color="#1a1a1a" fontSize="xs" fontWeight="700" textTransform="uppercase">
+          <Grid templateColumns={{ base: '1fr', md: '1fr 1fr', lg: 'repeat(4, 1fr)' }} gap={6}>
+            {/* Total Players Card */}
+            <Box className="stat-card" bg="linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.95) 100%)" p={6} borderRadius="2xl" border="1px solid rgba(217,100,46,0.2)" boxShadow="0 8px 24px rgba(217,100,46,0.1)">
+              <HStack justify="space-between" mb={3}>
+                <Text color="#1a1a1a" fontSize="xs" fontWeight="700" textTransform="uppercase" letterSpacing="1px">
                   Total Players
                 </Text>
-                <Box className="stat-icon" fontSize="20px" color="#D9642E" bg="rgba(217,100,46,0.1)" p={2} borderRadius="lg">
+                <Box className="stat-icon" fontSize="24px" color="#D9642E" bg="linear-gradient(135deg, rgba(217,100,46,0.15) 0%, rgba(217,100,46,0.08) 100%)" p={2.5} borderRadius="xl" border="1px solid rgba(217,100,46,0.2)">
                   <MdPerson />
                 </Box>
               </HStack>
-              <Text color="#D9642E" fontSize="3xl" fontWeight="800">
+              <Text color="#D9642E" fontSize="4xl" fontWeight="900" letterSpacing="-1px">
                 45.2K
               </Text>
-              <Text fontSize="xs" color="#1a1a1a" mt={1} fontWeight="600">Active players</Text>
+              <Text fontSize="xs" color="rgba(26,26,26,0.7)" mt={2} fontWeight="600">Active players</Text>
             </Box>
 
-            <Box className="stat-card" bg="linear-gradient(135deg, rgba(251,146,60,0.2) 0%, rgba(251,146,60,0.12) 100%)" p={5} borderRadius="2xl" border="1px solid rgba(251,146,60,0.4)" borderLeft="4px solid #fb923c">
-              <HStack justify="space-between" mb={2}>
-                <Text color="white" fontSize="xs" fontWeight="700" textTransform="uppercase">
+            {/* Top Score Card */}
+            <Box className="stat-card" bg="linear-gradient(135deg, #FFF8E7 0%, #FFFBF0 100%)" p={6} borderRadius="2xl" border="1px solid rgba(251,146,60,0.3)" boxShadow="0 8px 24px rgba(251,146,60,0.12)">
+              <HStack justify="space-between" mb={3}>
+                <Text color="#b8860b" fontSize="xs" fontWeight="700" textTransform="uppercase" letterSpacing="1px">
                   Top Score
                 </Text>
-                <Box className="stat-icon" fontSize="20px" color="#fb923c" bg="rgba(251,146,60,0.2)" p={2} borderRadius="lg">
+                <Box className="stat-icon" fontSize="24px" color="#fb923c" bg="linear-gradient(135deg, rgba(251,146,60,0.25) 0%, rgba(251,146,60,0.15) 100%)" p={2.5} borderRadius="xl" border="1px solid rgba(251,146,60,0.3)">
                   <MdStar />
                 </Box>
               </HStack>
-              <Text color="#FFB84D" fontSize="3xl" fontWeight="800">
+              <Text color="#FFB84D" fontSize="4xl" fontWeight="900" letterSpacing="-1px">
                 15,850
               </Text>
-              <Text fontSize="xs" color="rgba(255,255,255,0.8)" mt={1} fontWeight="600">Current record</Text>
+              <Text fontSize="xs" color="rgba(184,134,11,0.8)" mt={2} fontWeight="600">Current record</Text>
             </Box>
 
-            <Box className="stat-card" bg="linear-gradient(135deg, rgba(168,85,247,0.08) 0%, rgba(168,85,247,0.04) 100%)" p={5} borderRadius="2xl" border="1px solid rgba(168,85,247,0.3)" borderLeft="4px solid #a855f7">
-              <HStack justify="space-between" mb={2}>
-                <Text color="#1a1a1a" fontSize="xs" fontWeight="700" textTransform="uppercase">
+            {/* Avg Score Card */}
+            <Box className="stat-card" bg="linear-gradient(135deg, #F3E8FF 0%, #FAF5FF 100%)" p={6} borderRadius="2xl" border="1px solid rgba(168,85,247,0.3)" boxShadow="0 8px 24px rgba(168,85,247,0.12)">
+              <HStack justify="space-between" mb={3}>
+                <Text color="#7c3aed" fontSize="xs" fontWeight="700" textTransform="uppercase" letterSpacing="1px">
                   Avg. Score
                 </Text>
-                <Box className="stat-icon" fontSize="20px" color="#a855f7" bg="rgba(168,85,247,0.15)" p={2} borderRadius="lg">
+                <Box className="stat-icon" fontSize="24px" color="#a855f7" bg="linear-gradient(135deg, rgba(168,85,247,0.2) 0%, rgba(168,85,247,0.1) 100%)" p={2.5} borderRadius="xl" border="1px solid rgba(168,85,247,0.3)">
                   <MdTrendingUp />
                 </Box>
               </HStack>
-              <Text color="#a855f7" fontSize="3xl" fontWeight="800">
+              <Text color="#a855f7" fontSize="4xl" fontWeight="900" letterSpacing="-1px">
                 8,420
               </Text>
-              <Text fontSize="xs" color="#1a1a1a" mt={1} fontWeight="600">Across all players</Text>
+              <Text fontSize="xs" color="rgba(124,58,237,0.7)" mt={2} fontWeight="600">Across all players</Text>
             </Box>
 
-            <Box className="stat-card" bg="linear-gradient(135deg, rgba(10,184,129,0.08) 0%, rgba(10,184,129,0.04) 100%)" p={5} borderRadius="2xl" border="1px solid rgba(10,184,129,0.3)" borderLeft="4px solid #10b981">
-              <HStack justify="space-between" mb={2}>
-                <Text color="#1a1a1a" fontSize="xs" fontWeight="700" textTransform="uppercase">
+            {/* New This Week Card */}
+            <Box className="stat-card" bg="linear-gradient(135deg, #ECFDF5 0%, #F0FDF4 100%)" p={6} borderRadius="2xl" border="1px solid rgba(16,185,129,0.3)" boxShadow="0 8px 24px rgba(16,185,129,0.12)">
+              <HStack justify="space-between" mb={3}>
+                <Text color="#059669" fontSize="xs" fontWeight="700" textTransform="uppercase" letterSpacing="1px">
                   New This Week
                 </Text>
-                <Box className="stat-icon" fontSize="20px" color="#10b981" bg="rgba(10,184,129,0.15)" p={2} borderRadius="lg">
+                <Box className="stat-icon" fontSize="24px" color="#10b981" bg="linear-gradient(135deg, rgba(16,185,129,0.2) 0%, rgba(16,185,129,0.1) 100%)" p={2.5} borderRadius="xl" border="1px solid rgba(16,185,129,0.3)">
                   <MdArrowUpward />
                 </Box>
               </HStack>
-              <Text color="#10b981" fontSize="3xl" fontWeight="800">
+              <Text color="#10b981" fontSize="4xl" fontWeight="900" letterSpacing="-1px">
                 +1,240
               </Text>
-              <Text fontSize="xs" color="#1a1a1a" mt={1} fontWeight="600">Players ranked</Text>
+              <Text fontSize="xs" color="rgba(5,150,105,0.7)" mt={2} fontWeight="600">Players ranked</Text>
             </Box>
           </Grid>
 
@@ -262,43 +294,60 @@ export default function Leaderboards() {
 
           {/* TAB CONTENT */}
           {activeTab === 0 && (
-            <VStack align="stretch" gap={3}>
+            <VStack align="stretch" gap={2}>
               {mockLeaderboardData.map((player, idx) => (
                 <Box
                   key={player.rank}
                   className="leaderboard-row"
-                  bg={player.rank <= 3 ? 'linear-gradient(90deg, rgba(255,184,77,0.1) 0%, transparent 100%)' : 'white'}
+                  bg={player.rank <= 3 ? 'linear-gradient(90deg, #FFF9F0 0%, white 100%)' : idx % 2 === 0 ? 'rgba(217,100,46,0.02)' : 'white'}
                   p={4}
                   borderRadius="lg"
-                  border="1px solid rgba(217,108,47,0.1)"
+                  border={player.rank <= 3 ? '1px solid rgba(255,184,77,0.3)' : '1px solid rgba(217,108,47,0.1)'}
                   display="flex"
                   justifyContent="space-between"
                   alignItems="center"
+                  boxShadow={player.rank <= 3 ? '0 4px 12px rgba(255,184,77,0.08)' : '0 2px 8px rgba(0,0,0,0.05)'}
                 >
                   <HStack gap={4} flex={1}>
-                    <Box className={`rank-badge ${player.rank <= 3 ? 'top-3' : ''}`} fontSize={player.rank <= 3 ? '20px' : '16px'}>
+                    <Box
+                      className={`rank-badge ${player.rank <= 3 ? 'top-3' : ''}`}
+                      fontSize={player.rank <= 3 ? '24px' : '18px'}
+                      fontWeight="900"
+                      minW="45px"
+                      h="45px"
+                      display="flex"
+                      alignItems="center"
+                      justifyContent="center"
+                      borderRadius="md"
+                      bg={player.rank === 1 ? 'linear-gradient(135deg, #FFD700 0%, #FFC700 100%)' : player.rank === 2 ? 'linear-gradient(135deg, #C0C0C0 0%, #A8A8A8 100%)' : player.rank === 3 ? 'linear-gradient(135deg, #CD7F32 0%, #B87333 100%)' : 'rgba(217,100,46,0.08)'}
+                      color={player.rank <= 3 ? 'white' : '#D9642E'}
+                      border={player.rank <= 3 ? '2px solid rgba(255,255,255,0.4)' : 'none'}
+                      boxShadow={player.rank <= 3 ? '0 4px 12px rgba(0,0,0,0.15)' : 'none'}
+                    >
                       {player.rank <= 3 && '👑'}
-                      {player.rank}
+                      {player.rank > 3 && player.rank}
                     </Box>
-                    <VStack align="start" gap={0}>
+                    <VStack align="start" gap={0.5}>
                       <Text fontWeight="700" fontSize="md" color="#1a1a1a">
                         {player.name}
                       </Text>
-                      <Text fontSize="xs" color="gray.600">
-                        {player.region} • {player.games} games
-                      </Text>
+                      <HStack gap={2} fontSize="xs" color="rgba(26,26,26,0.6)">
+                        <Text fontWeight="500">{player.region}</Text>
+                        <Text>•</Text>
+                        <Text>{player.games} games</Text>
+                      </HStack>
                     </VStack>
                   </HStack>
-                  <HStack gap={6}>
+                  <HStack gap={6} minW="fit-content">
                     <VStack align="end" gap={0}>
-                      <Text fontWeight="800" fontSize="lg" color="#D9642E">
+                      <Text fontWeight="900" fontSize="lg" color={player.rank <= 3 ? '#FFB84D' : '#D9642E'}>
                         {player.score.toLocaleString()}
                       </Text>
-                      <HStack gap={1} justify="end">
-                        {player.trend === 'up' && <MdArrowUpward color="#10b981" size={14} />}
-                        {player.trend === 'down' && <MdArrowDownward color="#ef4444" size={14} />}
-                        <Text fontSize="xs" color={player.trend === 'up' ? '#10b981' : player.trend === 'down' ? '#ef4444' : 'gray.600'}>
-                          {player.trend === 'up' ? '+' : player.trend === 'down' ? '-' : '='} 2
+                      <HStack gap={1.5} justify="end">
+                        {player.trend === 'up' && <MdArrowUpward color="#10b981" size={16} />}
+                        {player.trend === 'down' && <MdArrowDownward color="#ef4444" size={16} />}
+                        <Text fontSize="xs" fontWeight="600" color={player.trend === 'up' ? '#10b981' : player.trend === 'down' ? '#ef4444' : 'rgba(26,26,26,0.5)'}>
+                          {player.trend === 'up' ? '+' : player.trend === 'down' ? '-' : '='}{' '}2
                         </Text>
                       </HStack>
                     </VStack>

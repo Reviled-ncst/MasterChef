@@ -192,16 +192,16 @@ export default function PlayerInventory() {
       <Box py={{ base: 4, md: 8 }} px={{ base: 3, md: 8 }}>
         <VStack align="stretch" gap={8}>
           {/* HEADER */}
-          <Box className="inventory-header" bg="linear-gradient(135deg, rgba(217,100,46,0.25) 0%, rgba(59,130,246,0.15) 100%)" borderRadius="3xl" p={{ base: 6, md: 8 }} border="2px solid rgba(217,100,46,0.4)">
+          <Box className="inventory-header" bg="linear-gradient(135deg, rgba(217,100,46,0.35) 0%, rgba(59,130,246,0.25) 100%)" borderRadius="3xl" p={{ base: 6, md: 8 }} border="2px solid rgba(217,100,46,0.5)">
           <HStack gap={3} mb={2}>
-            <Box fontSize="40px" color="#D9642E">
+            <Box fontSize="40px" color="white">
               <MdBackpack />
             </Box>
             <VStack align="start" gap={0}>
-              <Heading as="h1" size={{ base: 'lg', md: '2xl' }} color="#1a1a1a">
+              <Heading as="h1" size={{ base: 'lg', md: '2xl' }} color="white">
                 Your Inventory
               </Heading>
-              <Text color="gray.600" fontSize={{ base: 'sm', md: 'md' }}>
+              <Text color="rgba(255,255,255,0.95)" fontSize={{ base: 'sm', md: 'md' }}>
                 Manage your equipment, ingredients, and cosmetics
               </Text>
             </VStack>
