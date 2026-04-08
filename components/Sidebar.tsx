@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, VStack, HStack, Text, Icon, Divider } from '@chakra-ui/react';
+import { Box, VStack, HStack, Text, Icon } from '@chakra-ui/react';
 import { useRouter, usePathname } from 'next/navigation';
 import { MdDashboard, MdPeople, MdHistory, MdSettings, MdLock, MdBackup, MdFileDownload, MdLogout, MdSportsEsports, MdNewspaper, MdBarChart, MdBlock, MdNotifications, MdRestaurant, MdEmojiEvents, MdExpandMore, MdChevronRight } from 'react-icons/md';
 import { useAuth } from '../lib/authContext';
@@ -74,11 +74,6 @@ const sidebarStyles = `
     border-top: 1px solid rgba(217, 100, 46, 0.2);
     margin-top: auto;
     padding-top: 16px;
-  }
-
-  .section-divider {
-    border-color: rgba(217, 100, 46, 0.1) !important;
-    margin: 8px 0 !important;
   }
 `;
 
@@ -241,7 +236,7 @@ export default function Sidebar() {
               )}
 
               {sectionIdx < adminNavSections.length - 1 && (
-                <Divider className="section-divider" />
+                <Box h="1px" bg="rgba(217,100,46,0.1)" my={2} />
               )}
             </Box>
           ))}
