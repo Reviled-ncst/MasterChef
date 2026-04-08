@@ -8,7 +8,7 @@ import ConfirmDialog from '../../components/ConfirmDialog';
 
 export default function AdminContent() {
   const [searchQuery, setSearchQuery] = useState('');
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open: isOpen, onOpen, onClose } = useDisclosure();
   const [selectedItem, setSelectedItem] = useState<{ name: string; type: 'recipe' | 'ingredient' } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 

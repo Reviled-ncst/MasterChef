@@ -8,7 +8,7 @@ import ConfirmDialog from '../../components/ConfirmDialog';
 export default function AdminBackup() {
   const [backupAction, setBackupAction] = useState<'create' | 'restore' | 'delete'>('create');
   const [selectedBackup, setSelectedBackup] = useState<any>(null);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
 
   const backups = [
     { date: '2026-04-08 10:30 AM', size: '2.4 GB', status: 'Complete' },
@@ -168,7 +168,7 @@ export default function AdminBackup() {
 
       {/* Confirmation Dialog */}
       <ConfirmDialog
-        isOpen={isOpen}
+        isOpen={open}
         onClose={onClose}
         onConfirm={confirmAction}
         {...getDialogConfig()}

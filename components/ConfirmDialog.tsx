@@ -1,15 +1,10 @@
 'use client';
 
 import {
-  Modal,
-  ModalBody,
-  ModalFooter,
-  ModalHeader,
-  ModalContent,
-  ModalOverlay,
-  Button,
   Box,
+  Button,
 } from '@chakra-ui/react';
+import { useEffect } from 'react';
 
 interface ConfirmDialogProps {
   isOpen: boolean;
@@ -34,26 +29,73 @@ export default function ConfirmDialog({
   isDangerous = false,
   isLoading = false,
 }: ConfirmDialogProps) {
+  // Close dialog on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose} isCentered>
-      <ModalOverlay />
-      <ModalContent bg="rgba(0,0,0,0.8)" border="1px solid rgba(217,100,46,0.3)">
-        <ModalHeader
+    <>
+      {/* Overlay */}
+      <Box
+        position="fixed"
+        top={0}
+        left={0}
+        right={0}
+        bottom={0}
+        bg="rgba(0,0,0,0.5)"
+        zIndex={999}
+        onClick={onClose}
+      />
+
+      {/* Dialog */}
+      <Box
+        position="fixed"
+        top="50%"
+        left="50%"
+        transform="translate(-50%, -50%)"
+        zIndex={1000}
+        bg="rgba(0,0,0,0.8)"
+        border="1px solid rgba(217,100,46,0.3)"
+        borderRadius="lg"
+        minW="400px"
+        boxShadow="0 20px 60px rgba(0,0,0,0.7)"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Header */}
+        <Box
+          px={6}
+          py={4}
+          borderBottom="1px solid rgba(217,100,46,0.2)"
+          color={isDangerous ? '#ef4444' : '#D9642E'}
           fontSize="lg"
           fontWeight="700"
-          color={isDangerous ? '#ef4444' : '#D9642E'}
-          borderBottom="1px solid rgba(217,100,46,0.2)"
         >
           {title}
-        </ModalHeader>
+        </Box>
 
-        <ModalBody color="gray.300" py={6}>
-          <Box fontSize="sm" lineHeight="1.6">
-            {message}
-          </Box>
-        </ModalBody>
+        {/* Body */}
+        <Box px={6} py={6} color="gray.300" fontSize="sm" lineHeight="1.6">
+          {message}
+        </Box>
 
-        <ModalFooter borderTop="1px solid rgba(217,100,46,0.2)">
+        {/* Footer */}
+        <Box
+          px={6}
+          py={4}
+          borderTop="1px solid rgba(217,100,46,0.2)"
+          display="flex"
+          gap={3}
+          justifyContent="flex-end"
+        >
           <Button
             onClick={onClose}
             variant="outline"
@@ -66,7 +108,6 @@ export default function ConfirmDialog({
           </Button>
           <Button
             onClick={onConfirm}
-            ml={3}
             bg={isDangerous ? '#ef4444' : '#D9642E'}
             color="white"
             _hover={{
@@ -75,13 +116,12 @@ export default function ConfirmDialog({
               boxShadow: isDangerous ? '0 8px 16px rgba(239,68,68,0.3)' : '0 8px 16px rgba(217,100,46,0.3)',
             }}
             transition="all 0.2s"
-            isLoading={isLoading}
-            loadingText="Processing..."
+            disabled={isLoading}
           >
-            {confirmText}
+            {isLoading ? 'Processing...' : confirmText}
           </Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+        </Box>
+      </Box>
+    </>
   );
 }

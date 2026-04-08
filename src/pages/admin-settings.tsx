@@ -3,6 +3,7 @@
 import { Box, Container, Heading, Text, VStack, HStack, Grid, Button, Input } from '@chakra-ui/react';
 import { MdSettings, MdSave } from 'react-icons/md';
 import { useState } from 'react';
+import Sidebar from '../../components/Sidebar';
 
 export default function AdminSettings() {
   const [siteName, setSiteName] = useState('Master Chef');
@@ -16,7 +17,7 @@ export default function AdminSettings() {
   return (
     <>
       <Sidebar />
-      <Box minH="100vh" py={12} color="gray.100" ml={{ base: 0, md: '280px' }} transition="margin 0.3s ease">
+      <Box minH="100vh" py={12} color="gray.100" ml={{ base: 0, md: '300px' }} transition="margin 0.3s ease">
         <Container maxW="container.lg">
         <VStack align="stretch" gap={8}>
           {/* Header */}

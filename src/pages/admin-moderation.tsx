@@ -7,7 +7,7 @@ import ConfirmDialog from '../../components/ConfirmDialog';
 
 export default function AdminModeration() {
   const [selectedReport, setSelectedReport] = useState<any>(null);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open: isOpen, onOpen, onClose } = useDisclosure();
   const [dialogAction, setDialogAction] = useState<'approve' | 'reject' | 'ban'>('approve');
 
   const stats = [

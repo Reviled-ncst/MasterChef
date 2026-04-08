@@ -7,7 +7,7 @@ import Sidebar from '../../components/Sidebar';
 import ConfirmDialog from '../../components/ConfirmDialog';
 
 export default function AdminGame() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open: isOpen, onOpen, onClose } = useDisclosure();
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const [actionType, setActionType] = useState<'tournament' | 'event' | 'challenge'>('tournament');
   const [isLoading, setIsLoading] = useState(false);

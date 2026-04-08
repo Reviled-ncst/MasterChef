@@ -36,20 +36,36 @@ export default function Download() {
               <Text color="orange.300" fontSize="sm" fontWeight="600">
                 Now Available
               </Text>
-              <Button
-                as="a"
+              <a
                 href="https://drive.google.com/uc?export=download&id=1c-xytB42W8725qrS-o8pGUQ58Pdi30M6"
                 target="_blank"
                 rel="noopener noreferrer"
-                bg="#D9642E"
-                color="white"
-                fontWeight="700"
-                _hover={{ bg: '#C65525', transform: 'translateY(-2px)', boxShadow: '0 8px 20px rgba(217, 100, 46, 0.3)' }}
-                transition="all 0.2s"
-                alignSelf="flex-start"
+                style={{
+                  display: 'inline-block',
+                  backgroundColor: '#D9642E',
+                  color: 'white',
+                  fontWeight: '700',
+                  paddingLeft: '24px',
+                  paddingRight: '24px',
+                  paddingTop: '12px',
+                  paddingBottom: '12px',
+                  borderRadius: '6px',
+                  transition: 'all 0.2s',
+                  textDecoration: 'none',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = '#C65525';
+                  e.currentTarget.style.transform = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow = '0 8px 20px rgba(217, 100, 46, 0.3)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = '#D9642E';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
               >
                 Download Now
-              </Button>
+              </a>
             </VStack>
           </Box>
 

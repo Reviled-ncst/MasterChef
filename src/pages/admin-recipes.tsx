@@ -7,7 +7,7 @@ import Sidebar from '../../components/Sidebar';
 import ConfirmDialog from '../../components/ConfirmDialog';
 
 export default function AdminRecipes() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open: isOpen, onOpen, onClose } = useDisclosure();
   const [selectedRecipe, setSelectedRecipe] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 

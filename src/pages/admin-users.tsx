@@ -9,7 +9,7 @@ import ConfirmDialog from '../../components/ConfirmDialog';
 export default function AdminUsers() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedUser, setSelectedUser] = useState<any>(null);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open: isOpen, onOpen, onClose } = useDisclosure();
   const [dialogAction, setDialogAction] = useState<'suspend' | 'ban' | 'delete'>('suspend');
 
   const users = [
@@ -74,7 +74,7 @@ export default function AdminUsers() {
                   Manage and monitor all users in the system
                 </Text>
               </Box>
-              <Button bg="#D9642E" color="white" fontWeight="700" _hover={{ bg: '#C65525', transform: 'translateY(-2px)' }} leftIcon={<MdAdd />}>
+              <Button bg="#D9642E" color="white" fontWeight="700" _hover={{ bg: '#C65525', transform: 'translateY(-2px)' }}>
                 Add User
               </Button>
             </HStack>

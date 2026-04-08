@@ -7,7 +7,7 @@ import Sidebar from '../../components/Sidebar';
 import ConfirmDialog from '../../components/ConfirmDialog';
 
 export default function AdminNotifications() {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open: isOpen, onOpen, onClose } = useDisclosure();
   const [selectedCampaign, setSelectedCampaign] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 

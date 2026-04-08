@@ -1,7 +1,7 @@
 'use client';
 
 import { Box, Container, Heading, Text, VStack, HStack, Grid, Badge, Button } from '@chakra-ui/react';
-import { MdTrendingUp, MdAttachMoney, MdShopping, MdPeople } from 'react-icons/md';
+import { MdTrendingUp, MdAttachMoney, MdShoppingBag, MdPeople } from 'react-icons/md';
 import Sidebar from '../../components/Sidebar';
 
 export default function AdminEconomy() {
@@ -33,8 +33,8 @@ export default function AdminEconomy() {
             <Grid templateColumns={{ base: '1fr', md: 'repeat(4, 1fr)' }} gap={4}>
               {[
                 { label: 'Total Coins Issued', value: '45.2M', desc: 'This month', icon: MdAttachMoney },
-                { label: 'Gems Sold', value: '12.4K', desc: 'This week', icon: MdShopping },
-                { label: 'Active Purchases', value: '8.5K', desc: 'Pending delivery', icon: MdShopping },
+                { label: 'Gems Sold', value: '12.4K', desc: 'This week', icon: MdShoppingBag },
+                { label: 'Active Purchases', value: '8.5K', desc: 'Pending delivery', icon: MdShoppingBag },
                 { label: 'Player Spending', value: '$84.2K', desc: 'Revenue', icon: MdTrendingUp },
               ].map((stat, idx) => (
                 <Box
