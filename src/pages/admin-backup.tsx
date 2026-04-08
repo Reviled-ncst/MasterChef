@@ -1,195 +1,178 @@
-import { Box, Text, VStack, Button, Badge } from '@chakra-ui/react';
-import { useAdmin } from '../../lib/adminContext';
-import { MdStorage, MdCheckCircle } from 'react-icons/md';
-import AdminLayout from '../../components/AdminLayout';
+'use client';
 
-function AdminBackupContent() {
-  const { backups, createBackup } = useAdmin();
+import { Box, Container, Heading, Text, VStack, HStack, Button, Grid, useDisclosure } from '@chakra-ui/react';
+import { useState } from 'react';
+import Sidebar from '../../components/Sidebar';
+import ConfirmDialog from '../../components/ConfirmDialog';
 
-  const handleCreateBackup = () => {
-    createBackup();
-    alert('Backup created successfully!');
+export default function AdminBackup() {
+  const [backupAction, setBackupAction] = useState<'create' | 'restore' | 'delete'>('create');
+  const [selectedBackup, setSelectedBackup] = useState<any>(null);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const backups = [
+    { date: '2026-04-08 10:30 AM', size: '2.4 GB', status: 'Complete' },
+  ];
+
+  const handleAction = (action: 'create' | 'restore' | 'delete', backup?: any) => {
+    setBackupAction(action);
+    if (backup) setSelectedBackup(backup);
+    onOpen();
+  };
+
+  const confirmAction = () => {
+    console.log(`${backupAction} action executed`);
+    onClose();
+  };
+
+  const getDialogConfig = () => {
+    const configs = {
+      create: {
+        title: 'Create Full System Backup?',
+        message: 'Are you sure you want to create a new full system backup? This may take several minutes and requires significant disk space.',
+        confirmText: 'Create Backup',
+        isDangerous: false,
+      },
+      restore: {
+        title: 'Restore from Backup?',
+        message: `Are you sure you want to restore from backup ${selectedBackup?.date}? All current data will be overwritten with the backup data.`,
+        confirmText: 'Restore Now',
+        isDangerous: true,
+      },
+      delete: {
+        title: 'Delete Backup?',
+        message: `Are you sure you want to delete the backup from ${selectedBackup?.date}? This action cannot be undone and the backup data will be permanently removed.`,
+        confirmText: 'Delete Permanently',
+        isDangerous: true,
+      },
+    };
+    return configs[backupAction];
   };
 
   return (
-    <VStack align="stretch" style={{ gap: '24px' }}>
-        {/* Header */}
-        <Box>
-          <Box display="flex" alignItems="center" gap={3} mb={1}>
-            <MdStorage size={32} />
-            <Text fontSize="2xl" fontWeight="800" color="#1a1a1a">
-              Backup & Database Management
-            </Text>
-          </Box>
-          <Text fontSize="sm" color="gray.600">
-            Create backups and manage database
-          </Text>
-        </Box>
-
-        {/* Manual Backup */}
-        <Box bg="white" p={6} borderRadius="lg" border="1px solid rgba(0,0,0,0.08)">
-          <Text fontSize="lg" fontWeight="700" color="#1a1a1a" mb={4}>
-            Manual Backup
-          </Text>
-          <Box display={{ base: 'block', md: 'flex' }} gap={4} alignItems="center" mb={4} pb={4} borderBottom="1px solid #e6e6e6">
-            <Box flex={1}>
-              <Text fontSize="sm" color="gray.700">
-                <strong>Last Backup:</strong> {backups.length > 0 ? new Date(backups[backups.length - 1].timestamp).toLocaleString() : 'Never'}
-              </Text>
-              <Text fontSize="sm" color="gray.700">
-                <strong>Size:</strong> {backups.length > 0 ? backups[backups.length - 1].size : '—'}
-              </Text>
-            </Box>
-            <Button bg="#D9642E" color="white" onClick={handleCreateBackup} size="sm">
-              Create Backup Now
-            </Button>
-          </Box>
-        </Box>
-
-        {/* Backup History */}
-        <Box bg="white" p={6} borderRadius="lg" border="1px solid rgba(0,0,0,0.08)">
-          <Text fontSize="lg" fontWeight="700" color="#1a1a1a" mb={4}>
-            Backup History
-          </Text>
-          <Box bg="gray.50" borderRadius="lg" overflowX="auto">
-            <Box display={{ base: 'none', md: 'grid' }} gridTemplateColumns="1fr 1fr 1fr 1fr 1fr" p={4} fontWeight="700" color="#1a1a1a" fontSize="xs" borderBottom="1px solid #e6e6e6">
-              <Text>Date</Text>
-              <Text>Size</Text>
-              <Text>Type</Text>
-              <Text>Status</Text>
-              <Text>Action</Text>
-            </Box>
-            {backups.map((backup) => (
-              <Box
-                key={backup.id}
-                display={{ base: 'block', md: 'grid' }}
-                gridTemplateColumns={{ md: '1fr 1fr 1fr 1fr 1fr' }}
-                p={4}
-                borderBottom="1px solid #e6e6e6"
-                _last={{ borderBottom: 'none' }}
-              >
-                <Box mb={{ base: 4, md: 0 }}>
-                  <Text fontSize="xs" fontWeight="600" color="gray.500" mb={1} display={{ base: 'block', md: 'none' }}>
-                    Date
-                  </Text>
-                  <Text fontSize="sm">{new Date(backup.timestamp).toLocaleDateString()}</Text>
-                </Box>
-                <Box mb={{ base: 4, md: 0 }}>
-                  <Text fontSize="xs" fontWeight="600" color="gray.500" mb={1} display={{ base: 'block', md: 'none' }}>
-                    Size
-                  </Text>
-                  <Text fontSize="sm">{backup.size}</Text>
-                </Box>
-                <Box mb={{ base: 4, md: 0 }}>
-                  <Text fontSize="xs" fontWeight="600" color="gray.500" mb={1} display={{ base: 'block', md: 'none' }}>
-                    Type
-                  </Text>
-                  <Badge bg={backup.type === 'full' ? '#D9642E' : '#fef08a'} color={backup.type === 'full' ? 'white' : '#1f2937'} fontSize="xs">
-                    {backup.type.toUpperCase()}
-                  </Badge>
-                </Box>
-                <Box mb={{ base: 4, md: 0 }}>
-                  <Text fontSize="xs" fontWeight="600" color="gray.500" mb={1} display={{ base: 'block', md: 'none' }}>
-                    Status
-                  </Text>
-                  <Box display="flex" alignItems="center" gap={1}>
-                    <MdCheckCircle size={14} color="#10b981" />
-                    <Text fontSize="xs" fontWeight="600" color="#10b981">
-                      {backup.status.toUpperCase()}
-                    </Text>
-                  </Box>
-                </Box>
-                <Box>
-                  <Text fontSize="xs" fontWeight="600" color="gray.500" mb={1} display={{ base: 'block', md: 'none' }}>
-                    Action
-                  </Text>
-                  <Button size="xs" variant="outline" onClick={() => alert('Restore from backup: ' + new Date(backup.timestamp).toLocaleDateString())}>
-                    Restore
-                  </Button>
-                </Box>
+    <>
+      <Sidebar />
+      <Box minH="100vh" py={12} color="gray.100" ml={{ base: 0, md: '300px' }} transition="margin 0.3s ease">
+        <Container maxW="container.lg">
+          <VStack align="stretch" gap={8}>
+            {/* Header */}
+            <HStack justify="space-between" align="flex-start">
+              <Box>
+                <Heading as="h1" size="xl" mb={2}>
+                  Backup & Database Management
+                </Heading>
+                <Text color="gray.400">
+                  Create backups and manage database
+                </Text>
               </Box>
-            ))}
-          </Box>
-        </Box>
+              <Button
+                bg="#10b981"
+                color="white"
+                fontWeight="700"
+                _hover={{ bg: '#059669', transform: 'translateY(-2px)' }}
+                onClick={() => handleAction('create')}
+              >
+                + Create Backup Now
+              </Button>
+            </HStack>
 
-        {/* Database Statistics */}
-        <Box bg="white" p={6} borderRadius="lg" border="1px solid rgba(0,0,0,0.08)">
-          <Text fontSize="lg" fontWeight="700" color="#1a1a1a" mb={4}>
-            Database Statistics
-          </Text>
-          <Box display="grid" gridTemplateColumns={{ base: '1fr', md: '1fr 1fr' }} gap={4}>
-            <Box bg="gray.50" p={4} borderRadius="lg">
-              <Text fontSize="sm" fontWeight="600" color="#1a1a1a">
-                Total Users
-              </Text>
-              <Text fontSize="2xl" fontWeight="700" color="#D9642E">
-                2,847
-              </Text>
-              <Text fontSize="xs" color="gray.600">
-                145 MB used
-              </Text>
-            </Box>
-            <Box bg="gray.50" p={4} borderRadius="lg">
-              <Text fontSize="sm" fontWeight="600" color="#1a1a1a">
-                Total Content
-              </Text>
-              <Text fontSize="2xl" fontWeight="700" color="#D9642E">
-                847
-              </Text>
-              <Text fontSize="xs" color="gray.600">
-                89 MB used
-              </Text>
-            </Box>
-            <Box bg="gray.50" p={4} borderRadius="lg">
-              <Text fontSize="sm" fontWeight="600" color="#1a1a1a">
-                Activity Logs
-              </Text>
-              <Text fontSize="2xl" fontWeight="700" color="#D9642E">
-                45,821
-              </Text>
-              <Text fontSize="xs" color="gray.600">
-                256 MB used
-              </Text>
-            </Box>
-            <Box bg="gray.50" p={4} borderRadius="lg">
-              <Text fontSize="sm" fontWeight="600" color="#1a1a1a">
-                Database Size
-              </Text>
-              <Text fontSize="2xl" fontWeight="700" color="#D9642E">
-                2.4 GB
-              </Text>
-              <Text fontSize="xs" color="gray.600">
-                Healthy
-              </Text>
-            </Box>
-          </Box>
-        </Box>
+            {/* Database Stats */}
+            <Grid templateColumns={{ base: '1fr', md: 'repeat(4, 1fr)' }} gap={4}>
+              {[
+                { label: 'Database Size', value: '2.4 GB', desc: 'Total used' },
+                { label: 'Total Users', value: '2,847', desc: 'Records' },
+                { label: 'Content Items', value: '847', desc: 'Stored' },
+                { label: 'Activity Logs', value: '45.8K', desc: 'Events' },
+              ].map((stat, idx) => (
+                <Box
+                  key={idx}
+                  bg="rgba(0,0,0,0.36)"
+                  border="1px solid rgba(217,100,46,0.2)"
+                  borderRadius="md"
+                  p={5}
+                  transition="transform 180ms"
+                  _hover={{ transform: 'translateY(-6px)' }}
+                >
+                  <Text color="gray.400" fontSize="xs" fontWeight="700" textTransform="uppercase" mb={2}>
+                    {stat.label}
+                  </Text>
+                  <Text color="orange.300" fontSize="3xl" fontWeight="900" mb={2}>
+                    {stat.value}
+                  </Text>
+                  <Text color="gray.400" fontSize="xs" fontWeight="500">
+                    {stat.desc}
+                  </Text>
+                </Box>
+              ))}
+            </Grid>
 
-        {/* Database Maintenance */}
-        <Box bg="white" p={6} borderRadius="lg" border="1px solid rgba(0,0,0,0.08)">
-          <Text fontSize="lg" fontWeight="700" color="#1a1a1a" mb={4}>
-            Database Maintenance
-          </Text>
-          <VStack align="stretch" style={{ gap: '12px' }}>
-            <Button variant="outline" w="100%" justifyContent="flex-start" py={3}>
-              Optimize Tables
-            </Button>
-            <Button variant="outline" w="100%" justifyContent="flex-start" py={3}>
-              Analyze Tables
-            </Button>
-            <Button variant="outline" w="100%" justifyContent="flex-start" py={3}>
-              Rebuild Indexes
-            </Button>
+            {/* Backup History */}
+            <Box>
+              <Heading as="h2" size="md" color="white" mb={4}>
+                Backup History
+              </Heading>
+              <VStack align="stretch" gap={3}>
+                {backups.map((backup, idx) => (
+                  <Box
+                    key={idx}
+                    bg="rgba(0,0,0,0.36)"
+                    border="1px solid rgba(217,100,46,0.2)"
+                    borderRadius="md"
+                    p={5}
+                    transition="all 0.2s"
+                    _hover={{ bg: 'rgba(0,0,0,0.4)', borderColor: 'rgba(217,100,46,0.3)' }}
+                  >
+                    <HStack justify="space-between" mb={3}>
+                      <VStack align="start" gap={1}>
+                        <Heading as="h3" size="sm" color="white">
+                          {backup.date}
+                        </Heading>
+                        <Text color="gray.400" fontSize="sm">
+                          {backup.size}
+                        </Text>
+                      </VStack>
+                      <Text color="orange.300" fontWeight="700" fontSize="sm">
+                        {backup.status}
+                      </Text>
+                    </HStack>
+                    <HStack gap={2}>
+                      <Button
+                        size="sm"
+                        bg="#3b82f6"
+                        color="white"
+                        _hover={{ bg: '#2563eb' }}
+                        onClick={() => handleAction('restore', backup)}
+                      >
+                        Restore
+                      </Button>
+                      <Button
+                        size="sm"
+                        bg="rgba(239, 68, 68, 0.8)"
+                        color="white"
+                        _hover={{ bg: '#ef4444' }}
+                        onClick={() => handleAction('delete', backup)}
+                      >
+                        Delete
+                      </Button>
+                      <Button size="sm" variant="outline" color="gray.400">
+                        Download
+                      </Button>
+                    </HStack>
+                  </Box>
+                ))}
+              </VStack>
+            </Box>
           </VStack>
-        </Box>
-      </VStack>
-    );
-}
+        </Container>
+      </Box>
 
-export default function AdminBackup() {
-  return (
-    <AdminLayout>
-      <AdminBackupContent />
-    </AdminLayout>
+      {/* Confirmation Dialog */}
+      <ConfirmDialog
+        isOpen={isOpen}
+        onClose={onClose}
+        onConfirm={confirmAction}
+        {...getDialogConfig()}
+      />
+    </>
   );
 }
